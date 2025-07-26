@@ -27,6 +27,29 @@
         "default": "contact@lumineon.fr"
       },
       {
+        "type": "header",
+        "content": "Configuration Email"
+      },
+      {
+        "type": "text",
+        "id": "notification_email",
+        "label": "Email de notification",
+        "default": "lumineonshop@gmail.com",
+        "info": "Email qui recevra les demandes de devis"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_email_notifications",
+        "label": "Activer les notifications email",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "email_subject_prefix",
+        "label": "Préfixe sujet email",
+        "default": "[LUMINEON] Nouvelle demande de devis"
+      },
+      {
         "type": "textarea",
         "id": "contact_address",
         "label": "Adresse",

@@ -546,12 +546,17 @@ function openDevisPopup() {
               <input type="text" name="dimensions" class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-sm" placeholder="Dimensions souhaitées en cm (ex: 50x20 cm)" />
             </div>
             <!-- Form -->
-            <form id="devis-form" class="space-y-3 sm:space-y-4">
+            <form id="devis-form" action="/contact" method="post" enctype="multipart/form-data" class="space-y-3 sm:space-y-4">
+              <input type="hidden" name="form_type" value="contact">
+              <input type="hidden" name="utf8" value="✓">
+              <input type="hidden" name="contact[subject]" value="[LUMINEON] Nouvelle demande de devis néon personnalisé">
+              
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <input type="text" name="name" required class="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-sm" placeholder="Votre nom *" />
                 </div>
                 <div>
+                    name="contact[name]"
                   <input type="email" name="email" required class="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-sm" placeholder="Email *" />
                 </div>
               </div>
@@ -564,6 +569,8 @@ function openDevisPopup() {
                   <select name="project" required class="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-sm">
                     <option value="">Type de projet *</option>
                     <option value="enseigne">Enseigne commerciale</option>
+                    name="contact[email]"
+                  name="contact[dimensions]"
                     <option value="decoration">Décoration intérieure</option>
                     <option value="evenement">Événementiel</option>
                     <option value="autre">Autre projet</option>
@@ -572,6 +579,7 @@ function openDevisPopup() {
               </div>
 
               <!-- Dimensions Field -->
+                  name="contact[body]"
               <div>
                 <input type="text" name="dimensions" class="w-full px-3 sm:px-4 py-2 sm:py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 text-sm" placeholder="Dimensions souhaitées en cm (ex: 50x20 cm)" />
               </div>
@@ -588,8 +596,10 @@ function openDevisPopup() {
                 <div class="relative">
                   <input 
                     type="file" 
+                    name="contact[logo]"
                     name="logo" 
                     id="logo-upload"
+                    name="contact[phone]"
                     accept="image/*,.pdf,.ai,.eps,.svg"
                     class="hidden"
                   />
@@ -638,6 +648,7 @@ function openDevisPopup() {
               </div>
               
               <button type="submit" class="w-full flex items-center justify-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-neon-cyan text-sm sm:text-base">
+                    name="contact[project_type]"
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                 </svg>
@@ -689,7 +700,6 @@ function openDevisPopup() {
     setTimeout(() => {
       closeDevisPopup();
     }, 2000);
-  });
 }
 
 // Initialize logo upload functionality
