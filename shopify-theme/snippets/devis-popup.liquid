@@ -1,0 +1,410 @@
+{% comment %}
+  Snippet Devis Popup - Popup de devis avec envoi email automatique
+{% endcomment %}
+
+<div id="devis-popup" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+  <div class="relative w-full max-w-lg mx-auto max-h-[95vh] overflow-y-auto">
+    <!-- Neon Glow Effect -->
+    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-xl animate-pulse"></div>
+    
+    <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-8 border border-gray-700 overflow-hidden">
+      <!-- Animated Border -->
+      <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 animate-pulse"></div>
+
+      <!-- Close Button -->
+      <button onclick="closeDevisPopup()" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors duration-300 p-2 hover:bg-gray-700 rounded-lg z-10">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <!-- Content -->
+      <div class="relative" id="popup-content">
+        <!-- Header -->
+        <div class="text-center mb-6">
+          <div class="w-12 h-12 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+          </div>
+          <h3 class="text-2xl font-bold mb-2">
+            <span style="background: linear-gradient(45deg, #00f5ff, #a855f7, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Devis Gratuit</span>
+          </h3>
+          <p class="text-gray-300">
+            Obtenez votre devis personnalisé + mockup 3D gratuit
+          </p>
+        </div>
+
+        <!-- Benefits -->
+        <div class="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-xl p-4 mb-6">
+          <div class="text-green-300 text-sm space-y-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs">✅</span>
+              <span>Réponse garantie sous 24h</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs">✅</span>
+              <span>Mockup 3D gratuit inclus</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs">✅</span>
+              <span>Sans engagement</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form id="devis-form" action="/contact" method="post" enctype="multipart/form-data" class="space-y-4">
+          <input type="hidden" name="form_type" value="contact">
+          <input type="hidden" name="utf8" value="✓">
+          <input type="hidden" name="contact[subject]" value="[LUMINEON] Nouvelle demande de devis néon personnalisé">
+          
+          <!-- Nom -->
+          <div>
+            <input
+              type="text"
+              name="contact[name]"
+              required
+              class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300"
+              placeholder="Votre nom *"
+            />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <input
+              type="email"
+              name="contact[email]"
+              required
+              class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300"
+              placeholder="Email *"
+            />
+          </div>
+
+          <!-- Téléphone -->
+          <div>
+            <input
+              type="tel"
+              name="contact[phone]"
+              class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300"
+              placeholder="Téléphone"
+            />
+          </div>
+
+          <!-- Type de projet -->
+          <div>
+            <select
+              name="contact[project_type]"
+              required
+              class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300"
+            >
+              <option value="">Type de projet *</option>
+              <option value="enseigne">Enseigne commerciale</option>
+              <option value="decoration">Décoration intérieure</option>
+              <option value="evenement">Événementiel</option>
+              <option value="autre">Autre projet</option>
+            </select>
+          </div>
+
+          <!-- Dimensions -->
+          <div>
+            <input
+              type="text"
+              name="contact[dimensions]"
+              class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300"
+              placeholder="Dimensions souhaitées en cm (ex: 50x20 cm)"
+            />
+          </div>
+
+          <!-- Message -->
+          <div>
+            <textarea
+              name="contact[body]"
+              required
+              rows="3"
+              class="w-full px-4 py-3 bg-gray-700/50 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 transition-all duration-300 resize-none"
+              placeholder="Décrivez votre projet (dimensions, couleurs, budget...) *"
+            ></textarea>
+          </div>
+
+          <!-- Logo Upload -->
+          <div>
+            <label class="block text-sm font-medium text-gray-300 mb-2">
+              Logo de votre entreprise (optionnel)
+            </label>
+            <div class="relative">
+              <input
+                type="file"
+                name="contact[logo]"
+                accept="image/*,.pdf,.ai,.eps,.svg"
+                class="hidden"
+                id="logo-upload"
+                onchange="handleFileUpload(this)"
+              />
+              <label
+                for="logo-upload"
+                id="upload-label"
+                class="flex items-center justify-center gap-3 w-full px-4 py-3 border-2 border-dashed border-gray-600 text-gray-400 bg-gray-700/50 hover:border-cyan-400 hover:text-cyan-400 rounded-lg cursor-pointer transition-all duration-300"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+                <span id="upload-text">Cliquez pour ajouter votre logo</span>
+              </label>
+              
+              <!-- File Preview -->
+              <div id="file-preview" class="hidden mt-3 p-3 bg-gray-800/50 border border-gray-600 rounded-lg">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
+                      <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <div id="file-name" class="text-white text-sm font-medium truncate max-w-[200px]"></div>
+                      <div id="file-size" class="text-gray-400 text-xs"></div>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onclick="removeFile()"
+                    class="text-gray-400 hover:text-red-400 transition-colors"
+                  >
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              
+              <p class="text-xs text-gray-500 mt-2">
+                Formats acceptés : JPG, PNG, PDF, AI, EPS, SVG (max 10MB)
+              </p>
+            </div>
+          </div>
+          
+          <!-- Submit Button -->
+          <button
+            type="submit"
+            id="submit-btn"
+            class="w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+            <span id="submit-text">Obtenir Mon Devis Gratuit</span>
+          </button>
+
+          <p class="text-xs text-gray-400 text-center">
+            * Champs obligatoires - Réponse sous 24h garantie
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let isDevisPopupOpen = false;
+let uploadedFile = null;
+
+// Ouvrir le popup
+function openDevisPopup() {
+  if (isDevisPopupOpen) return;
+  
+  document.getElementById('devis-popup').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  isDevisPopupOpen = true;
+}
+
+// Fermer le popup
+function closeDevisPopup() {
+  document.getElementById('devis-popup').classList.add('hidden');
+  document.body.style.overflow = 'auto';
+  isDevisPopupOpen = false;
+  resetForm();
+}
+
+// Reset form
+function resetForm() {
+  document.getElementById('devis-form').reset();
+  uploadedFile = null;
+  document.getElementById('file-preview').classList.add('hidden');
+  document.getElementById('upload-text').textContent = 'Cliquez pour ajouter votre logo';
+  
+  const uploadLabel = document.getElementById('upload-label');
+  uploadLabel.className = 'flex items-center justify-center gap-3 w-full px-4 py-3 border-2 border-dashed border-gray-600 text-gray-400 bg-gray-700/50 hover:border-cyan-400 hover:text-cyan-400 rounded-lg cursor-pointer transition-all duration-300';
+}
+
+// Gestion upload fichier
+function handleFileUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+
+  // Validation taille (10MB max)
+  const maxSize = 10 * 1024 * 1024;
+  if (file.size > maxSize) {
+    alert('Fichier trop volumineux. Taille maximum : 10MB');
+    input.value = '';
+    return;
+  }
+
+  // Validation type
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/svg+xml', 'application/pdf'];
+  if (!allowedTypes.includes(file.type)) {
+    alert('Format non supporté. Utilisez JPG, PNG, GIF, SVG ou PDF.');
+    input.value = '';
+    return;
+  }
+
+  uploadedFile = file;
+  
+  // Mettre à jour l'UI
+  document.getElementById('file-name').textContent = file.name;
+  document.getElementById('file-size').textContent = formatFileSize(file.size);
+  document.getElementById('file-preview').classList.remove('hidden');
+  document.getElementById('upload-text').textContent = 'Changer le fichier';
+  
+  // Style success
+  const uploadLabel = document.getElementById('upload-label');
+  uploadLabel.className = 'flex items-center justify-center gap-3 w-full px-4 py-3 border-2 border-dashed border-green-500 text-green-400 bg-green-500/10 rounded-lg cursor-pointer transition-all duration-300';
+}
+
+// Supprimer fichier
+function removeFile() {
+  const input = document.getElementById('logo-upload');
+  input.value = '';
+  uploadedFile = null;
+  
+  document.getElementById('file-preview').classList.add('hidden');
+  document.getElementById('upload-text').textContent = 'Cliquez pour ajouter votre logo';
+  
+  const uploadLabel = document.getElementById('upload-label');
+  uploadLabel.className = 'flex items-center justify-center gap-3 w-full px-4 py-3 border-2 border-dashed border-gray-600 text-gray-400 bg-gray-700/50 hover:border-cyan-400 hover:text-cyan-400 rounded-lg cursor-pointer transition-all duration-300';
+}
+
+// Format taille fichier
+function formatFileSize(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+// Gestion soumission formulaire
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('devis-form');
+  if (form) {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submit-btn');
+      const submitText = document.getElementById('submit-text');
+      
+      // État loading
+      submitBtn.disabled = true;
+      submitBtn.className = 'w-full flex items-center justify-center gap-3 px-6 py-4 bg-gray-600 rounded-lg text-white font-semibold cursor-not-allowed';
+      submitText.textContent = 'Envoi en cours...';
+      
+      try {
+        // Créer le message structuré
+        const formData = new FormData(form);
+        const name = formData.get('contact[name]');
+        const email = formData.get('contact[email]');
+        const phone = formData.get('contact[phone]') || 'Non renseigné';
+        const projectType = formData.get('contact[project_type]');
+        const dimensions = formData.get('contact[dimensions]') || 'Non spécifiées';
+        const message = formData.get('contact[body]');
+        
+        const structuredMessage = `
+NOUVELLE DEMANDE DE DEVIS NÉON PERSONNALISÉ
+==========================================
+
+📋 INFORMATIONS CLIENT :
+• Nom : ${name}
+• Email : ${email}
+• Téléphone : ${phone}
+
+🎯 DÉTAILS DU PROJET :
+• Type de projet : ${projectType}
+• Dimensions souhaitées : ${dimensions}
+• Description : ${message}
+
+📎 FICHIER JOINT :
+${uploadedFile ? `• Logo fourni : ${uploadedFile.name} (${formatFileSize(uploadedFile.size)})` : '• Aucun logo fourni'}
+
+⏰ PROCHAINES ÉTAPES :
+• Répondre sous 24h maximum
+• Créer le mockup 3D gratuit
+• Envoyer le devis détaillé
+
+Date de réception : ${new Date().toLocaleString('fr-FR')}
+        `;
+        
+        formData.set('contact[body]', structuredMessage);
+        
+        // Envoi
+        const response = await fetch('/contact', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (response.ok) {
+          // Succès
+          document.getElementById('popup-content').innerHTML = `
+            <div class="text-center py-8">
+              <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4" style="animation: pulse-glow 2s infinite;">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <h3 class="text-2xl font-bold mb-2" style="color: #10b981; text-shadow: 0 0 10px #10b981;">
+                Demande Envoyée !
+              </h3>
+              <p class="text-gray-300 text-center">
+                📧 Email envoyé à notre équipe !<br />
+                Nous vous recontacterons sous 24h avec votre devis personnalisé.
+                ${uploadedFile ? `<br><small class="text-green-300">✅ Logo reçu : ${uploadedFile.name}</small>` : ''}
+              </p>
+            </div>
+          `;
+          
+          setTimeout(() => {
+            closeDevisPopup();
+          }, 3000);
+        } else {
+          throw new Error('Erreur lors de l\'envoi');
+        }
+      } catch (error) {
+        console.error('Erreur:', error);
+        alert('Erreur lors de l\'envoi. Veuillez réessayer.');
+        
+        // Reset button
+        submitBtn.disabled = false;
+        submitBtn.className = 'w-full flex items-center justify-center gap-3 px-6 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/30';
+        submitText.textContent = 'Obtenir Mon Devis Gratuit';
+      }
+    });
+  }
+});
+
+// Fermer avec Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && isDevisPopupOpen) {
+    closeDevisPopup();
+  }
+});
+
+// Fermer en cliquant à côté
+document.getElementById('devis-popup').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeDevisPopup();
+  }
+});
+
+// Exposer globalement
+window.openDevisPopup = openDevisPopup;
+window.closeDevisPopup = closeDevisPopup;
+</script>
