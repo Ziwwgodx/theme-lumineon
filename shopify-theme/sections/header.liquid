@@ -290,23 +290,48 @@
   box-shadow: 0 8px 30px rgba(251, 191, 36, 0.4);
 }
 
-.cart-button {
+/* Cart Buttons Premium */
+.cart-button-desktop,
+.cart-button-mobile {
   position: relative;
-  backdrop-filter: blur(10px);
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.cart-button:hover {
+.cart-button-desktop:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 245, 255, 0.4);
+}
+
+.cart-button-mobile:hover {
+  transform: scale(1.05);
   box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
 }
 
+/* Mobile Cart Link Premium */
+.mobile-cart-link {
+  display: block;
+  margin-bottom: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.mobile-cart-link:hover {
+  transform: translateX(5px);
+}
+
+.hover\:scale-102:hover {
+  transform: scale(1.02);
+}
+
+/* Cart Count Badge */
 .cart-count {
-  animation: cart-bounce 0.6s ease;
+  transition: all 0.3s ease;
   box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
 }
 
 .cart-count:empty,
 .cart-count[data-count="0"] {
-  display: none;
+  display: none !important;
 }
 
 @keyframes cart-bounce {
@@ -321,8 +346,30 @@
   }
 }
 
-.cart-button-mobile {
-  backdrop-filter: blur(10px);
+.animate-bounce {
+  animation: cart-bounce 0.6s ease;
+}
+
+/* Cart Notification Styles */
+#cart-notification {
+  max-width: 380px;
+}
+
+#cart-notification .absolute.inset-0 {
+  z-index: -2;
+}
+
+#cart-notification .absolute.inset-1 {
+  z-index: -1;
+}
+
+/* Notification Animation */
+.translate-x-0 {
+  transform: translateX(0);
+}
+
+.translate-x-full {
+  transform: translateX(100%);
 }
 
 /* Responsive */
@@ -420,6 +467,24 @@
           {% endif %}
         {% endfor %}
 
+        <!-- Desktop Cart Button -->
+        <a href="/cart" class="cart-button-desktop relative group">
+          <div class="relative p-3 bg-gray-800/50 hover:bg-gray-700 border border-gray-600 hover:border-cyan-500/50 rounded-full transition-all duration-300 hover:scale-110 backdrop-blur-sm">
+            <svg class="w-6 h-6 text-gray-400 group-hover:text-cyan-400 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h8m-8 0a2 2 0 100 4 2 2 0 000-4zm8 0a2 2 0 100 4 2 2 0 000-4z"></path>
+            </svg>
+            <!-- Desktop Cart Count Badge -->
+            <span id="cart-count-desktop" class="cart-count absolute -top-2 -right-2 w-5 h-5 bg-gradient-to-r from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white text-xs font-bold animate-pulse-glow" style="display: none;">
+              0
+            </span>
+          </div>
+          
+          <!-- Hover Tooltip -->
+          <div class="absolute bottom-full right-0 mb-2 px-3 py-1 bg-gray-900 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap">
+            Voir le panier
+            <div class="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+          </div>
+        </a>
         <!-- CTA Button Premium -->
         <button onclick="openDevisPopup()" class="header-cta">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -435,6 +500,19 @@
 
       <!-- Mobile Section: CTA + Menu Button -->
       <div class="flex items-center gap-4 lg:hidden">
+        <!-- Mobile Cart Button -->
+        <a href="/cart" class="cart-button-mobile relative group">
+          <div class="relative p-2 bg-gray-800/50 hover:bg-gray-700 border border-gray-600 hover:border-cyan-500/50 rounded-lg transition-all duration-300 backdrop-blur-sm">
+            <svg class="w-5 h-5 text-gray-400 group-hover:text-cyan-400 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h8m-8 0a2 2 0 100 4 2 2 0 000-4zm8 0a2 2 0 100 4 2 2 0 000-4z"></path>
+            </svg>
+            <!-- Mobile Cart Count -->
+            <span id="cart-count-mobile" class="cart-count absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white text-xs font-bold" style="display: none;">
+              0
+            </span>
+          </div>
+        </a>
+        
         <button onclick="openDevisPopup()" class="header-cta">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
@@ -512,9 +590,25 @@
           🚀 Devis Gratuit
         </button>
         
-        <!-- Mobile Cart Link -->
-        <a href="/cart" class="mobile-nav-link" onclick="closeMobileMenu()">
-          🛒 Panier (<span id="cart-count-menu">0</span>)
+        <!-- Mobile Cart Link Premium -->
+        <a href="/cart" class="mobile-cart-link" onclick="closeMobileMenu()">
+          <div class="flex items-center justify-between p-4 bg-gradient-to-r from-gray-800/50 to-gray-900/50 border border-gray-700 hover:border-cyan-500/50 rounded-xl transition-all duration-300 hover:scale-102 backdrop-blur-sm">
+            <div class="flex items-center gap-3">
+              <div class="relative">
+                <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h8m-8 0a2 2 0 100 4 2 2 0 000-4zm8 0a2 2 0 100 4 2 2 0 000-4z"></path>
+                </svg>
+                <span id="cart-count-menu" class="cart-count absolute -top-2 -right-2 w-4 h-4 bg-gradient-to-r from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white text-xs font-bold" style="display: none;">0</span>
+              </div>
+              <span class="text-white font-medium">Mon Panier</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="cart-total-menu" class="text-cyan-400 font-bold">0,00 €</span>
+              <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+          </div>
         </a>
         
         <!-- Navigation -->
@@ -587,10 +681,45 @@
   </div>
 </header>
 
+<!-- Cart Notification Toast -->
+<div id="cart-notification" class="fixed top-20 right-4 z-50 transform translate-x-full transition-all duration-500 ease-out">
+  <div class="bg-gradient-to-r from-gray-800 to-gray-900 border border-cyan-500/50 rounded-2xl p-4 shadow-2xl shadow-cyan-500/20 backdrop-blur-sm max-w-sm">
+    <!-- Animated Border -->
+    <div class="absolute inset-0 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 rounded-2xl opacity-50 animate-pulse"></div>
+    <div class="absolute inset-1 bg-gradient-to-r from-gray-800 to-gray-900 rounded-2xl"></div>
+    
+    <div class="relative z-10 flex items-center gap-3">
+      <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center animate-pulse-glow">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+      </div>
+      <div class="flex-1">
+        <div class="text-white font-semibold">Produit ajouté !</div>
+        <div class="text-gray-300 text-sm" id="notification-product-name">Néon personnalisé</div>
+      </div>
+      <button onclick="closeCartNotification()" class="text-gray-400 hover:text-white transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="relative z-10 mt-3 flex gap-2">
+      <a href="/cart" class="flex-1 px-3 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg text-white text-sm font-medium text-center transition-all duration-300 hover:scale-105">
+        Voir le panier
+      </a>
+      <button onclick="closeCartNotification()" class="px-3 py-2 border border-gray-600 rounded-lg text-gray-300 text-sm font-medium transition-all duration-300 hover:border-gray-500">
+        Continuer
+      </button>
+    </div>
+  </div>
+</div>
 <script>
 let isScrolled = false;
 let isMenuOpen = false;
 let cartCount = 0;
+let cartTotal = 0;
 
 // Scroll effect
 window.addEventListener('scroll', function() {
@@ -613,15 +742,32 @@ function updateCartCount() {
     .then(response => response.json())
     .then(cart => {
       cartCount = cart.item_count;
-      document.getElementById('cart-count').textContent = cartCount;
-      document.getElementById('cart-count-mobile').textContent = cartCount;
-      document.getElementById('cart-count-menu').textContent = cartCount;
+      cartTotal = cart.total_price;
+      // Update all cart count elements
+      const countElements = ['cart-count-desktop', 'cart-count-mobile', 'cart-count-menu'];
+      countElements.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.textContent = cartCount;
+        }
+      });
+      
+      // Update cart total in menu
+      const totalElement = document.getElementById('cart-total-menu');
+      if (totalElement) {
+        totalElement.textContent = new Intl.NumberFormat('fr-FR', {
+          style: 'currency',
+          currency: 'EUR'
+        }).format(cartTotal / 100);
+      }
       
       // Show/hide badges
       const badges = document.querySelectorAll('.cart-count');
       badges.forEach(badge => {
         if (cartCount > 0) {
           badge.style.display = 'flex';
+          badge.classList.add('animate-bounce');
+          setTimeout(() => badge.classList.remove('animate-bounce'), 600);
         } else {
           badge.style.display = 'none';
         }
@@ -630,15 +776,51 @@ function updateCartCount() {
     .catch(error => console.error('Error fetching cart:', error));
 }
 
+// Show cart notification
+function showCartNotification(productName = 'Produit') {
+  const notification = document.getElementById('cart-notification');
+  const productNameEl = document.getElementById('notification-product-name');
+  
+  if (productNameEl) {
+    productNameEl.textContent = productName;
+  }
+  
+  // Show notification
+  notification.classList.remove('translate-x-full');
+  notification.classList.add('translate-x-0');
+  
+  // Auto-hide after 5 seconds
+  setTimeout(() => {
+    closeCartNotification();
+  }, 5000);
+}
+
+// Close cart notification
+function closeCartNotification() {
+  const notification = document.getElementById('cart-notification');
+  notification.classList.remove('translate-x-0');
+  notification.classList.add('translate-x-full');
+}
+
+// Listen for cart add events
+document.addEventListener('DOMContentLoaded', function() {
+  // Listen for Shopify cart add events
+  document.addEventListener('cart:item-added', function(event) {
+    const productName = event.detail?.product_title || 'Produit';
+    showCartNotification(productName);
+    updateCartCount();
+  });
+  
+  // Listen for manual cart updates
+  document.addEventListener('cart:updated', function() {
+    updateCartCount();
+  });
+});
 // Initialize cart count on page load
 document.addEventListener('DOMContentLoaded', function() {
   updateCartCount();
 });
 
-// Listen for cart updates
-document.addEventListener('cart:updated', function() {
-  updateCartCount();
-});
 
 // Mobile menu functions
 function toggleMobileMenu() {
@@ -708,6 +890,9 @@ window.addEventListener('load', function() {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape' && isMenuOpen) {
     closeMobileMenu();
+  }
+  if (e.key === 'Escape') {
+    closeCartNotification();
   }
 });
 
