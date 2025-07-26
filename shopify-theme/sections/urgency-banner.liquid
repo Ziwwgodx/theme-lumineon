@@ -1,0 +1,171 @@
+{% comment %}
+  Section Urgency Banner - Bandeau d'urgence
+{% endcomment %}
+
+<div class="bg-gradient-to-r from-red-500 to-orange-600 text-white py-3 px-4 relative overflow-hidden">
+  <!-- Animated Background -->
+  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
+  
+  <!-- Pulsing Border -->
+  <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 via-white to-yellow-400 animate-pulse"></div>
+  
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
+      <!-- Countdown Timer -->
+      <div class="flex items-center gap-2">
+        <span class="text-2xl animate-bounce">🔥</span>
+        <span class="font-bold text-lg">{{ section.settings.urgency_text | default: 'OFFRE LIMITÉE' }}</span>
+        <div class="flex items-center gap-2 ml-4">
+          <div class="text-center">
+            <div id="hours" class="text-xl font-bold">23</div>
+            <div class="text-xs">H</div>
+          </div>
+          <div class="text-xl">:</div>
+          <div class="text-center">
+            <div id="minutes" class="text-xl font-bold">45</div>
+            <div class="text-xs">M</div>
+          </div>
+          <div class="text-xl">:</div>
+          <div class="text-center">
+            <div id="seconds" class="text-xl font-bold">30</div>
+            <div class="text-xs">S</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Offer Text -->
+      <div class="flex items-center gap-3">
+        <span class="text-lg">{{ section.settings.offer_text | default: 'Devis + Mockup 3D GRATUITS' }}</span>
+        <button onclick="openDevisPopup()" class="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-full font-bold transition-all duration-300 hover:scale-105 animate-pulse">
+          {{ section.settings.cta_text | default: 'J\'EN PROFITE' }}
+        </button>
+      </div>
+      
+      <!-- Close Button -->
+      {% if section.settings.closable %}
+        <button onclick="closeUrgencyBanner()" class="text-white/80 hover:text-white transition-colors ml-auto">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<script>
+// Countdown Timer
+let timeLeft = {
+  hours: {{ section.settings.countdown_hours | default: 23 }},
+  minutes: {{ section.settings.countdown_minutes | default: 45 }},
+  seconds: {{ section.settings.countdown_seconds | default: 30 }}
+};
+
+function updateCountdown() {
+  document.getElementById('hours').textContent = String(timeLeft.hours).padStart(2, '0');
+  document.getElementById('minutes').textContent = String(timeLeft.minutes).padStart(2, '0');
+  document.getElementById('seconds').textContent = String(timeLeft.seconds).padStart(2, '0');
+  
+  if (timeLeft.seconds > 0) {
+    timeLeft.seconds--;
+  } else if (timeLeft.minutes > 0) {
+    timeLeft.minutes--;
+    timeLeft.seconds = 59;
+  } else if (timeLeft.hours > 0) {
+    timeLeft.hours--;
+    timeLeft.minutes = 59;
+    timeLeft.seconds = 59;
+  }
+}
+
+// Start countdown
+setInterval(updateCountdown, 1000);
+
+function closeUrgencyBanner() {
+  const banner = document.querySelector('[data-section-type="urgency-banner"]');
+  if (banner) {
+    banner.style.display = 'none';
+    localStorage.setItem('urgency_banner_closed', 'true');
+  }
+}
+
+// Check if banner was closed
+document.addEventListener('DOMContentLoaded', function() {
+  if (localStorage.getItem('urgency_banner_closed') === 'true') {
+    const banner = document.querySelector('[data-section-type="urgency-banner"]');
+    if (banner) {
+      banner.style.display = 'none';
+    }
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Bandeau d'Urgence",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Afficher le bandeau",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "urgency_text",
+      "label": "Texte d'urgence",
+      "default": "OFFRE LIMITÉE"
+    },
+    {
+      "type": "text",
+      "id": "offer_text",
+      "label": "Texte de l'offre",
+      "default": "Devis + Mockup 3D GRATUITS"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte du bouton",
+      "default": "J'EN PROFITE"
+    },
+    {
+      "type": "range",
+      "id": "countdown_hours",
+      "min": 0,
+      "max": 48,
+      "step": 1,
+      "label": "Heures restantes",
+      "default": 23
+    },
+    {
+      "type": "range",
+      "id": "countdown_minutes",
+      "min": 0,
+      "max": 59,
+      "step": 1,
+      "label": "Minutes restantes",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "countdown_seconds",
+      "min": 0,
+      "max": 59,
+      "step": 1,
+      "label": "Secondes restantes",
+      "default": 30
+    },
+    {
+      "type": "checkbox",
+      "id": "closable",
+      "label": "Permettre de fermer",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bandeau d'Urgence"
+    }
+  ]
+}
+{% endschema %}

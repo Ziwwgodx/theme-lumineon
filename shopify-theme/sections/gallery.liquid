@@ -1,0 +1,683 @@
+{% comment %}
+  Section Gallery - Portfolio des créations (éditable)
+{% endcomment %}
+
+<section id="gallery" class="py-20 lg:py-32 relative overflow-hidden section-transition">
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800"></div>
+  <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-purple-400 to-transparent opacity-50"></div>
+
+  <div class="parallax-container absolute inset-0" data-speed="0.2">
+    <div class="absolute top-1/3 right-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl floating-element"></div>
+    <div class="absolute bottom-1/3 left-1/4 w-80 h-80 bg-pink-500/5 rounded-full blur-3xl floating-element"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+        <span class="neon-text-purple">{{ section.settings.title_line_1 | default: 'Nos' }}</span>
+        <span class="text-white"> </span>
+        <span class="neon-text-pink">{{ section.settings.title_line_2 | default: 'Créations' }}</span>
+      </h2>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+        {{ section.settings.description | default: '📸 Découvrez notre portfolio de +500 créations uniques. Chaque projet raconte une histoire, chaque néon illumine un rêve.' }}
+      </p>
+      
+      <!-- Social Proof -->
+      <div class="mt-6 flex flex-wrap justify-center gap-4">
+        {% for block in section.blocks %}
+          {% if block.type == 'social_proof' %}
+            <div class="px-4 py-2 bg-{{ block.settings.color }}-500/20 border border-{{ block.settings.color }}-500/30 rounded-full text-{{ block.settings.color }}-300 text-sm">
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Category Filter -->
+    <div class="flex flex-wrap justify-center gap-4 mb-12" id="gallery-filters">
+      <button class="filter-btn active px-6 py-3 rounded-full font-medium transition-all duration-300 morph-button interactive bg-gradient-to-r from-cyan-500 to-purple-600 text-white shadow-neon-cyan" data-filter="all">
+        {{ section.settings.filter_all | default: 'Tous' }}
+      </button>
+      
+      <!-- Dynamic category filters based on projects -->
+      {% assign categories = '' %}
+      {% for block in section.blocks %}
+        {% if block.type == 'project' %}
+          {% assign category = block.settings.category | downcase %}
+          {% unless categories contains category %}
+            {% assign categories = categories | append: category | append: ',' %}
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
+      
+      {% assign category_array = categories | split: ',' %}
+      {% for category in category_array %}
+        {% if category != blank %}
+          <button class="filter-btn px-6 py-3 rounded-full font-medium transition-all duration-300 morph-button interactive bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700 border border-gray-700" data-filter="{{ category }}">
+            {{ category | capitalize }}
+          </button>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+      {% assign project_index = 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'project' %}
+          <div class="gallery-item group relative cursor-pointer interactive-card interactive" data-category="{{ block.settings.category | downcase }}" data-project-index="{{ project_index }}" onclick="openLightbox(this)">
+            <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 transition-all duration-700 hover:border-cyan-500/70 hover:shadow-2xl hover:shadow-cyan-500/40">
+              <!-- Neon Glow Effect -->
+              <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              <div class="aspect-video overflow-hidden">
+                <!-- Badge catégorie flottant -->
+                <div class="absolute top-3 left-3 z-10 px-3 py-1 bg-black/80 backdrop-blur-md border border-cyan-500/50 rounded-full text-cyan-300 text-xs font-bold shadow-lg shadow-cyan-500/30 group-hover:scale-110 transition-transform duration-300">
+                  {{ block.settings.category }}
+                </div>
+                
+                <!-- Icône zoom -->
+                <div class="absolute top-3 right-3 z-10 w-10 h-10 bg-black/80 backdrop-blur-md border border-purple-500/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-125">
+                  <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                  </svg>
+                </div>
+                
+                <!-- Indicateur de popularité -->
+                <div class="absolute bottom-3 right-3 z-10 flex items-center gap-1 px-2 py-1 bg-black/80 backdrop-blur-md rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div class="flex gap-1">
+                    {% for i in (1..5) %}
+                      <svg class="w-2 h-2 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                    {% endfor %}
+                  </div>
+                  <span class="text-yellow-300 text-xs font-medium ml-1">Populaire</span>
+                </div>
+                
+                {% if block.settings.image %}
+                  <img
+                    src="{{ block.settings.image | img_url: '800x600' }}"
+                    alt="Néon LED personnalisé {{ block.settings.title | escape }} - {{ block.settings.category }} - Fabrication française LumiNéon"
+                    class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-125 group-hover:brightness-125 group-hover:saturate-110"
+                    loading="lazy"
+                    width="800"
+                    height="600"
+                  />
+                {% else %}
+                  <div class="w-full h-full bg-gray-700 flex items-center justify-center">
+                    <svg class="w-16 h-16 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                  </div>
+                {% endif %}
+              </div>
+              
+              <!-- Overlay -->
+              <div class="absolute inset-0 bg-gradient-to-t from-gray-900/95 via-gray-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700">
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-cyan-400 transition-colors duration-300" itemprop="name">
+                    {{ block.settings.title }}
+                  </h3>
+                  <p class="text-gray-300 text-sm" itemprop="description">
+                    {{ block.settings.description }}
+                  </p>
+                  
+                  <!-- CTA dans l'overlay -->
+                  <div class="mt-3 flex items-center justify-between">
+                    <span class="text-cyan-400 text-sm font-medium animate-pulse">🔍 Cliquez pour agrandir</span>
+                    <div class="flex items-center gap-1 text-gray-400 text-xs">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                      </svg>
+                      <span>{{ 50 | plus: forloop.index | times: 3 }} vues</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Neon Border Effect -->
+              <div class="absolute inset-0 border-2 border-transparent group-hover:border-cyan-400/80 rounded-2xl transition-all duration-700 group-hover:shadow-neon-cyan"></div>
+            </div>
+          </div>
+          {% assign project_index = project_index | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Galerie Sociale Interactive -->
+    <div class="mt-20 cosmic-noise bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-3xl p-8 lg:p-12 border border-gray-700 relative overflow-hidden">
+      <!-- Animated Glow -->
+      <div class="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-cyan-500/10 rounded-3xl opacity-50 animate-pulse"></div>
+      
+      <div class="relative z-10">
+        <div class="text-center mb-8">
+          <h3 class="text-2xl lg:text-3xl font-bold mb-4 neon-title-premium" itemprop="headline">
+            {{ section.settings.social_title | default: '📸 Partagé par Nos Clients' }}
+          </h3>
+          <p class="text-gray-300">
+            {{ section.settings.social_subtitle | default: 'Découvrez comment nos créations illuminent le quotidien de nos clients' }}
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <!-- Mini galerie sociale -->
+          {% for block in section.blocks %}
+            {% if block.type == 'project' and forloop.index <= 8 %}
+              <div class="group relative aspect-square overflow-hidden rounded-2xl border border-gray-700 hover:border-purple-500/70 transition-all duration-500 cursor-pointer hover:scale-105 hover:rotate-1">
+                <!-- Social Badge -->
+                <div class="absolute top-2 left-2 z-10 w-6 h-6 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <span class="text-white text-xs">❤️</span>
+                </div>
+                
+                {% if block.settings.image %}
+                  <img
+                    src="{{ block.settings.image | img_url: '300x300' }}"
+                    alt="Néon personnalisé {{ block.settings.title | escape }} - Client satisfait LumiNéon"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-125 group-hover:brightness-110"
+                    loading="lazy"
+                    width="300"
+                    height="300"
+                  />
+                {% else %}
+                  <div class="w-full h-full bg-gray-700 flex items-center justify-center">
+                    <svg class="w-8 h-8 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                  </div>
+                {% endif %}
+                
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div class="absolute bottom-2 left-2 right-2">
+                    <div class="flex items-center justify-between text-white text-xs">
+                      <div class="flex items-center gap-1">
+                        <span class="text-red-400">❤️</span>
+                        <span>{{ 10 | plus: forloop.index | times: 4 }}</span>
+                      </div>
+                      <div class="flex items-center gap-1">
+                        <span class="text-blue-400">💬</span>
+                        <span>{{ forloop.index | plus: 1 }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Hover Glow -->
+                <div class="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        
+        <div class="text-center mt-8">
+          <p class="text-gray-400 mb-4">
+            {{ section.settings.community_text | default: '🌟 Rejoignez notre communauté de 500+ clients satisfaits' }}
+          </p>
+          <button
+            onclick="openDevisPopup()"
+            class="neon-button-premium px-8 py-4 rounded-full text-white font-bold text-lg transition-all duration-500"
+          >
+            {{ section.settings.cta_button | default: '🎨 Créer Mon Néon Unique' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 hidden">
+      <div class="relative max-w-4xl w-full">
+        <!-- Close Button -->
+        <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-white hover:text-cyan-400 transition-colors duration-300 interactive">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+
+        <!-- Navigation Buttons -->
+        <button onclick="prevImage()" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-cyan-400 transition-colors duration-300 bg-gray-900/50 rounded-full p-2 interactive">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+        <button onclick="nextImage()" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-cyan-400 transition-colors duration-300 bg-gray-900/50 rounded-full p-2 interactive">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+
+        <!-- Image -->
+        <div class="relative">
+          <img id="lightbox-image" src="" alt="" class="w-full h-auto rounded-lg" />
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900/90 to-transparent p-6 rounded-b-lg">
+            <h3 id="lightbox-title" class="text-2xl font-semibold text-white mb-2"></h3>
+            <p id="lightbox-description" class="text-gray-300"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="text-center mt-16 pb-8">
+      <div class="max-w-2xl mx-auto px-4">
+        <h3 class="text-3xl font-bold mb-4 neon-text-purple">
+          {{ section.settings.cta_title | default: 'Découvrez Toute Notre Galerie' }}
+        </h3>
+        <p class="text-gray-300 mb-8 text-lg leading-relaxed">
+          {{ section.settings.cta_description | default: '📸 Explorez notre collection complète de +500 créations uniques. Chaque projet raconte une histoire lumineuse !' }}
+        </p>
+        <a 
+          href="{{ section.settings.gallery_url | default: '/pages/galerie' }}"
+          class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-neon-purple"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          {{ section.settings.cta_button_text | default: '🚀 Voir Toute La Galerie' }}
+          <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+let currentImageIndex = 0;
+let galleryImages = [
+  {% assign first_project = true %}
+  {% for block in section.blocks %}
+    {% if block.type == 'project' %}
+      {% unless first_project %},{% endunless %}
+      {
+        src: "{{ block.settings.image | img_url: 'master' }}",
+        title: "{{ block.settings.title | escape }}",
+        description: "{{ block.settings.description | escape }}",
+        category: "{{ block.settings.category | downcase }}"
+      }
+      {% assign first_project = false %}
+    {% endif %}
+  {% endfor %}
+];
+let visibleImages = [];
+
+// Initialize gallery
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize visible images array
+  updateVisibleImages();
+
+  // Filter functionality
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const filter = btn.dataset.filter;
+      
+      // Update active button
+      filterBtns.forEach(b => {
+        b.classList.remove('active', 'bg-gradient-to-r', 'from-cyan-500', 'to-purple-600', 'text-white', 'shadow-neon-cyan');
+        b.classList.add('bg-gray-800', 'text-gray-400', 'border', 'border-gray-700');
+      });
+      btn.classList.add('active', 'bg-gradient-to-r', 'from-cyan-500', 'to-purple-600', 'text-white', 'shadow-neon-cyan');
+      btn.classList.remove('bg-gray-800', 'text-gray-400', 'border', 'border-gray-700');
+
+      // Filter items
+      galleryItems.forEach(item => {
+        if (filter === 'all' || item.dataset.category === filter) {
+          item.style.display = 'block';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Update visible images for lightbox navigation
+      updateVisibleImages();
+    });
+  });
+});
+
+function updateVisibleImages() {
+  visibleImages = [];
+  const visibleItems = document.querySelectorAll('.gallery-item:not([style*="none"])');
+  
+  visibleItems.forEach(item => {
+    const projectIndex = parseInt(item.dataset.projectIndex);
+    if (galleryImages[projectIndex]) {
+      visibleImages.push({
+        ...galleryImages[projectIndex],
+        originalIndex: projectIndex
+      });
+    }
+  });
+}
+
+function openLightbox(element) {
+  const projectIndex = parseInt(element.dataset.projectIndex);
+  
+  // Find the index in visible images
+  const visibleIndex = visibleImages.findIndex(img => img.originalIndex === projectIndex);
+  if (visibleIndex === -1) return;
+  
+  currentImageIndex = visibleIndex;
+  const image = visibleImages[visibleIndex];
+  
+  document.getElementById('lightbox-image').src = image.src;
+  document.getElementById('lightbox-title').textContent = image.title;
+  document.getElementById('lightbox-description').textContent = image.description;
+  document.getElementById('lightbox').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.add('hidden');
+  document.body.style.overflow = 'auto';
+}
+
+function nextImage() {
+  if (visibleImages.length === 0) return;
+  currentImageIndex = (currentImageIndex + 1) % visibleImages.length;
+  const image = visibleImages[currentImageIndex];
+  
+  document.getElementById('lightbox-image').src = image.src;
+  document.getElementById('lightbox-title').textContent = image.title;
+  document.getElementById('lightbox-description').textContent = image.description;
+}
+
+function prevImage() {
+  if (visibleImages.length === 0) return;
+  currentImageIndex = currentImageIndex === 0 ? visibleImages.length - 1 : currentImageIndex - 1;
+  const image = visibleImages[currentImageIndex];
+  
+  document.getElementById('lightbox-image').src = image.src;
+  document.getElementById('lightbox-title').textContent = image.title;
+  document.getElementById('lightbox-description').textContent = image.description;
+}
+
+// Close lightbox on escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeLightbox();
+  }
+});
+
+// Close lightbox on backdrop click
+document.getElementById('lightbox').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeLightbox();
+  }
+});
+
+// Open devis popup
+function openDevisPopup() {
+  if (typeof window.openDevisPopup === 'function') {
+    window.openDevisPopup();
+  } else {
+    alert('🎨 Contactez-nous pour créer votre néon personnalisé !\n📞 +33 1 23 45 67 89\n📧 contact@lumineon.fr');
+  }
+}
+</script>
+
+{% schema %}
+{
+  "name": "Gallery Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_line_1",
+      "label": "Titre ligne 1",
+      "default": "Nos"
+    },
+    {
+      "type": "text",
+      "id": "title_line_2",
+      "label": "Titre ligne 2",
+      "default": "Créations"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "📸 Découvrez notre portfolio de +500 créations uniques. Chaque projet raconte une histoire, chaque néon illumine un rêve."
+    },
+    {
+      "type": "text",
+      "id": "filter_all",
+      "label": "Texte filtre 'Tous'",
+      "default": "Tous"
+    },
+    {
+      "type": "header",
+      "content": "Section Sociale"
+    },
+    {
+      "type": "text",
+      "id": "social_title",
+      "label": "Titre section sociale",
+      "default": "📸 Partagé par Nos Clients"
+    },
+    {
+      "type": "text",
+      "id": "social_subtitle",
+      "label": "Sous-titre section sociale",
+      "default": "Découvrez comment nos créations illuminent le quotidien de nos clients"
+    },
+    {
+      "type": "text",
+      "id": "community_text",
+      "label": "Texte communauté",
+      "default": "🌟 Rejoignez notre communauté de 500+ clients satisfaits"
+    },
+    {
+      "type": "header",
+      "content": "Section CTA"
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "Titre CTA",
+      "default": "Découvrez Toute Notre Galerie"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_description",
+      "label": "Description CTA",
+      "default": "📸 Explorez notre collection complète de +500 créations uniques. Chaque projet raconte une histoire lumineuse !"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "Texte bouton CTA",
+      "default": "🚀 Voir Toute La Galerie"
+    },
+    {
+      "type": "text",
+      "id": "gallery_url",
+      "label": "URL de la galerie complète",
+      "default": "/pages/galerie"
+    },
+    {
+      "type": "text",
+      "id": "cta_button",
+      "label": "Bouton CTA social",
+      "default": "🎨 Créer Mon Néon Unique"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social_proof",
+      "name": "Preuve sociale",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte",
+          "default": "⭐ 4.9/5 sur Google (127 avis)"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Couleur",
+          "options": [
+            {"value": "purple", "label": "Violet"},
+            {"value": "green", "label": "Vert"},
+            {"value": "blue", "label": "Bleu"},
+            {"value": "yellow", "label": "Jaune"}
+          ],
+          "default": "purple"
+        }
+      ]
+    },
+    {
+      "type": "project",
+      "name": "Projet",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image du projet"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre du projet"
+        },
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Catégorie",
+          "options": [
+            {"value": "Décoration", "label": "Décoration"},
+            {"value": "Loisirs", "label": "Loisirs"},
+            {"value": "Divertissement", "label": "Divertissement"},
+            {"value": "Logo", "label": "Logo"},
+            {"value": "Texte", "label": "Texte"},
+            {"value": "Commercial", "label": "Commercial"},
+            {"value": "Citation", "label": "Citation"},
+            {"value": "Événementiel", "label": "Événementiel"},
+            {"value": "Gaming", "label": "Gaming"}
+          ],
+          "default": "Décoration"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description du projet"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Gallery Section",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "social_proof",
+          "settings": {
+            "text": "⭐ 4.9/5 sur Google (127 avis)",
+            "color": "purple"
+          }
+        },
+        {
+          "type": "social_proof",
+          "settings": {
+            "text": "🏆 +500 projets réalisés",
+            "color": "green"
+          }
+        },
+        {
+          "type": "project",
+          "settings": {
+            "title": "Néon WOW - Impact Visuel",
+            "category": "Décoration",
+            "description": "Néon expressif 'WOW' avec effet de profondeur et éclairage dynamique"
+          }
+        },
+        {
+          "type": "project",
+          "settings": {
+            "title": "Néon Vague Surf - Style Californien",
+            "category": "Loisirs",
+            "description": "Design néon vague surf avec dégradé bleu océan, parfait pour ambiance beach"
+          }
+        },
+        {
+          "type": "project",
+          "settings": {
+            "title": "Netflix and Chill - Pop Culture",
+            "category": "Divertissement",
+            "description": "Néon tendance 'Netflix and Chill' avec typographie moderne et éclairage rouge"
+          }
+        },
+        {
+          "type": "project",
+          "settings": {
+            "title": "Logo Friends - Nostalgie TV",
+            "category": "Logo",
+            "description": "Reproduction fidèle du logo Friends en néon, couleurs authentiques de la série"
+          }
+        },
+        {
+          "type": "project",
+          "settings": {
+            "title": "Lettres Hello - Accueil Chaleureux",
+            "category": "Texte",
+            "description": "Lettres néon 'Hello' en script élégant, parfait pour entrées et réceptions"
+          }
+        },
+        {
+          "type": "project",
+          "settings": {
+            "title": "Hot Deal LED Flex - Promotion Dynamique",
+            "category": "Commercial",
+            "description": "Néon LED flexible 'Hot Deal' avec éclairage rouge vif, idéal pour promotions commerciales"
+          }
+        },
+        {
+          "type": "project",
+          "settings": {
+            "title": "La Vie Est Belle - Philosophie Lumineuse",
+            "category": "Citation",
+            "description": "Citation inspirante 'La Vie Est Belle' en néon élégant, parfait pour espaces de bien-être"
+          }
+        },
+        {
+          "type": "project",
+          "settings": {
+            "title": "Happy Birthday - Célébration Festive",
+            "category": "Événementiel",
+            "description": "Néon festif 'Happy Birthday' multicolore, création parfaite pour anniversaires mémorables"
+          }
+        },
+        {
+          "type": "project",
+          "settings": {
+            "title": "Game Zone - Univers Gaming",
+            "category": "Gaming",
+            "description": "Néon gaming 'Game Zone' avec effets dynamiques, ambiance parfaite pour espaces de jeu"
+          }
+        }
+      ],
+      "settings": {
+        "title_line_1": "Nos",
+        "title_line_2": "Créations",
+        "description": "📸 Découvrez notre portfolio de +500 créations uniques. Chaque projet raconte une histoire, chaque néon illumine un rêve.",
+        "filter_all": "Tous",
+        "social_title": "📸 Partagé par Nos Clients",
+        "social_subtitle": "Découvrez comment nos créations illuminent le quotidien de nos clients",
+        "community_text": "🌟 Rejoignez notre communauté de 500+ clients satisfaits",
+        "cta_title": "Découvrez Toute Notre Galerie",
+        "cta_description": "📸 Explorez notre collection complète de +500 créations uniques. Chaque projet raconte une histoire lumineuse !",
+        "cta_button_text": "🚀 Voir Toute La Galerie",
+        "gallery_url": "/pages/galerie",
+        "cta_button": "🎨 Créer Mon Néon Unique"
+      }
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,153 @@
+{% comment %}
+  Section Announcement Bar - Barre d'annonce
+{% endcomment %}
+
+{% if section.settings.show_announcement %}
+  <div class="bg-gradient-to-r from-{{ section.settings.bg_color_from }}-500 to-{{ section.settings.bg_color_to }}-600 text-white text-center py-2 px-4 relative overflow-hidden">
+    <!-- Animated Background -->
+    <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-pulse"></div>
+    
+    <div class="relative z-10 flex items-center justify-center gap-2">
+      {% if section.settings.icon %}
+        <span class="text-lg">{{ section.settings.icon }}</span>
+      {% endif %}
+      
+      <span class="font-medium">{{ section.settings.text }}</span>
+      
+      {% if section.settings.show_cta and section.settings.cta_text %}
+        <button 
+          onclick="{% if section.settings.cta_action == 'popup' %}openDevisPopup(){% else %}scrollToSection('{{ section.settings.cta_target }}'){% endif %}"
+          class="ml-2 px-3 py-1 bg-white/20 hover:bg-white/30 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105"
+        >
+          {{ section.settings.cta_text }}
+        </button>
+      {% endif %}
+      
+      {% if section.settings.closable %}
+        <button 
+          onclick="closeAnnouncement()"
+          class="ml-4 text-white/80 hover:text-white transition-colors"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+<script>
+function closeAnnouncement() {
+  const announcement = document.querySelector('[data-section-type="announcement-bar"]');
+  if (announcement) {
+    announcement.style.display = 'none';
+    localStorage.setItem('announcement_closed', 'true');
+  }
+}
+
+// Check if announcement was previously closed
+document.addEventListener('DOMContentLoaded', function() {
+  if (localStorage.getItem('announcement_closed') === 'true') {
+    const announcement = document.querySelector('[data-section-type="announcement-bar"]');
+    if (announcement) {
+      announcement.style.display = 'none';
+    }
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "Barre d'annonce",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Afficher la barre d'annonce",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "Icône (emoji)",
+      "default": "🔥"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texte de l'annonce",
+      "default": "OFFRE LIMITÉE - Devis gratuit + Mockup 3D offert !"
+    },
+    {
+      "type": "select",
+      "id": "bg_color_from",
+      "label": "Couleur de départ",
+      "options": [
+        {"value": "red", "label": "Rouge"},
+        {"value": "orange", "label": "Orange"},
+        {"value": "yellow", "label": "Jaune"},
+        {"value": "green", "label": "Vert"},
+        {"value": "blue", "label": "Bleu"},
+        {"value": "purple", "label": "Violet"},
+        {"value": "pink", "label": "Rose"}
+      ],
+      "default": "red"
+    },
+    {
+      "type": "select",
+      "id": "bg_color_to",
+      "label": "Couleur d'arrivée",
+      "options": [
+        {"value": "red", "label": "Rouge"},
+        {"value": "orange", "label": "Orange"},
+        {"value": "yellow", "label": "Jaune"},
+        {"value": "green", "label": "Vert"},
+        {"value": "blue", "label": "Bleu"},
+        {"value": "purple", "label": "Violet"},
+        {"value": "pink", "label": "Rose"}
+      ],
+      "default": "orange"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Afficher bouton d'action",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte du bouton",
+      "default": "En Profiter"
+    },
+    {
+      "type": "select",
+      "id": "cta_action",
+      "label": "Action du bouton",
+      "options": [
+        {"value": "popup", "label": "Ouvrir popup devis"},
+        {"value": "scroll", "label": "Défiler vers section"}
+      ],
+      "default": "popup"
+    },
+    {
+      "type": "text",
+      "id": "cta_target",
+      "label": "Section cible (si défilement)",
+      "info": "ID de la section (ex: customizer, gallery)"
+    },
+    {
+      "type": "checkbox",
+      "id": "closable",
+      "label": "Permettre de fermer",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Barre d'annonce"
+    }
+  ]
+}
+{% endschema %}

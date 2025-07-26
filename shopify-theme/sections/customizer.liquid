@@ -1,0 +1,378 @@
+{% comment %}
+  Section Customizer - Outil de personnalisation
+{% endcomment %}
+
+<section id="customizer" class="py-20 lg:py-32 relative overflow-hidden section-transition">
+  <!-- Background Effects -->
+  <div class="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900"></div>
+  <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent opacity-50"></div>
+  
+  <!-- Animated Background Elements -->
+  <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-yellow-500/5 rounded-full blur-3xl animate-pulse"></div>
+  <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-orange-500/5 rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-full text-yellow-300 mb-6">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z"></path>
+        </svg>
+        <span class="font-semibold">{{ section.settings.badge_text | default: 'NOUVEAU : Customizer 3D Interactif' }}</span>
+      </div>
+      
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+        <span class="neon-text-cyan">{{ section.settings.title_line_1 | default: 'Créez Votre Néon' }}</span>
+        <br />
+        <span class="neon-text-purple">{{ section.settings.title_line_2 | default: 'En Quelques Clics' }}</span>
+      </h2>
+      
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+        {{ section.settings.description | default: '🎨 Notre customizer r&eacute;volutionnaire vous permet de concevoir votre n&eacute;on personnalis&eacute; en temps r&eacute;el. Visualisez, personnalisez, commandez - tout en une seule interface intuitive !' }}
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-16 items-center mb-20">
+      <!-- Customizer Preview -->
+      <div class="order-2 lg:order-1 relative">
+        <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-8 border border-gray-700 overflow-hidden">
+          <!-- Neon Border Effect -->
+          <div class="absolute inset-0 bg-gradient-to-r from-yellow-500/20 via-orange-500/20 to-red-500/20 rounded-3xl blur-xl opacity-50"></div>
+          
+          <div class="relative">
+            <!-- Customizer Image -->
+            <div class="mb-6">
+              <img
+                src="{{ section.settings.customizer_image | img_url: 'master' }}"
+                alt="Interface Customizer LumiNéon"
+                class="w-full h-auto rounded-lg border border-gray-600"
+              />
+            </div>
+            
+            <!-- Features Highlight -->
+            <div class="grid grid-cols-2 gap-4">
+              {% for block in section.blocks %}
+                {% if block.type == 'feature' %}
+                  <div class="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg border border-gray-700">
+                    <div class="text-yellow-400">
+                      {{ block.settings.icon }}
+                    </div>
+                    <div>
+                      <div class="text-white text-sm font-medium">{{ block.settings.title }}</div>
+                      <div class="text-gray-400 text-xs">{{ block.settings.description }}</div>
+                    </div>
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="order-1 lg:order-2">
+        <h3 class="text-3xl font-bold mb-6 neon-text-yellow">
+          {{ section.settings.content_title | default: '🚀 L&#39;Innovation Au Service De Votre Cr&eacute;ativit&eacute;' }}
+        </h3>
+        
+        <div class="space-y-6 mb-8">
+          {% for block in section.blocks %}
+            {% if block.type == 'step' %}
+              <div class="flex items-start gap-4">
+                <div class="w-8 h-8 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span class="text-white text-sm font-bold">{{ block.settings.number }}</span>
+                </div>
+                <div>
+                  <h4 class="text-white font-semibold mb-2">{{ block.settings.title }}</h4>
+                  <p class="text-gray-400">{{ block.settings.description }}</p>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4">
+          <button onclick="window.location.href='/pages/customizer?view=customiser'" class="group flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-neon-yellow">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+            </svg>
+            {{ section.settings.cta_primary | default: 'Lancer Le Customizer' }}
+            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </button>
+          
+          <button onclick="window.location.href='/pages/galerie'" class="px-8 py-4 border-2 border-yellow-400 text-yellow-400 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-yellow-400 hover:text-gray-900 hover:shadow-neon-yellow morph-button interactive">
+            {{ section.settings.cta_secondary | default: 'Voir Des Exemples' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Benefits Section -->
+    <div class="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-3xl p-8 lg:p-12 border border-gray-700">
+      <div class="text-center mb-8">
+        <h3 class="text-2xl lg:text-3xl font-bold mb-4 neon-text-gradient">
+          {{ section.settings.benefits_title | default: 'Pourquoi Utiliser Notre Customizer ?' }}
+        </h3>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        {% for block in section.blocks %}
+          {% if block.type == 'benefit' %}
+            <div class="text-center">
+              <div class="w-16 h-16 bg-gradient-to-r from-{{ block.settings.color_from }}-500 to-{{ block.settings.color_to }}-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                {{ block.settings.icon }}
+              </div>
+              <h4 class="text-xl font-semibold text-white mb-2">{{ block.settings.title }}</h4>
+              <p class="text-gray-400">{{ block.settings.description }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Customizer Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Texte du badge",
+      "default": "NOUVEAU : Customizer 3D Interactif"
+    },
+    {
+      "type": "text",
+      "id": "title_line_1",
+      "label": "Titre ligne 1",
+      "default": "Créez Votre Néon"
+    },
+    {
+      "type": "text",
+      "id": "title_line_2",
+      "label": "Titre ligne 2",
+      "default": "En Quelques Clics"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "🎨 Notre customizer r&eacute;volutionnaire vous permet de concevoir votre n&eacute;on personnalis&eacute; en temps r&eacute;el."
+    },
+    {
+      "type": "image_picker",
+      "id": "customizer_image",
+      "label": "Image du customizer"
+    },
+    {
+      "type": "text",
+      "id": "content_title",
+      "label": "Titre du contenu",
+      "default": "🚀 L&#39;Innovation Au Service De Votre Cr&eacute;ativit&eacute;"
+    },
+    {
+      "type": "text",
+      "id": "cta_primary",
+      "label": "Bouton principal",
+      "default": "Lancer Le Customizer"
+    },
+    {
+      "type": "text",
+      "id": "cta_secondary",
+      "label": "Bouton secondaire",
+      "default": "Voir Des Exemples"
+    },
+    {
+      "type": "text",
+      "id": "benefits_title",
+      "label": "Titre des bénéfices",
+      "default": "Pourquoi Utiliser Notre Customizer ?"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Fonctionnalité",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icône SVG"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "step",
+      "name": "Étape",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Numéro"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    },
+    {
+      "type": "benefit",
+      "name": "Bénéfice",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icône SVG"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "color_from",
+          "label": "Couleur de départ",
+          "default": "green"
+        },
+        {
+          "type": "text",
+          "id": "color_to",
+          "label": "Couleur d'arrivée",
+          "default": "emerald"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customizer Section",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z\"></path></svg>",
+            "title": "Design Intuitif",
+            "description": "Interface simple et puissante"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M13 10V3L4 14h7v7l9-11h-7z\"></path></svg>",
+            "title": "Aperçu Temps Réel",
+            "description": "Visualisez instantanément vos créations"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5 3l14 9-14 9V3z\"></path></svg>",
+            "title": "Effets Avancés",
+            "description": "Animations et couleurs illimitées"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z\"></path></svg>",
+            "title": "Mockup 3D",
+            "description": "Prévisualisez dans votre espace"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "1",
+            "title": "Saisissez Votre Texte",
+            "description": "Tapez votre message, slogan ou nom d'entreprise directement dans l'interface intuitive."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "2",
+            "title": "Personnalisez Le Style",
+            "description": "Choisissez couleurs, effets, animations et taille selon vos préférences créatives."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "3",
+            "title": "Visualisez En 3D",
+            "description": "Admirez votre création dans un environnement 3D réaliste avant commande finale."
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "<svg class=\"w-8 h-8\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M13 10V3L4 14h7v7l9-11h-7z\"></path></svg>",
+            "title": "Gain de Temps",
+            "description": "Créez votre néon en 5 minutes au lieu de plusieurs échanges par email.",
+            "color_from": "green",
+            "color_to": "emerald"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "<svg class=\"w-8 h-8\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z\"></path></svg>",
+            "title": "Visualisation Parfaite",
+            "description": "Voyez exactement le rendu final avant de valider votre commande.",
+            "color_from": "blue",
+            "color_to": "cyan"
+          }
+        },
+        {
+          "type": "benefit",
+          "settings": {
+            "icon": "<svg class=\"w-8 h-8\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M5 3l14 9-14 9V3z\"></path></svg>",
+            "title": "Créativité Illimitée",
+            "description": "Explorez toutes les possibilités avec nos outils avancés de personnalisation.",
+            "color_from": "purple",
+            "color_to": "pink"
+          }
+        }
+      ],
+      "settings": {
+        "badge_text": "NOUVEAU : Customizer 3D Interactif",
+        "title_line_1": "Créez Votre Néon",
+        "title_line_2": "En Quelques Clics",
+        "description": "🎨 Notre customizer révolutionnaire vous permet de concevoir votre néon personnalisé en temps réel. Visualisez, personnalisez, commandez - tout en une seule interface intuitive !",
+        "content_title": "🚀 L'Innovation Au Service De Votre Créativité",
+        "cta_primary": "Lancer Le Customizer",
+        "cta_secondary": "Voir Des Exemples",
+        "benefits_title": "Pourquoi Utiliser Notre Customizer ?"
+      }
+    }
+  ]
+}
+{% endschema %}

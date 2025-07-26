@@ -1,0 +1,217 @@
+{% comment %}
+  Template Index - Page d'accueil optimisée SEO
+{% endcomment %}
+
+{% assign page_title = 'Néons Personnalisés Haut de Gamme - Fabrication Française | LumiNéon' %}
+{% assign page_description = '✨ Fabricant français de néons LED personnalisés depuis 10 ans. Devis gratuit 24h + mockup 3D offert. Installation France entière, garantie 2 ans. +500 créations uniques. Contactez nos experts !' %}
+
+<!-- SEO Schema Organization -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "LumiNéon",
+  "description": "{{ page_description | escape }}",
+  "url": "{{ shop.url }}",
+  "logo": "{{ 'logo.png' | asset_url }}",
+  "image": "{{ 'og-image.jpg' | asset_url }}",
+  "telephone": "{{ settings.contact_phone | default: '+33 1 23 45 67 89' }}",
+  "email": "{{ settings.contact_email | default: 'contact@lumineon.fr' }}",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ settings.contact_address | default: '123 Rue de la Lumière' }}",
+    "addressLocality": "{{ settings.contact_city | default: 'Paris' }}",
+    "postalCode": "{{ settings.contact_postal_code | default: '75001' }}",
+    "addressCountry": "{{ settings.contact_country | default: 'FR' }}"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "48.8566",
+    "longitude": "2.3522"
+  },
+  "openingHours": "{{ settings.opening_hours | default: 'Mo-Fr 09:00-18:00, Sa 10:00-16:00' }}",
+  "priceRange": "{{ settings.price_range | default: '€€€' }}",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ settings.rating_value | default: '4.8' }}",
+    "reviewCount": "{{ settings.review_count | default: '127' }}"
+  },
+  "foundingDate": "2014",
+  "slogan": "Illuminez vos rêves en néon",
+  "knowsAbout": [
+    "Néons LED personnalisés",
+    "Enseignes lumineuses",
+    "Fabrication française",
+    "Installation professionnelle",
+    "Design sur mesure"
+  ],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Néons Personnalisés",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Product",
+          "name": "Néon Personnalisé LED",
+          "description": "Néon LED personnalisé haut de gamme, fabrication française artisanale, garantie 2 ans"
+        },
+        "price": "150",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock"
+      }
+    ]
+  },
+  "sameAs": [
+    "https://www.facebook.com/lumineonshop",
+    "https://www.instagram.com/lumineonshop",
+    "https://www.linkedin.com/company/lumineon"
+  ]
+}
+</script>
+
+<!-- FAQ Schema Enrichi -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quel est le délai de fabrication d'un néon personnalisé ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La production prend 7 à 12 jours ouvrés selon la complexité du projet, suivie d'une livraison express de 2 à 3 jours partout en France."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la durée de vie d'un néon LED ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nos néons LED ont une durée de vie de 50 000 heures minimum (soit environ 15 ans d'utilisation normale). Ils sont garantis 2 ans pièces et main d'œuvre."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le devis et le mockup 3D sont-ils vraiment gratuits ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolument ! Nous offrons un devis détaillé et un mockup 3D réaliste sans engagement. Cela vous permet de visualiser parfaitement votre projet avant validation."
+      }
+    }
+    ,
+    {
+      "@type": "Question",
+      "name": "Quels types de néons proposez-vous ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nous créons tous types de néons : enseignes commerciales, décoration intérieure, néons événementiels, logos d'entreprise, textes personnalisés, formes sur mesure..."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Livrez-vous partout en France ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, nous livrons dans toute la France métropolitaine en 2-3 jours ouvrés avec un emballage sécurisé et un suivi en temps réel."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Vos néons sont-ils étanches pour l'extérieur ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, nous proposons des néons avec protection IP65 ou IP67 pour usage extérieur, résistants aux intempéries et aux UV avec garantie spécifique."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Service Schema Enrichi -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Création de Néons Personnalisés",
+  "description": "Service complet de création, fabrication et installation de néons LED personnalisés haut de gamme avec garantie 2 ans",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "LumiNéon"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "France"
+  },
+  "serviceType": "Fabrication d'enseignes lumineuses",
+  "category": "Néons LED personnalisés",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services Néon",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Consultation Design Gratuite",
+          "description": "Étude personnalisée de votre projet avec conseils d'experts"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service", 
+          "name": "Mockup 3D Gratuit",
+          "description": "Visualisation 3D réaliste de votre néon avant fabrication"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Installation Professionnelle",
+          "description": "Installation par nos techniciens experts avec garantie 2 ans"
+        }
+      }
+    ]
+  }
+}
+</script>
+
+<!-- Main Content -->
+{% section 'hero' %}
+{% section 'customizer' %}
+{% section 'about' %}
+{% section 'gallery' %}
+{% section 'services' %}
+{% section 'testimonials' %}
+{% section 'order-tracking' %}
+{% section 'faq' %}
+
+<!-- SEO Meta Tags -->
+<script>
+document.title = '{{ page_title }}';
+if (document.querySelector('meta[name="description"]')) {
+  document.querySelector('meta[name="description"]').setAttribute('content', '{{ page_description }}');
+}
+
+// Add canonical URL
+if (!document.querySelector('link[rel="canonical"]')) {
+  const canonical = document.createElement('link');
+  canonical.rel = 'canonical';
+  canonical.href = '{{ shop.url }}';
+  document.head.appendChild(canonical);
+}
+
+// Add hreflang if multiple languages
+{% for locale in shop.published_locales %}
+  {% if locale != request.locale %}
+    const hreflang = document.createElement('link');
+    hreflang.rel = 'alternate';
+    hreflang.hreflang = '{{ locale.iso_code }}';
+    hreflang.href = '{{ locale.root_url }}';
+    document.head.appendChild(hreflang);
+  {% endif %}
+{% endfor %}
+</script>

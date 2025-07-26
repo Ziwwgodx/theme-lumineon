@@ -1,0 +1,83 @@
+{% comment %}
+  Template Page Galerie - Galerie immersive optimisée SEO
+{% endcomment %}
+
+{% assign page_title = 'Galerie Néon - +500 Créations Uniques | LumiNéon' %}
+{% assign page_description = 'Découvrez notre galerie de +500 néons personnalisés. Inspirez-vous de nos créations uniques : enseignes, déco, logos, événementiel. Devis gratuit.' %}
+
+<div class="min-h-screen bg-gray-900 text-white">
+  <!-- SEO Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": "Galerie Néon LumiNéon",
+    "description": "{{ page_description | escape }}",
+    "url": "{{ shop.url }}/pages/galerie",
+    "publisher": {
+      "@type": "Organization",
+      "name": "LumiNéon",
+      "url": "{{ shop.url }}",
+      "logo": "{{ 'logo.png' | asset_url }}"
+    },
+    "mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": "500",
+      "itemListElement": [
+        {
+          "@type": "CreativeWork",
+          "name": "Néon WOW - Impact Visuel",
+          "description": "Néon expressif WOW avec effet de profondeur et éclairage dynamique",
+          "category": "Décoration"
+        },
+        {
+          "@type": "CreativeWork", 
+          "name": "Logo Restaurant Le Gourmet",
+          "description": "Enseigne néon élégante pour restaurant gastronomique",
+          "category": "Commercial"
+        }
+      ]
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "{{ shop.url }}"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Galerie",
+        "item": "{{ shop.url }}/pages/galerie"
+      }
+    ]
+  }
+  </script>
+
+  {% section 'main-gallery-page' %}
+</div>
+
+<!-- SEO Meta Tags -->
+<script>
+document.title = '{{ page_title }}';
+if (document.querySelector('meta[name="description"]')) {
+  document.querySelector('meta[name="description"]').setAttribute('content', '{{ page_description }}');
+}
+
+// Add canonical URL
+if (!document.querySelector('link[rel="canonical"]')) {
+  const canonical = document.createElement('link');
+  canonical.rel = 'canonical';
+  canonical.href = '{{ shop.url }}/pages/galerie';
+  document.head.appendChild(canonical);
+}
+</script>

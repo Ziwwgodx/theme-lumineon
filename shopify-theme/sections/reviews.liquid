@@ -1,0 +1,749 @@
+{% comment %}
+  Section Reviews - Avis clients avec carousel horizontal
+{% endcomment %}
+
+<section id="reviews" class="py-20 lg:py-32 relative overflow-hidden section-transition">
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800"></div>
+  <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent opacity-50"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+        <span class="neon-text-yellow">{{ section.settings.title_line_1 | default: 'Ils Nous Font' }}</span>
+        <br />
+        <span class="neon-text-green">{{ section.settings.title_line_2 | default: 'Confiance' }}</span>
+      </h2>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+        {{ section.settings.description | default: 'Découvrez les témoignages de nos clients satisfaits. Leur succès est notre plus belle récompense et votre garantie de qualité.' }}
+      </p>
+      
+      <!-- Trust Indicators -->
+      <div class="mt-8 flex flex-wrap justify-center gap-6">
+        {% for block in section.blocks %}
+          {% if block.type == 'trust_indicator' %}
+            <div class="flex items-center gap-2 px-4 py-2 bg-{{ block.settings.color }}-500/20 border border-{{ block.settings.color }}-500/30 rounded-full text-{{ block.settings.color }}-300">
+              {% if block.settings.show_star %}
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+              {% endif %}
+              <span class="font-medium">{{ block.settings.text }}</span>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Testimonials Carousel -->
+    <div class="relative">
+      <!-- Navigation Buttons -->
+      <button onclick="scrollTestimonials('left')" class="testimonials-nav-btn absolute left-0 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-gray-800/90 hover:bg-gray-700 border border-gray-600 hover:border-yellow-500/50 rounded-full flex items-center justify-center text-gray-400 hover:text-yellow-400 transition-all duration-300 backdrop-blur-sm shadow-lg">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      
+      <button onclick="scrollTestimonials('right')" class="testimonials-nav-btn absolute right-0 top-1/2 transform -translate-y-1/2 z-10 w-12 h-12 bg-gray-800/90 hover:bg-gray-700 border border-gray-600 hover:border-yellow-500/50 rounded-full flex items-center justify-center text-gray-400 hover:text-yellow-400 transition-all duration-300 backdrop-blur-sm shadow-lg">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+
+      <!-- Scrollable Container -->
+      <div id="testimonials-container" class="flex gap-6 overflow-x-auto scrollbar-hide pb-4" style="scrollbar-width: none; -ms-overflow-style: none;">
+        {% for block in section.blocks %}
+          {% if block.type == 'testimonial' %}
+            <div class="flex-shrink-0 w-80 group">
+              <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700 transition-all duration-300 hover:border-yellow-500/50 hover:shadow-lg hover:shadow-yellow-500/20 h-full relative">
+                <!-- Quote Icon -->
+                <div class="absolute top-4 right-4 text-yellow-400/30">
+                  <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h4v10h-10z"/>
+                  </svg>
+                </div>
+
+                <!-- Content -->
+                <div class="relative z-10">
+                  <!-- Stars and Verified Badge -->
+                  <div class="flex items-center gap-3 mb-4">
+                    <div class="flex gap-1">
+                      {% assign rating = block.settings.rating | default: 5 %}
+                      {% for i in (1..5) %}
+                        <svg class="w-4 h-4 {% if i <= rating %}text-yellow-400 fill-current{% else %}text-gray-600{% endif %}" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                      {% endfor %}
+                    </div>
+                    <div class="px-2 py-1 bg-green-500/20 border border-green-500/30 rounded-full text-green-300 text-xs font-medium flex items-center gap-1">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                      </svg>
+                      Vérifié
+                    </div>
+                    <div class="text-gray-500 text-xs ml-auto">
+                      {{ block.settings.date }}
+                    </div>
+                  </div>
+
+                  <!-- Testimonial Text -->
+                  <p class="text-gray-300 text-sm leading-relaxed mb-4 line-clamp-4">
+                    "{{ block.settings.content }}"
+                  </p>
+
+                  <!-- Author Info -->
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-yellow-400/30 flex-shrink-0">
+                      {% if block.settings.author_image %}
+                        <img src="{{ block.settings.author_image | img_url: '80x80' }}" alt="{{ block.settings.author_name }}" class="w-full h-full object-cover" />
+                      {% else %}
+                        <div class="w-full h-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center text-white font-bold text-sm">
+                          {{ block.settings.author_name | slice: 0 }}
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h4 class="text-white font-semibold text-sm group-hover:text-yellow-400 transition-colors duration-300 truncate">
+                        {{ block.settings.author_name }}
+                      </h4>
+                      <p class="text-gray-400 text-xs truncate">
+                        {{ block.settings.author_role }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-3xl p-8 lg:p-12 border border-gray-700 mt-16">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+        {% for block in section.blocks %}
+          {% if block.type == 'stat' %}
+            <div class="group">
+              <div class="text-4xl lg:text-5xl font-bold neon-text-{{ block.settings.color }} mb-2 group-hover:scale-110 transition-transform duration-300">
+                {{ block.settings.number }}
+              </div>
+              <div class="text-gray-400">{{ block.settings.label }}</div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-12">
+      <p class="text-gray-300 mb-6 text-lg">
+        {{ section.settings.cta_text | default: 'Rejoignez nos clients satisfaits et illuminez votre success story' }}
+      </p>
+      <button onclick="openDevisPopup()" class="px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-neon-yellow">
+        {{ section.settings.cta_button | default: 'Commencer Mon Projet' }}
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+// Variables globales pour le carousel dynamique
+let testimonialInterval = null;
+let isUserInteracting = false;
+let autoScrollSpeed = 1;
+
+function scrollTestimonials(direction) {
+  const container = document.getElementById('testimonials-container');
+  if (!container) return;
+  
+  const scrollAmount = 350;
+  
+  if (direction === 'left') {
+    container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  } else {
+    container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  }
+  
+  pauseAutoScroll();
+}
+
+function pauseAutoScroll() {
+  isUserInteracting = true;
+  if (testimonialInterval) {
+    clearInterval(testimonialInterval);
+    testimonialInterval = null;
+  }
+  
+  setTimeout(() => {
+    if (isUserInteracting) {
+      isUserInteracting = false;
+      startAutoScroll();
+    }
+  }, 3000);
+}
+
+function startAutoScroll() {
+  if (testimonialInterval) {
+    clearInterval(testimonialInterval);
+  }
+  
+  testimonialInterval = setInterval(() => {
+    if (isUserInteracting) return;
+    
+    const container = document.getElementById('testimonials-container');
+    if (!container) return;
+    
+    const maxScroll = container.scrollWidth - container.clientWidth;
+    const currentScroll = container.scrollLeft;
+    
+    if (currentScroll >= maxScroll - 5) {
+      container.scrollTo({ left: 0, behavior: 'auto' });
+    } else {
+      container.scrollBy({ left: autoScrollSpeed, behavior: 'auto' });
+    }
+  }, 30);
+}
+
+// Initialisation du carousel
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('testimonials-container');
+  if (!container) return;
+
+  // Démarrer l'auto-scroll
+  setTimeout(() => {
+    if (!isUserInteracting) {
+      startAutoScroll();
+    }
+  }, 1000);
+  
+  // Gestion des interactions
+  container.addEventListener('mouseenter', () => {
+    pauseAutoScroll();
+  });
+  
+  container.addEventListener('mouseleave', () => {
+    setTimeout(() => {
+      if (!isUserInteracting) {
+        startAutoScroll();
+      }
+    }, 1000);
+  });
+  
+  // Pause sur scroll manuel
+  let scrollTimeout;
+  container.addEventListener('scroll', () => {
+    if (!isUserInteracting) {
+      pauseAutoScroll();
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        if (!isUserInteracting) {
+          startAutoScroll();
+        }
+      }, 2000);
+    }
+  });
+  
+  // Touch mobile
+  container.addEventListener('touchstart', () => {
+    pauseAutoScroll();
+  });
+  
+  container.addEventListener('touchend', () => {
+    setTimeout(() => {
+      if (!isUserInteracting) {
+        startAutoScroll();
+      }
+    }, 2000);
+  });
+  
+  // Optimisations performance
+  if ('getBattery' in navigator) {
+    navigator.getBattery().then(battery => {
+      if (battery.level < 0.2) {
+        autoScrollSpeed = 0.5;
+      }
+    });
+  }
+  
+  if ('connection' in navigator) {
+    const connection = navigator.connection;
+    if (connection.effectiveType === '2g' || connection.effectiveType === 'slow-2g') {
+      autoScrollSpeed = 0.3;
+    }
+  }
+});
+
+// Redémarrage du carousel
+function restartCarousel() {
+  isUserInteracting = false;
+  if (testimonialInterval) {
+    clearInterval(testimonialInterval);
+  }
+  startAutoScroll();
+}
+
+// Gestion focus/blur
+window.addEventListener('focus', () => {
+  if (!isUserInteracting) {
+    startAutoScroll();
+  }
+});
+
+window.addEventListener('blur', () => {
+  pauseAutoScroll();
+});
+
+// Nettoyage
+window.addEventListener('beforeunload', function() {
+  if (testimonialInterval) {
+    clearInterval(testimonialInterval);
+    testimonialInterval = null;
+  }
+});
+
+// Debug
+function getCarouselStatus() {
+  return {
+    isRunning: testimonialInterval !== null,
+    isUserInteracting: isUserInteracting,
+    speed: autoScrollSpeed,
+    container: document.getElementById('testimonials-container') !== null
+  };
+}
+</script>
+
+<style>
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.line-clamp-4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+#testimonials-container {
+  scroll-behavior: smooth;
+}
+
+#testimonials-container .group {
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#testimonials-container .group:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    0 0 30px rgba(251, 191, 36, 0.2);
+}
+
+@media (max-width: 768px) {
+  #testimonials-container .group {
+    width: 300px;
+  }
+  
+  .testimonials-nav-btn {
+    display: none;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Avis Clients",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_line_1",
+      "label": "Titre ligne 1",
+      "default": "Ils Nous Font"
+    },
+    {
+      "type": "text",
+      "id": "title_line_2",
+      "label": "Titre ligne 2",
+      "default": "Confiance"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Découvrez les témoignages de nos clients satisfaits. Leur succès est notre plus belle récompense et votre garantie de qualité."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte CTA",
+      "default": "Rejoignez nos clients satisfaits et illuminez votre success story"
+    },
+    {
+      "type": "text",
+      "id": "cta_button",
+      "label": "Bouton CTA",
+      "default": "Commencer Mon Projet"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_indicator",
+      "name": "Indicateur de confiance",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Couleur",
+          "options": [
+            {"value": "green", "label": "Vert"},
+            {"value": "blue", "label": "Bleu"},
+            {"value": "purple", "label": "Violet"},
+            {"value": "yellow", "label": "Jaune"}
+          ],
+          "default": "green"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_star",
+          "label": "Afficher étoile",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Témoignage",
+      "settings": [
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Nom de l'auteur"
+        },
+        {
+          "type": "text",
+          "id": "author_role",
+          "label": "Rôle de l'auteur"
+        },
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Photo de l'auteur"
+        },
+        {
+          "type": "textarea",
+          "id": "content",
+          "label": "Contenu du témoignage"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Note (étoiles)",
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "default": "Il y a 1 semaine"
+        }
+      ]
+    },
+    {
+      "type": "stat",
+      "name": "Statistique",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Nombre"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Couleur néon",
+          "options": [
+            {"value": "yellow", "label": "Jaune"},
+            {"value": "cyan", "label": "Cyan"},
+            {"value": "purple", "label": "Violet"},
+            {"value": "pink", "label": "Rose"}
+          ],
+          "default": "yellow"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Avis Clients",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "trust_indicator",
+          "settings": {
+            "text": "4.8/5 sur Google",
+            "color": "green",
+            "show_star": true
+          }
+        },
+        {
+          "type": "trust_indicator",
+          "settings": {
+            "text": "127+ Avis Vérifiés",
+            "color": "blue",
+            "show_star": false
+          }
+        },
+        {
+          "type": "trust_indicator",
+          "settings": {
+            "text": "98% Recommandent",
+            "color": "purple",
+            "show_star": false
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Sophie Martin",
+            "author_role": "Propriétaire Restaurant Le Gourmet",
+            "content": "LumiNéon a transformé notre façade ! Le néon personnalisé attire l'œil de tous les passants. L'équipe est professionnelle et le résultat dépasse nos attentes.",
+            "rating": 5,
+            "date": "Il y a 2 semaines"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Marc Dubois",
+            "author_role": "Gérant Bar à Cocktails Neon",
+            "content": "Installation parfaite, design unique et service client exceptionnel. Nos clients adorent l'ambiance créée par nos néons sur mesure. Je recommande vivement !",
+            "rating": 5,
+            "date": "Il y a 1 mois"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Élodie Bernard",
+            "author_role": "Directrice Salon Beauty Glow",
+            "content": "Un travail d'artiste ! L'équipe LumiNéon a su capter l'essence de notre marque et la retranscrire en lumière. Nos clientes sont séduites par cette atmosphère unique.",
+            "rating": 5,
+            "date": "Il y a 3 semaines"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Thomas Legrand",
+            "author_role": "Fondateur Startup TechVibe",
+            "content": "LumiNéon a donné une âme à nos bureaux. Le néon corporate qu'ils ont créé reflète parfaitement notre esprit innovant. Qualité et créativité au rendez-vous !",
+            "rating": 5,
+            "date": "Il y a 1 semaine"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Camille Rousseau",
+            "author_role": "Organisatrice Événements Luxe",
+            "content": "Pour notre mariage, nous voulions quelque chose d'unique. Le néon 'Mr & Mrs' créé par LumiNéon était absolument magique ! Tous nos invités ont été éblouis.",
+            "rating": 5,
+            "date": "Il y a 5 jours"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Antoine Moreau",
+            "author_role": "Propriétaire Boutique Vintage",
+            "content": "Le néon rétro qu'ils ont conçu pour ma boutique attire une clientèle incroyable. L'authenticité du style années 80 est parfaitement respectée. Bravo !",
+            "rating": 4,
+            "date": "Il y a 2 mois"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Isabelle Petit",
+            "author_role": "Directrice Marketing AgencePro",
+            "content": "Notre logo en néon dans l'open space crée une ambiance de travail stimulante. L'équipe LumiNéon a su traduire notre identité visuelle en lumière avec brio.",
+            "rating": 5,
+            "date": "Il y a 3 jours"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Julien Fabre",
+            "author_role": "Gérant Pizzeria Bella Vista",
+            "content": "Le néon 'Pizza' qu'ils ont installé a doublé notre visibilité ! Les couleurs sont éclatantes même en plein jour. Un investissement qui se rentabilise rapidement.",
+            "rating": 4,
+            "date": "Il y a 6 semaines"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Marie Lefevre",
+            "author_role": "Propriétaire Studio Yoga Zen",
+            "content": "Le néon 'Breathe' dans notre studio apporte une sérénité lumineuse parfaite. Les couleurs douces créent l'ambiance zen que nous recherchions. Merci !",
+            "rating": 5,
+            "date": "Il y a 1 semaine"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "David Chen",
+            "author_role": "Directeur Salle de Sport FitZone",
+            "content": "Notre néon motivationnel 'No Pain No Gain' booste l'énergie de nos membres ! La qualité LED est exceptionnelle, aucune panne depuis 8 mois.",
+            "rating": 5,
+            "date": "Il y a 4 jours"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Nathalie Blanc",
+            "author_role": "Responsable Boutique Mode Chic",
+            "content": "Le néon script de notre nom de marque en vitrine est un véritable aimant à clients. L'élégance du tracé reflète parfaitement notre positionnement haut de gamme.",
+            "rating": 4,
+            "date": "Il y a 2 semaines"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Olivier Durand",
+            "author_role": "Gérant Bar à Vins Le Millésime",
+            "content": "Le néon 'Wine Time' avec effet de verre qui se remplit est génial ! Nos clients adorent ce détail créatif. LumiNéon a vraiment pensé à tout.",
+            "rating": 5,
+            "date": "Il y a 10 jours"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Céline Roux",
+            "author_role": "Propriétaire Salon de Thé Cosy",
+            "content": "Notre néon 'Tea Time' crée une atmosphère chaleureuse parfaite. Les clients prennent souvent des photos devant ! Un excellent investissement marketing.",
+            "rating": 4,
+            "date": "Il y a 3 semaines"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Fabien Moreau",
+            "author_role": "Directeur Escape Game Mystery",
+            "content": "Les néons thématiques dans nos salles d'escape game créent une immersion totale ! Chaque couleur raconte une histoire. Travail remarquable !",
+            "rating": 5,
+            "date": "Il y a 1 mois"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Laure Girard",
+            "author_role": "Gérante Boulangerie Artisanale",
+            "content": "Le néon 'Fresh Bread' attire les clients dès 6h du matin ! La couleur dorée évoque parfaitement la chaleur du pain frais. Très satisfaite du résultat.",
+            "rating": 4,
+            "date": "Il y a 2 jours"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Alexandre Duval",
+            "author_role": "Propriétaire Hôtel Boutique",
+            "content": "Le néon 'Welcome' dans notre lobby crée une première impression inoubliable. Nos clients adorent prendre des selfies devant ! ROI immédiat.",
+            "rating": 5,
+            "date": "Il y a 1 jour"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Valérie Moreau",
+            "author_role": "Gérante Salon de Coiffure Glam",
+            "content": "Notre néon 'Beauty' en rose pastel sublime l'ambiance de notre salon. Les clientes se sentent dans un cocon de beauté dès leur arrivée.",
+            "rating": 5,
+            "date": "Il y a 3 jours"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Pierre Lemoine",
+            "author_role": "Directeur Salle de Concert",
+            "content": "Les néons de scène que LumiNéon a créés transforment chaque concert en spectacle visuel. L'ambiance est électrisante, littéralement !",
+            "rating": 5,
+            "date": "Il y a 1 semaine"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Caroline Dubois",
+            "author_role": "Directrice Agence Immobilière",
+            "content": "Notre logo en néon en vitrine nous démarque totalement de la concurrence. Les clients nous repèrent de loin ! Investissement très rentable.",
+            "rating": 4,
+            "date": "Il y a 5 jours"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "98%",
+            "label": "Satisfaction Client",
+            "color": "yellow"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "500+",
+            "label": "Projets Réalisés",
+            "color": "cyan"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "127+",
+            "label": "Avis Google",
+            "color": "purple"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "4.8★",
+            "label": "Note Moyenne",
+            "color": "pink"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

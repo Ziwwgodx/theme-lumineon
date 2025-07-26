@@ -1,0 +1,594 @@
+{% comment %}
+  Section Footer - Pied de page Shopify
+{% endcomment %}
+
+<footer class="relative bg-gray-900 border-t border-gray-800">
+  <!-- Background Effects -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+  
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid md:grid-cols-3 gap-12 mb-8">
+      
+      <!-- Company Info -->
+      <div>
+        <h3 class="text-2xl font-bold neon-text-cyan mb-4">LumiNéon</h3>
+        <p class="text-gray-400 mb-6 leading-relaxed text-sm">
+          {{ section.settings.company_description | default: 'Créateur de néons personnalisés haut de gamme depuis plus de 10 ans. Nous transformons vos idées en œuvres lumineuses exceptionnelles qui illuminent vos espaces avec style et originalité.' }}
+        </p>
+        <div class="flex flex-wrap gap-4">
+          {% for block in section.blocks %}
+            {% if block.type == 'feature_tag' %}
+              <div class="px-3 py-1 bg-{{ block.settings.color }}-500/20 border border-{{ block.settings.color }}-500/30 rounded-full text-{{ block.settings.color }}-300 text-sm">
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="text-white font-semibold mb-6 text-lg">{{ section.settings.nav_title | default: 'Navigation' }}</h4>
+        <ul class="space-y-3">
+          {% for block in section.blocks %}
+            {% if block.type == 'nav_link' %}
+              <li>
+                {% case block.settings.link_type %}
+                  {% when 'home' %}
+                    <a href="/" class="text-gray-400 hover:text-cyan-400 transition-colors duration-300 text-base">
+                      {{ block.settings.label }}
+                    </a>
+                  {% when 'blog' %}
+                    <a href="{{ block.settings.blog_url | default: '/blogs/inspirations-lumineon' }}" class="text-gray-400 hover:text-cyan-400 transition-colors duration-300 text-base">
+                      {{ block.settings.label }}
+                    </a>
+                  {% when 'collection' %}
+                    <a href="{{ block.settings.collection_url | default: '/collections/all' }}" class="text-gray-400 hover:text-cyan-400 transition-colors duration-300 text-base">
+                      {{ block.settings.label }}
+                    </a>
+                  {% when 'page' %}
+                    <a href="{{ block.settings.page_url }}" class="text-gray-400 hover:text-cyan-400 transition-colors duration-300 text-base">
+                      {{ block.settings.label }}
+                    </a>
+                  {% when 'section' %}
+                    <button
+                      onclick="navigateToSection('{{ block.settings.section_id }}')"
+                      class="text-gray-400 hover:text-cyan-400 transition-colors duration-300 text-base text-left"
+                    >
+                      {{ block.settings.label }}
+                    </button>
+                  {% when 'popup' %}
+                    <button
+                      onclick="openDevisPopup()"
+                      class="text-gray-400 hover:text-cyan-400 transition-colors duration-300 text-base text-left"
+                    >
+                      {{ block.settings.label }}
+                    </button>
+                  {% when 'external' %}
+                    <a href="{{ block.settings.external_url }}" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors duration-300 text-base">
+                      {{ block.settings.label }}
+                    </a>
+                {% endcase %}
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h4 class="text-white font-semibold mb-6 text-lg">{{ section.settings.contact_title | default: 'Contact' }}</h4>
+        <ul class="space-y-3 text-gray-400 text-base">
+          {% if settings.contact_phone %}
+            <li>{{ settings.contact_phone }}</li>
+          {% endif %}
+          {% if settings.contact_email %}
+            <li>{{ settings.contact_email }}</li>
+          {% endif %}
+          {% if settings.contact_address and settings.contact_city %}
+            <li>{{ settings.contact_address }}<br />{{ settings.contact_postal_code }} {{ settings.contact_city }}, {{ settings.contact_country }}</li>
+          {% endif %}
+        </ul>
+        
+        <!-- Social Links -->
+        {% if settings.facebook_url or settings.instagram_url or settings.twitter_url %}
+          <div class="flex gap-3 mt-6">
+            {% if settings.facebook_url %}
+              <a href="{{ settings.facebook_url }}" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+            {% endif %}
+            {% if settings.instagram_url %}
+              <a href="{{ settings.instagram_url }}" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.611-3.132-1.551-.684-.94-.684-2.08 0-3.02.684-.94 1.835-1.551 3.132-1.551s2.448.611 3.132 1.551c.684.94.684 2.08 0 3.02-.684.94-1.835 1.551-3.132 1.551z"/>
+                </svg>
+              </a>
+            {% endif %}
+            {% if settings.twitter_url %}
+              <a href="{{ settings.twitter_url }}" target="_blank" class="text-gray-400 hover:text-cyan-400 transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                </svg>
+              </a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="flex items-center gap-2 text-gray-400">
+        <span>© {{ 'now' | date: '%Y' }} LumiNéon. {{ section.settings.copyright_text | default: 'Créé avec ❤️ pour illuminer vos rêves.' }}</span>
+      </div>
+
+      <div class="flex items-center gap-6">
+        <!-- Liens légaux (popups) -->
+        {% for block in section.blocks %}
+          {% if block.type == 'legal_link' %}
+            <button 
+              onclick="openLegalPopup('{{ block.settings.page_type }}')"
+              class="text-gray-400 hover:text-white transition-colors duration-300 text-sm"
+            >
+              {{ block.settings.label }}
+            </button>
+          {% endif %}
+        {% endfor %}
+        
+        <button
+          onclick="scrollToTop()"
+          class="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-cyan-500/50 rounded-lg text-gray-400 hover:text-cyan-400 transition-all duration-300"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12"></path>
+          </svg>
+          {{ section.settings.back_to_top | default: 'Haut de page' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Legal Popups -->
+<div id="legal-popup" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+  <div class="relative max-w-4xl w-full max-h-[90vh] overflow-hidden">
+    <!-- Neon Glow Effect -->
+    <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-xl"></div>
+    
+    <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl border border-gray-700 overflow-hidden">
+      <!-- Header -->
+      <div class="flex items-center justify-between p-6 border-b border-gray-700">
+        <div class="flex items-center gap-3">
+          <div class="text-cyan-400">
+            <svg id="legal-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+            </svg>
+          </div>
+          <h2 id="legal-title" class="text-2xl font-bold neon-text-gradient"></h2>
+        </div>
+        <button
+          onclick="closeLegalPopup()"
+          class="text-gray-400 hover:text-white transition-colors duration-300 p-2 hover:bg-gray-700 rounded-lg"
+        >
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div id="legal-content" class="p-6 max-h-[70vh] overflow-y-auto">
+        <!-- Content will be populated by JavaScript -->
+      </div>
+
+      <!-- Footer -->
+      <div class="border-t border-gray-700 p-4 bg-gray-800/50">
+        <div class="flex items-center justify-between">
+          <p class="text-sm text-gray-400">
+            Dernière mise à jour : Décembre 2024
+          </p>
+          <button
+            onclick="closeLegalPopup()"
+            class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg text-white font-medium transition-all duration-300 hover:scale-105"
+          >
+            Fermer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function navigateToSection(sectionId) {
+  // If we're on the home page, scroll to section
+  if (window.location.pathname === '/' || window.location.pathname === '') {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  } else {
+    // If we're on another page, go to home page with hash
+    window.location.href = '/#' + sectionId;
+  }
+}
+
+let currentLegalPage = null;
+
+function openLegalPopup(pageType) {
+  currentLegalPage = pageType;
+  const popup = document.getElementById('legal-popup');
+  const title = document.getElementById('legal-title');
+  const content = document.getElementById('legal-content');
+  const icon = document.getElementById('legal-icon');
+  
+  // Set title and icon based on page type
+  switch(pageType) {
+    case 'mentions':
+      title.textContent = 'Mentions Légales';
+      icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>';
+      content.innerHTML = getMentionsContent();
+      break;
+    case 'cgv':
+      title.textContent = 'Conditions Générales de Vente';
+      icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>';
+      content.innerHTML = getCGVContent();
+      break;
+    case 'confidentialite':
+      title.textContent = 'Politique de Confidentialité';
+      icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>';
+      content.innerHTML = getConfidentialiteContent();
+      break;
+  }
+  
+  popup.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLegalPopup() {
+  const popup = document.getElementById('legal-popup');
+  popup.classList.add('hidden');
+  document.body.style.overflow = 'auto';
+  currentLegalPage = null;
+}
+
+function getMentionsContent() {
+  return `
+    <div class="space-y-6">
+      <section>
+        <h3 class="text-xl font-semibold text-white mb-4 neon-text-cyan">1. Informations Légales</h3>
+        <div class="space-y-3 text-gray-300">
+          <p><strong>Raison sociale :</strong> LumiNéon SARL</p>
+          <p><strong>Siège social :</strong> 123 Rue de la Lumière, 75001 Paris, France</p>
+          <p><strong>SIRET :</strong> 123 456 789 00012</p>
+          <p><strong>RCS :</strong> Paris B 123 456 789</p>
+          <p><strong>TVA Intracommunautaire :</strong> FR12 123456789</p>
+          <p><strong>Capital social :</strong> 50 000 €</p>
+          <p><strong>Téléphone :</strong> +33 1 23 45 67 89</p>
+          <p><strong>Email :</strong> contact@lumineon.fr</p>
+        </div>
+      </section>
+      <section>
+        <h3 class="text-xl font-semibold text-white mb-4 neon-text-purple">2. Directeur de Publication</h3>
+        <div class="text-gray-300">
+          <p><strong>Directeur :</strong> Jean-Pierre Lumière</p>
+          <p><strong>Qualité :</strong> Gérant de la société LumiNéon SARL</p>
+        </div>
+      </section>
+    </div>
+  `;
+}
+
+function getCGVContent() {
+  return `
+    <div class="space-y-6">
+      <section>
+        <h3 class="text-xl font-semibold text-white mb-4 neon-text-cyan">1. Objet et Champ d'Application</h3>
+        <div class="text-gray-300 space-y-3">
+          <p>Les présentes Conditions Générales de Vente (CGV) s'appliquent à toutes les commandes passées auprès de LumiNéon SARL pour la création, fabrication et installation de néons personnalisés.</p>
+          <p>Toute commande implique l'acceptation sans réserve des présentes CGV.</p>
+        </div>
+      </section>
+      <section>
+        <h3 class="text-xl font-semibold text-white mb-4 neon-text-purple">2. Garantie et SAV</h3>
+        <div class="text-gray-300 space-y-3">
+          <p><strong>Garantie :</strong> 2 ans pièces et main d'œuvre sur tous nos produits.</p>
+          <p><strong>SAV :</strong> Support technique 24/7 pendant la période de garantie.</p>
+        </div>
+      </section>
+    </div>
+  `;
+}
+
+function getConfidentialiteContent() {
+  return `
+    <div class="space-y-6">
+      <section>
+        <h3 class="text-xl font-semibold text-white mb-4 neon-text-cyan">1. Collecte des Données</h3>
+        <div class="text-gray-300 space-y-3">
+          <p><strong>Données collectées :</strong> Nom, prénom, email, téléphone, adresse, informations sur votre projet.</p>
+          <p><strong>Finalité :</strong> Traitement de votre demande, suivi commercial, facturation, livraison.</p>
+          <p><strong>Base légale :</strong> Consentement et exécution contractuelle.</p>
+        </div>
+      </section>
+      <section>
+        <h3 class="text-xl font-semibold text-white mb-4 neon-text-purple">2. Vos Droits RGPD</h3>
+        <div class="text-gray-300 space-y-3">
+          <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+          <ul class="list-disc list-inside space-y-1 ml-4">
+            <li><strong>Accès :</strong> Connaître les données que nous détenons</li>
+            <li><strong>Rectification :</strong> Corriger vos données inexactes</li>
+            <li><strong>Effacement :</strong> Supprimer vos données</li>
+          </ul>
+          <p>Pour exercer ces droits : <strong>contact@lumineon.fr</strong></p>
+        </div>
+      </section>
+    </div>
+  `;
+}
+
+// Close popup on escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && currentLegalPage) {
+    closeLegalPopup();
+  }
+});
+
+// Close popup on backdrop click
+document.getElementById('legal-popup').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeLegalPopup();
+  }
+});
+
+// Open devis popup
+function openDevisPopup() {
+  if (typeof window.openDevisPopup === 'function') {
+    window.openDevisPopup();
+  } else {
+    alert('🎨 Contactez-nous pour créer votre néon personnalisé !\n📞 +33 1 23 45 67 89\n📧 contact@lumineon.fr');
+  }
+}
+</script>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "company_description",
+      "label": "Description de l'entreprise",
+      "default": "Créateur de néons personnalisés haut de gamme depuis plus de 10 ans. Nous transformons vos idées en œuvres lumineuses exceptionnelles qui illuminent vos espaces avec style et originalité."
+    },
+    {
+      "type": "text",
+      "id": "nav_title",
+      "label": "Titre navigation",
+      "default": "Navigation"
+    },
+    {
+      "type": "text",
+      "id": "contact_title",
+      "label": "Titre contact",
+      "default": "Contact"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Texte copyright",
+      "default": "Créé avec ❤️ pour illuminer vos rêves."
+    },
+    {
+      "type": "text",
+      "id": "back_to_top",
+      "label": "Texte retour en haut",
+      "default": "Haut de page"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature_tag",
+      "name": "Tag fonctionnalité",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Couleur",
+          "options": [
+            {"value": "cyan", "label": "Cyan"},
+            {"value": "purple", "label": "Violet"},
+            {"value": "pink", "label": "Rose"}
+          ],
+          "default": "cyan"
+        }
+      ]
+    },
+    {
+      "type": "nav_link",
+      "name": "Lien de navigation",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé"
+        },
+        {
+          "type": "select",
+          "id": "link_type",
+          "label": "Type de lien",
+          "options": [
+            {"value": "home", "label": "Page d'accueil"},
+            {"value": "blog", "label": "Blog"},
+            {"value": "collection", "label": "Collection"},
+            {"value": "page", "label": "Page"},
+            {"value": "section", "label": "Section (scroll)"},
+            {"value": "popup", "label": "Popup"},
+            {"value": "external", "label": "Lien externe"}
+          ],
+          "default": "section"
+        },
+        {
+          "type": "url",
+          "id": "blog_url",
+          "label": "URL du blog",
+          "info": "Utilisé si type = Blog"
+        },
+        {
+          "type": "url",
+          "id": "collection_url",
+          "label": "URL de la collection",
+          "info": "Utilisé si type = Collection"
+        },
+        {
+          "type": "url",
+          "id": "page_url",
+          "label": "URL de la page",
+          "info": "Utilisé si type = Page"
+        },
+        {
+          "type": "text",
+          "id": "section_id",
+          "label": "ID de la section",
+          "info": "Pour scroll sur page d'accueil. Valeurs possibles: hero, customizer, about, gallery, services, testimonials, order-tracking, faq"
+        },
+        {
+          "type": "url",
+          "id": "external_url",
+          "label": "URL externe",
+          "info": "Utilisé si type = Lien externe"
+        }
+      ]
+    },
+    {
+      "type": "legal_link",
+      "name": "Lien légal",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé"
+        },
+        {
+          "type": "select",
+          "id": "page_type",
+          "label": "Type de page",
+          "options": [
+            {"value": "mentions", "label": "Mentions Légales"},
+            {"value": "cgv", "label": "CGV"},
+            {"value": "confidentialite", "label": "Confidentialité"}
+          ],
+          "default": "mentions"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer",
+      "blocks": [
+        {
+          "type": "feature_tag",
+          "settings": {
+            "text": "Design Sur Mesure",
+            "color": "cyan"
+          }
+        },
+        {
+          "type": "feature_tag",
+          "settings": {
+            "text": "Fabrication Premium",
+            "color": "purple"
+          }
+        },
+        {
+          "type": "feature_tag",
+          "settings": {
+            "text": "Installation Pro",
+            "color": "pink"
+          }
+        },
+        {
+          "type": "nav_link",
+          "settings": {
+            "label": "Accueil",
+            "link_type": "home"
+          }
+        },
+        {
+          "type": "nav_link",
+          "settings": {
+            "label": "À Propos",
+            "link_type": "section",
+            "section_id": "about"
+          }
+        },
+        {
+          "type": "nav_link",
+          "settings": {
+            "label": "Galerie",
+            "link_type": "section",
+            "section_id": "gallery"
+          }
+        },
+        {
+          "type": "nav_link",
+          "settings": {
+            "label": "Services",
+            "link_type": "section",
+            "section_id": "services"
+          }
+        },
+        {
+          "type": "nav_link",
+          "settings": {
+            "label": "Suivi",
+            "link_type": "section",
+            "section_id": "order-tracking"
+          }
+        },
+        {
+          "type": "legal_link",
+          "settings": {
+            "label": "Mentions Légales",
+            "page_type": "mentions"
+          }
+        },
+        {
+          "type": "legal_link",
+          "settings": {
+            "label": "CGV",
+            "page_type": "cgv"
+          }
+        },
+        {
+          "type": "legal_link",
+          "settings": {
+            "label": "Confidentialité",
+            "page_type": "confidentialite"
+          }
+        }
+      ],
+      "settings": {
+        "company_description": "Créateur de néons personnalisés haut de gamme depuis plus de 10 ans. Nous transformons vos idées en œuvres lumineuses exceptionnelles qui illuminent vos espaces avec style et originalité.",
+        "nav_title": "Navigation",
+        "contact_title": "Contact",
+        "copyright_text": "Créé avec ❤️ pour illuminer vos rêves.",
+        "back_to_top": "Haut de page"
+      }
+    }
+  ]
+}
+{% endschema %}

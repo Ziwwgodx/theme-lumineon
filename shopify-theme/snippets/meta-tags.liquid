@@ -1,0 +1,319 @@
+{% comment %}
+  Snippet Meta Tags - Balises SEO et métadonnées
+{% endcomment %}
+
+<!-- SEO Meta Tags -->
+<meta name="robots" content="index, follow">
+<meta name="author" content="{{ shop.name }}">
+<meta name="keywords" content="{{ settings.seo_keywords | default: 'néon personnalisé, enseigne LED sur mesure, néon haut de gamme, fabrication française néon, enseigne lumineuse commerciale, décoration néon LED, installation néon professionnel, néon sur mesure Paris, créateur néon France, néon LED premium' }}">
+
+<!-- Open Graph Meta Tags -->
+<meta property="og:title" content="{% if template == 'index' %}Néons Personnalisés Haut de Gamme - Fabrication Française | {{ shop.name }}{% elsif page_title %}{{ page_title }} - {{ shop.name }}{% else %}{{ shop.name }}{% endif %}">
+<meta property="og:description" content="{% if page_description %}{{ page_description }}{% else %}{{ settings.seo_description | default: '✨ Fabricant français de néons LED personnalisés haut de gamme. Devis gratuit 24h + mockup 3D offert. Installation France entière, garantie 2 ans. +500 créations uniques réalisées.' }}{% endif %}">
+<meta property="og:description" content="{% if page_description %}{{ page_description }}{% else %}{{ settings.seo_description | default: 'Cr&eacute;ateur de n&eacute;ons personnalis&eacute;s premium. Devis gratuit 24h, installation partout en France, garantie 2 ans. +500 cr&eacute;ations r&eacute;alis&eacute;es.' }}{% endif %}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:image" content="{% if settings.og_image %}{{ settings.og_image | img_url: '1200x630' }}{% else %}{{ 'og-image.jpg' | asset_url }}{% endif %}">
+<meta property="og:site_name" content="{{ shop.name }}">
+<meta property="og:locale" content="{{ request.locale.iso_code }}">
+
+<!-- Twitter Card Meta Tags -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{% if template == 'index' %}Néons Personnalisés Haut de Gamme - Fabrication Française{% elsif page_title %}{{ page_title }}{% else %}{{ shop.name }}{% endif %}">
+<meta name="twitter:description" content="{% if page_description %}{{ page_description }}{% else %}{{ settings.seo_description | default: '✨ Fabricant français de néons LED personnalisés. Devis gratuit 24h + mockup 3D offert. Installation France entière, garantie 2 ans.' }}{% endif %}">
+<meta name="twitter:description" content="{% if page_description %}{{ page_description }}{% else %}{{ settings.seo_description | default: 'Cr&eacute;ateur de n&eacute;ons personnalis&eacute;s premium. Devis gratuit 24h, installation partout en France, garantie 2 ans.' }}{% endif %}">
+<meta name="twitter:image" content="{% if settings.og_image %}{{ settings.og_image | img_url: '1200x630' }}{% else %}{{ 'og-image.jpg' | asset_url }}{% endif %}">
+{% if settings.twitter_handle %}
+<meta name="twitter:site" content="@{{ settings.twitter_handle }}">
+<meta name="twitter:creator" content="@{{ settings.twitter_handle }}">
+{% endif %}
+
+<!-- Additional Meta Tags -->
+<meta name="theme-color" content="{{ settings.neon_cyan | default: '#00f5ff' }}">
+<meta name="msapplication-TileColor" content="{{ settings.neon_cyan | default: '#00f5ff' }}">
+
+<!-- Canonical URL -->
+<link rel="canonical" href="{{ canonical_url }}">
+
+<!-- Alternate Language Links -->
+{% for locale in shop.published_locales %}
+  {% if locale != request.locale %}
+    <link rel="alternate" hreflang="{{ locale.iso_code }}" href="{{ request.path | prepend: locale.root_url }}">
+  {% endif %}
+{% endfor %}
+
+<!-- Schema.org Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "{{ shop.name }}",
+  "name": "LumiN&eacute;on",
+  "description": "Fabricant français de néons LED personnalisés haut de gamme depuis 10 ans. Spécialiste des enseignes lumineuses sur mesure avec garantie 2 ans.",
+  "url": "{{ shop.url }}",
+  "logo": "{% if settings.logo %}{{ settings.logo | img_url: 'master' }}{% endif %}",
+  "image": "{% if settings.og_image %}{{ settings.og_image | img_url: 'master' }}{% endif %}",
+  {% if settings.contact_phone %}
+  "telephone": "{{ settings.contact_phone }}",
+  {% endif %}
+  {% if settings.contact_email %}
+  "email": "{{ settings.contact_email }}",
+  {% endif %}
+  {% if settings.contact_address %}
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "{{ settings.contact_address }}",
+    "addressLocality": "{{ settings.contact_city }}",
+    "postalCode": "{{ settings.contact_postal_code }}",
+    "addressCountry": "{{ settings.contact_country }}"
+  },
+  {% endif %}
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "48.8566",
+    "longitude": "2.3522"
+  },
+  {% if settings.opening_hours %}
+  "openingHours": "{{ settings.opening_hours }}",
+  {% endif %}
+  {% if settings.price_range %}
+  "priceRange": "{{ settings.price_range }}",
+  {% endif %}
+  {% if settings.rating_value and settings.review_count %}
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ settings.rating_value }}",
+    "reviewCount": "{{ settings.review_count }}"
+  },
+  {% endif %}
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Néons Personnalisés LED",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Product",
+          "name": "Néon LED Personnalisé Haut de Gamme",
+          "description": "Néon LED personnalisé haute qualité, fabrication française artisanale, garantie 2 ans"
+        },
+        "price": "150",
+        "priceCurrency": "EUR",
+        "availability": "https://schema.org/InStock"
+      }
+    ]
+  },
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "itemOffered": {
+        "@type": "Service",
+        "name": "Création de Néons Personnalisés",
+        "description": "Service complet de création, fabrication et installation de néons LED personnalisés"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "France"
+      }
+    }
+  ],
+  "sameAs": [
+    {% if settings.facebook_url %}"{{ settings.facebook_url }}"{% unless settings.instagram_url or settings.twitter_url or settings.linkedin_url %} {% endunless %}{% endif %}
+    {% if settings.instagram_url %}{% if settings.facebook_url %},{% endif %}"{{ settings.instagram_url }}"{% unless settings.twitter_url or settings.linkedin_url %} {% endunless %}{% endif %}
+    {% if settings.twitter_url %}{% if settings.facebook_url or settings.instagram_url %},{% endif %}"{{ settings.twitter_url }}"{% unless settings.linkedin_url %} {% endunless %}{% endif %}
+    {% if settings.linkedin_url %}{% if settings.facebook_url or settings.instagram_url or settings.twitter_url %},{% endif %}"{{ settings.linkedin_url }}" {% endif %}
+  ]
+}
+</script>
+
+{% if template contains 'product' %}
+<!-- Product Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "{{ product.title | escape }}",
+  "description": "{{ product.description | strip_html | escape | default: 'Néon LED personnalisé haut de gamme, fabrication française artisanale, garantie 2 ans, installation professionnelle' }}",
+  "image": [
+    {% for image in product.images limit: 5 %}
+      "{{ image | img_url: 'master' }}"{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ],
+  "brand": {
+    "@type": "Brand",
+    "name": "{{ shop.name }}"
+  },
+  "category": "Enseigne lumineuse",
+  "material": "LED haute qualité",
+  "manufacturer": {
+    "@type": "Organization",
+    "name": "{{ shop.name }}",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "FR"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "{{ cart.currency.iso_code }}",
+    "price": "{{ product.price | money_without_currency }}",
+    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "priceValidUntil": "{{ 'now' | date: '%Y' | plus: 1 }}-12-31",
+    "itemCondition": "https://schema.org/NewCondition",
+    "warranty": "2 ans pièces et main d'œuvre",
+    "seller": {
+      "@type": "Organization",
+      "name": "{{ shop.name }}"
+    }
+  },
+  {% if settings.rating_value and settings.review_count %}
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "{{ settings.rating_value }}",
+    "reviewCount": "{{ settings.review_count }}",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  {% endif %}
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Durée de vie",
+      "value": "50 000 heures"
+    },
+    {
+      "@type": "PropertyValue", 
+      "name": "Garantie",
+      "value": "2 ans"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Fabrication",
+      "value": "France"
+    }
+  ]
+}
+</script>
+{% endif %}
+
+{% if template == 'index' %}
+<!-- FAQ Schema for Homepage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quel est le délai de fabrication d'un néon personnalisé ?",
+      "name": "Quel est le d&eacute;lai de fabrication d&#39;un n&eacute;on personnalis&eacute; ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La production prend 7 à 12 jours ouvrés selon la complexité du projet, suivie d'une livraison express de 2 à 3 jours partout en France."
+        "text": "La production prend 7 &agrave; 12 jours ouvr&eacute;s selon la complexit&eacute; du projet, suivie d&#39;une livraison express de 2 &agrave; 3 jours partout en France."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quelle est la durée de vie d'un néon LED ?",
+      "name": "Quelle est la dur&eacute;e de vie d&#39;un n&eacute;on LED ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+    {
+      "@type": "Question",
+      "name": "Le devis et le mockup 3D sont-ils vraiment gratuits ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolument ! Nous offrons un devis détaillé et un mockup 3D réaliste sans engagement. Cela vous permet de visualiser parfaitement votre projet avant validation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quels types de néons proposez-vous ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nous créons tous types de néons : enseignes commerciales, décoration intérieure, néons événementiels, logos d'entreprise, textes personnalisés, formes sur mesure..."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Vos néons sont-ils étanches pour l'extérieur ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oui, nous proposons des néons avec protection IP65 ou IP67 pour usage extérieur, résistants aux intempéries et aux UV avec garantie spécifique."
+      }
+    }
+        "text": "Nos néons LED ont une durée de vie de 50 000 heures minimum (soit environ 15 ans d'utilisation normale). Ils sont garantis 2 ans pièces et main d'œuvre."
+        "text": "Nos n&eacute;ons LED ont une dur&eacute;e de vie de 50 000 heures minimum (soit environ 15 ans d&#39;utilisation normale). Ils sont garantis 2 ans pi&egrave;ces et main d&#39;œuvre."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Le devis et le mockup 3D sont-ils vraiment gratuits ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolument ! Nous offrons un devis détaillé et un mockup 3D réaliste sans engagement. Cela vous permet de visualiser parfaitement votre projet avant validation."
+        "text": "Absolument ! Nous offrons un devis d&eacute;taill&eacute; et un mockup 3D r&eacute;aliste sans engagement. Cela vous permet de visualiser parfaitement votre projet avant validation."
+      }
+    }
+  ]
+}
+</script>
+
+<!-- Service Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Création de Néons Personnalisés",
+  "description": "Service complet de création, fabrication et installation de néons LED personnalisés haut de gamme",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "{{ shop.name }}"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "France"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services Néon",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Consultation Design Gratuite"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service", 
+          "name": "Mockup 3D Gratuit"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Installation Professionnelle"
+        }
+      }
+    ]
+  }
+}
+</script>
+{% endif %}
+
+<!-- Preload Critical Resources -->
+<link rel="preload" as="style" href="{{ 'neon-effects.css' | asset_url }}">
+<link rel="preload" as="script" href="{{ 'neon-interactions.js' | asset_url }}">
+
+<!-- DNS Prefetch -->
+<link rel="dns-prefetch" href="//fonts.googleapis.com">
+<link rel="dns-prefetch" href="//cdn.shopify.com">
+
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>

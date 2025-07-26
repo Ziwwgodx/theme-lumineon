@@ -1,0 +1,829 @@
+{% comment %}
+  Section Header - En-tête optimisé avec navigation complète
+{% endcomment %}
+
+<style>
+/* Header Styles Premium */
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+  transition: all 0.3s ease;
+  background: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+}
+
+.site-header.scrolled {
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(20px);
+  border-bottom-color: rgba(0, 245, 255, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.header-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+/* Logo Premium */
+.logo {
+  font-size: 1.875rem;
+  font-weight: 900;
+  background: linear-gradient(45deg, #00f5ff, #a855f7, #ec4899);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 6s ease-in-out infinite;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.logo::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #00f5ff, transparent);
+  border-radius: 2px;
+  animation: underline-glow 2s ease-in-out infinite;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+  filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.5));
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes underline-glow {
+  0%, 100% { opacity: 0.3; transform: scaleX(0.8); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+/* Navigation Desktop */
+.desktop-nav {
+  display: none;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  color: #d1d5db;
+  background: none;
+  border: none;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 8px;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+  background: rgba(0, 245, 255, 0.1);
+}
+
+.nav-link.highlight {
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.nav-link.highlight:hover {
+  color: #f59e0b;
+  background: rgba(251, 191, 36, 0.1);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00f5ff, #a855f7);
+  transition: width 0.3s ease;
+  border-radius: 1px;
+}
+
+.nav-link.highlight::after {
+  background: linear-gradient(90deg, #fbbf24, #f97316);
+}
+
+.nav-link:hover::after {
+  width: 80%;
+}
+
+/* CTA Button Premium */
+.header-cta {
+  position: relative;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(45deg, #00f5ff, #a855f7, #ec4899);
+  background-size: 300% 300%;
+  animation: gradient-shift 3s ease infinite;
+  border: 2px solid transparent;
+  border-radius: 50px;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  overflow: hidden;
+}
+
+.header-cta::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #00f5ff, #a855f7, #ec4899, #fbbf24);
+  background-size: 400% 400%;
+  border-radius: inherit;
+  z-index: -1;
+  animation: gradient-shift 2s ease infinite;
+  filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.header-cta:hover::before {
+  opacity: 0.8;
+}
+
+.header-cta:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 0 30px rgba(0, 245, 255, 0.6),
+    0 0 60px rgba(168, 85, 247, 0.4),
+    0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Shine Effect */
+.header-cta::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.7s;
+}
+
+.header-cta:hover::after {
+  transform: translateX(100%);
+}
+
+/* Mobile Menu */
+.mobile-menu-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  width: 44px;
+  height: 44px;
+}
+
+.mobile-menu-button:hover {
+  color: #00f5ff;
+  transform: scale(1.1);
+  background: rgba(0, 245, 255, 0.1);
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.98), rgba(31, 41, 55, 0.98));
+  backdrop-filter: blur(20px);
+  z-index: 60;
+  overflow-y: auto;
+}
+
+.mobile-menu.open {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-menu-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.mobile-nav-link {
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(55, 65, 81, 0.6));
+  border: 1px solid rgba(75, 85, 99, 0.5);
+  color: #d1d5db;
+  padding: 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+  font-weight: 500;
+  width: 100%;
+  text-decoration: none;
+  display: block;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.mobile-nav-link:hover {
+  color: #00f5ff;
+  transform: scale(1.02);
+  border-color: #00f5ff;
+  background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(168, 85, 247, 0.1));
+  box-shadow: 0 4px 20px rgba(0, 245, 255, 0.3);
+}
+
+.mobile-nav-link.highlight {
+  background: linear-gradient(135deg, #fbbf24, #f97316);
+  color: white;
+  font-weight: 700;
+  border-color: #fbbf24;
+}
+
+.mobile-nav-link.highlight:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(251, 191, 36, 0.4);
+}
+
+/* Responsive */
+@media (min-width: 768px) {
+  .desktop-nav {
+    display: flex;
+  }
+  
+  .header-cta {
+    font-size: 1rem;
+    padding: 0.875rem 2rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .logo {
+    font-size: 1.5rem;
+  }
+  
+  .header-cta {
+    padding: 0.625rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+</style>
+
+<header class="site-header" id="site-header">
+  <div class="header-container">
+    <div class="header-content">
+      <!-- Logo -->
+      <div>
+        {% if section.settings.logo %}
+          <a href="/" class="logo">
+            <img 
+              src="{{ section.settings.logo | img_url: '120x60' }}" 
+              alt="{{ shop.name }}" 
+              style="height: 40px; width: auto;"
+            />
+          </a>
+        {% else %}
+          <a href="/" class="logo">
+            {{ section.settings.logo_text | default: shop.name }}
+          </a>
+        {% endif %}
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="desktop-nav">
+        {% for block in section.blocks %}
+          {% if block.type == 'nav_item' %}
+            {% assign link_class = 'nav-link' %}
+            
+            {% if block.settings.highlight %}
+              {% assign link_class = link_class | append: ' highlight' %}
+            {% endif %}
+
+            {% case block.settings.link_type %}
+              {% when 'home' %}
+                <a href="/" class="{{ link_class }}">
+                  {{ block.settings.label }}
+                </a>
+              {% when 'blog' %}
+                <a href="{{ block.settings.blog_url | default: '/blogs/inspirations-lumineon' }}" class="{{ link_class }}">
+                  {{ block.settings.label }}
+                </a>
+              {% when 'customizer' %}
+                <a href="/pages/customizer?view=customiser" class="{{ link_class }}">
+                  {{ block.settings.label }}
+                </a>
+              {% when 'gallery' %}
+                <a href="/pages/galerie" class="{{ link_class }}">
+                  {{ block.settings.label }}
+                </a>
+              {% when 'collection' %}
+                <a href="{{ block.settings.collection_url | default: '/collections/all' }}" class="{{ link_class }}">
+                  {{ block.settings.label }}
+                </a>
+              {% when 'page' %}
+                <a href="{{ block.settings.page_url }}" class="{{ link_class }}">
+                  {{ block.settings.label }}
+                </a>
+              {% when 'section' %}
+                <button onclick="navigateToSection('{{ block.settings.section_id }}')" class="{{ link_class }}">
+                  {{ block.settings.label }}
+                </button>
+              {% when 'popup' %}
+                <button onclick="openDevisPopup()" class="{{ link_class }}">
+                  {{ block.settings.label }}
+                </button>
+              {% when 'external' %}
+                <a href="{{ block.settings.external_url }}" target="_blank" class="{{ link_class }}">
+                  {{ block.settings.label }}
+                </a>
+            {% endcase %}
+          {% endif %}
+        {% endfor %}
+
+        <!-- CTA Button Premium -->
+        <button onclick="openDevisPopup()" class="header-cta">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+          </svg>
+          <span class="hidden sm:inline">{{ section.settings.cta_text | default: '🚀 Devis Gratuit' }}</span>
+          <span class="sm:hidden">🚀 Devis</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </nav>
+
+      <!-- Mobile Section: CTA + Menu Button -->
+      <div class="flex items-center gap-4 lg:hidden">
+        <button onclick="openDevisPopup()" class="header-cta">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+          </svg>
+          <span class="sm:hidden">🚀</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+        
+        <button class="mobile-menu-button" onclick="toggleMobileMenu()" id="mobile-menu-button">
+          <svg class="w-6 h-6" id="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-menu" id="mobile-menu">
+      <!-- Close Button -->
+      <button onclick="closeMobileMenu()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: white; cursor: pointer; padding: 0.5rem;">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+      
+      <!-- Menu Content -->
+      <div class="mobile-menu-content">
+        <!-- Logo -->
+        <div style="margin-bottom: 3rem;">
+          {% if section.settings.logo %}
+            <img 
+              src="{{ section.settings.logo | img_url: '120x60' }}" 
+              alt="{{ shop.name }}" 
+              style="height: 60px; width: auto; margin: 0 auto 1rem;"
+            />
+          {% else %}
+            <h2 style="font-size: 2.5rem; font-weight: 900; background: linear-gradient(45deg, #00f5ff, #a855f7); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 1rem;">
+              {{ section.settings.logo_text | default: shop.name }}
+            </h2>
+          {% endif %}
+          <p style="color: #9ca3af; margin-top: 0.5rem;">{{ section.settings.tagline | default: 'Illuminez vos rêves' }}</p>
+        </div>
+        
+        <!-- CTA Mobile en Premier -->
+        <a href="/pages/customizer?view=customiser" class="mobile-nav-link highlight" onclick="closeMobileMenu()">
+          🎨 {{ section.settings.cta_text | default: 'Créer Mon Néon' }}
+        </a>
+        
+        <!-- Devis Gratuit Button -->
+        <button onclick="openDevisPopup(); closeMobileMenu();" class="mobile-nav-link highlight">
+          🚀 Devis Gratuit
+        </button>
+        
+        <!-- Navigation -->
+        <nav class="mobile-nav">
+          {% for block in section.blocks %}
+            {% if block.type == 'nav_item' %}
+              {% assign link_class = 'mobile-nav-link' %}
+              
+              {% if block.settings.highlight %}
+                {% assign link_class = link_class | append: ' highlight' %}
+              {% endif %}
+
+              {% case block.settings.link_type %}
+                {% when 'home' %}
+                  <a href="/" class="{{ link_class }}" onclick="closeMobileMenu()">
+                    {{ block.settings.icon }} {{ block.settings.label }}
+                  </a>
+                {% when 'blog' %}
+                  <a href="{{ block.settings.blog_url | default: '/blogs/inspirations-lumineon' }}" class="{{ link_class }}" onclick="closeMobileMenu()">
+                    {{ block.settings.icon }} {{ block.settings.label }}
+                  </a>
+                {% when 'customizer' %}
+                  <a href="/pages/customizer?view=customiser" class="{{ link_class }}" onclick="closeMobileMenu()">
+                    {{ block.settings.icon }} {{ block.settings.label }}
+                  </a>
+                {% when 'gallery' %}
+                  <a href="/pages/galerie" class="{{ link_class }}" onclick="closeMobileMenu()">
+                    {{ block.settings.icon }} {{ block.settings.label }}
+                  </a>
+                {% when 'collection' %}
+                  <a href="{{ block.settings.collection_url | default: '/collections/all' }}" class="{{ link_class }}" onclick="closeMobileMenu()">
+                    {{ block.settings.icon }} {{ block.settings.label }}
+                  </a>
+                {% when 'page' %}
+                  <a href="{{ block.settings.page_url }}" class="{{ link_class }}" onclick="closeMobileMenu()">
+                    {{ block.settings.icon }} {{ block.settings.label }}
+                  </a>
+                {% when 'section' %}
+                  <button onclick="navigateToSection('{{ block.settings.section_id }}'); closeMobileMenu();" class="{{ link_class }}">
+                    {{ block.settings.icon }} {{ block.settings.label }}
+                  </button>
+                {% when 'popup' %}
+                  <button onclick="openDevisPopup(); closeMobileMenu();" class="{{ link_class }}">
+                    {{ block.settings.icon }} {{ block.settings.label }}
+                  </button>
+                {% when 'external' %}
+                  <a href="{{ block.settings.external_url }}" target="_blank" class="{{ link_class }}" onclick="closeMobileMenu()">
+                    {{ block.settings.icon }} {{ block.settings.label }}
+                  </a>
+              {% endcase %}
+            {% endif %}
+          {% endfor %}
+        </nav>
+        
+        <!-- Contact Info Mobile -->
+        {% if section.settings.show_contact_mobile %}
+          <div style="margin-top: 3rem; text-align: center;">
+            <div style="color: #9ca3af; font-size: 0.875rem; line-height: 1.25;">
+              {% if settings.contact_phone %}
+                <div style="margin-bottom: 0.25rem;">📞 {{ settings.contact_phone }}</div>
+              {% endif %}
+              {% if settings.contact_email %}
+                <div>📧 {{ settings.contact_email }}</div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+let isScrolled = false;
+let isMenuOpen = false;
+
+// Scroll effect
+window.addEventListener('scroll', function() {
+  const header = document.getElementById('site-header');
+  const shouldBeScrolled = window.scrollY > 50;
+  
+  if (shouldBeScrolled !== isScrolled) {
+    isScrolled = shouldBeScrolled;
+    if (isScrolled) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  }
+});
+
+// Mobile menu functions
+function toggleMobileMenu() {
+  if (isMenuOpen) {
+    closeMobileMenu();
+  } else {
+    openMobileMenu();
+  }
+}
+
+function openMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const button = document.getElementById('mobile-menu-button');
+  const icon = document.getElementById('menu-icon');
+  
+  menu.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  isMenuOpen = true;
+  
+  // Change icon to X
+  icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+}
+
+function closeMobileMenu() {
+  const menu = document.getElementById('mobile-menu');
+  const button = document.getElementById('mobile-menu-button');
+  const icon = document.getElementById('menu-icon');
+  
+  menu.classList.remove('open');
+  document.body.style.overflow = 'auto';
+  isMenuOpen = false;
+  
+  // Change icon back to hamburger
+  icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+}
+
+// Smart navigation function
+function navigateToSection(sectionId) {
+  // If we're on the home page, scroll to section
+  if (window.location.pathname === '/' || window.location.pathname === '') {
+    scrollToSection(sectionId);
+  } else {
+    // If we're on another page, go to home page with hash
+    window.location.href = '/#' + sectionId;
+  }
+}
+
+// Scroll to section function
+function scrollToSection(sectionId) {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
+// Handle hash navigation on page load
+window.addEventListener('load', function() {
+  if (window.location.hash) {
+    const sectionId = window.location.hash.substring(1);
+    setTimeout(() => {
+      scrollToSection(sectionId);
+    }, 500);
+  }
+});
+
+// Close menu on escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && isMenuOpen) {
+    closeMobileMenu();
+  }
+});
+
+// Close menu on backdrop click
+document.addEventListener('click', function(e) {
+  const menu = document.getElementById('mobile-menu');
+  const button = document.getElementById('mobile-menu-button');
+  
+  if (isMenuOpen && !menu.contains(e.target) && !button.contains(e.target)) {
+    closeMobileMenu();
+  }
+});
+
+// Open devis popup function
+function openDevisPopup() {
+  if (typeof window.openDevisPopup === 'function') {
+    window.openDevisPopup();
+  } else {
+    // Redirect to customizer if popup not available
+    window.location.href = '/pages/customizer?view=customiser';
+  }
+}
+</script>
+
+{% schema %}
+{
+  "name": "Header Premium",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "LumiNéon",
+      "info": "Utilisé si aucune image n'est sélectionnée"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline (mobile)",
+      "default": "Illuminez vos rêves"
+    },
+    {
+      "type": "header",
+      "content": "Call-to-Action"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte du bouton CTA",
+      "default": "🚀 Devis Gratuit"
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_contact_mobile",
+      "label": "Afficher contact en mobile",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "nav_item",
+      "name": "Élément de navigation",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé",
+          "default": "Accueil"
+        },
+        {
+          "type": "text",
+          "id": "icon",
+          "label": "Icône (emoji)",
+          "default": "🏠",
+          "info": "Affiché uniquement en mobile"
+        },
+        {
+          "type": "select",
+          "id": "link_type",
+          "label": "Type de lien",
+          "options": [
+            {"value": "home", "label": "Page d'accueil"},
+            {"value": "blog", "label": "Blog"},
+            {"value": "customizer", "label": "Customizer"},
+            {"value": "gallery", "label": "Galerie"},
+            {"value": "collection", "label": "Collection"},
+            {"value": "page", "label": "Page"},
+            {"value": "section", "label": "Section (scroll)"},
+            {"value": "popup", "label": "Popup"},
+            {"value": "external", "label": "Lien externe"}
+          ],
+          "default": "home"
+        },
+        {
+          "type": "url",
+          "id": "blog_url",
+          "label": "URL du blog",
+          "info": "Utilisé si type = Blog"
+        },
+        {
+          "type": "url",
+          "id": "collection_url",
+          "label": "URL de la collection",
+          "info": "Utilisé si type = Collection"
+        },
+        {
+          "type": "url",
+          "id": "page_url",
+          "label": "URL de la page",
+          "info": "Utilisé si type = Page"
+        },
+        {
+          "type": "text",
+          "id": "section_id",
+          "label": "ID de la section",
+          "info": "Pour scroll sur page d'accueil. Valeurs possibles: hero, customizer, about, gallery, services, testimonials, order-tracking, faq"
+        },
+        {
+          "type": "url",
+          "id": "external_url",
+          "label": "URL externe",
+          "info": "Utilisé si type = Lien externe"
+        },
+        {
+          "type": "checkbox",
+          "id": "highlight",
+          "label": "Mettre en évidence",
+          "default": false,
+          "info": "Affiche en jaune pour attirer l'attention"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header Premium",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "nav_item",
+          "settings": {
+            "label": "Devis Gratuit",
+            "icon": "🚀",
+            "link_type": "popup",
+            "highlight": true
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "label": "Blog",
+            "icon": "📝",
+            "link_type": "blog",
+            "blog_url": ""
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "label": "Customizer",
+            "icon": "🎨",
+            "link_type": "customizer",
+            "highlight": false
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "label": "Galerie",
+            "icon": "📸",
+            "link_type": "gallery"
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "label": "Services",
+            "icon": "⚙️",
+            "link_type": "section",
+            "section_id": "services"
+          }
+        },
+        {
+          "type": "nav_item",
+          "settings": {
+            "label": "Avis",
+            "icon": "⭐",
+            "link_type": "section",
+            "section_id": "testimonials"
+          }
+        }
+      ],
+      "settings": {
+        "logo_text": "LumiNéon",
+        "tagline": "Illuminez vos rêves",
+        "cta_text": "🎨 Créer Mon Néon",
+        "show_contact_mobile": true
+      }
+    }
+  ]
+}
+{% endschema %}

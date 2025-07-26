@@ -1,0 +1,502 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "LumiNéon",
+    "theme_version": "1.0.0",
+    "theme_author": "LumiNéon Team",
+    "theme_documentation_url": "https://lumineon.fr/docs",
+    "theme_support_url": "https://lumineon.fr/support"
+  },
+  {
+    "name": "Informations de contact",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Coordonnées de l'entreprise"
+      },
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Téléphone",
+        "default": "+33 1 23 45 67 89"
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Email",
+        "default": "contact@lumineon.fr"
+      },
+      {
+        "type": "textarea",
+        "id": "contact_address",
+        "label": "Adresse",
+        "default": "123 Rue de la Lumière"
+      },
+      {
+        "type": "text",
+        "id": "contact_city",
+        "label": "Ville",
+        "default": "Paris"
+      },
+      {
+        "type": "text",
+        "id": "contact_postal_code",
+        "label": "Code postal",
+        "default": "75001"
+      },
+      {
+        "type": "text",
+        "id": "contact_country",
+        "label": "Pays",
+        "default": "FR"
+      },
+      {
+        "type": "text",
+        "id": "opening_hours",
+        "label": "Horaires d'ouverture",
+        "default": "Mo-Fr 09:00-18:00, Sa 10:00-16:00"
+      }
+    ]
+  },
+  {
+    "name": "Évaluations et avis",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Paramètres des avis clients"
+      },
+      {
+        "type": "text",
+        "id": "rating_value",
+        "label": "Note moyenne",
+        "default": "4.8"
+      },
+      {
+        "type": "text",
+        "id": "review_count",
+        "label": "Nombre d'avis",
+        "default": "127"
+      },
+      {
+        "type": "text",
+        "id": "price_range",
+        "label": "Gamme de prix",
+        "default": "€€€"
+      }
+    ]
+  },
+  {
+    "name": "Effets néon",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Personnalisation des effets visuels"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_particles",
+        "label": "Activer les particules",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_light_beams",
+        "label": "Activer les rayons de lumière",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_interactive_cursor",
+        "label": "Activer le curseur interactif",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_parallax",
+        "label": "Activer l'effet parallax",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "animation_speed",
+        "min": 0.5,
+        "max": 2,
+        "step": 0.1,
+        "unit": "x",
+        "label": "Vitesse des animations",
+        "default": 1
+      }
+    ]
+  },
+  {
+    "name": "Chat en direct",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Configuration du chat"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_live_chat",
+        "label": "Activer le chat en direct",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "chat_agent_name",
+        "label": "Nom de l'agent",
+        "default": "Sophie"
+      },
+      {
+        "type": "text",
+        "id": "chat_agent_title",
+        "label": "Titre de l'agent",
+        "default": "Expert Néon"
+      },
+      {
+        "type": "textarea",
+        "id": "chat_welcome_message",
+        "label": "Message de bienvenue",
+        "default": "👋 Bonjour ! Je suis Sophie, votre experte néon. Comment puis-je vous aider ?"
+      }
+    ]
+  },
+  {
+    "name": "Popups marketing",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Configuration des popups"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_welcome_popup",
+        "label": "Activer la popup de bienvenue",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "welcome_popup_delay",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "unit": "s",
+        "label": "Délai d'apparition (secondes)",
+        "default": 3
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_exit_intent",
+        "label": "Activer la popup de sortie",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "promo_discount",
+        "label": "Pourcentage de réduction",
+        "default": "20"
+      }
+    ]
+  },
+  {
+    "name": "Performance",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Optimisation des performances"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_performance_optimization",
+        "label": "Optimisation automatique",
+        "default": true,
+        "info": "Réduit automatiquement les effets sur les appareils faibles"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_lazy_loading",
+        "label": "Chargement différé des images",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_preload_critical",
+        "label": "Préchargement des ressources critiques",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "SEO",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Optimisation pour les moteurs de recherche"
+      },
+      {
+        "type": "textarea",
+        "id": "seo_keywords",
+        "label": "Mots-clés principaux",
+        "default": "néon personnalisé, enseigne LED sur mesure, néon haut de gamme, fabrication française néon, enseigne lumineuse commerciale, décoration néon LED, installation néon professionnel, néon sur mesure Paris, créateur néon France, néon LED premium",
+        "info": "Séparez les mots-clés par des virgules"
+      },
+      {
+        "type": "textarea",
+        "id": "seo_description",
+        "label": "Description SEO par défaut",
+        "default": "✨ Fabricant français de néons LED personnalisés haut de gamme. Devis gratuit 24h + mockup 3D offert. Installation France entière, garantie 2 ans. +500 créations uniques réalisées.",
+        "info": "Description utilisée si aucune description spécifique n'est définie (max 160 caractères)"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_structured_data",
+        "label": "Données structurées Schema.org",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_open_graph",
+        "label": "Balises Open Graph",
+        "default": true
+      },
+      {
+        "type": "image_picker",
+        "id": "og_image",
+        "label": "Image Open Graph par défaut"
+      },
+      {
+        "type": "text",
+        "id": "twitter_handle",
+        "label": "Nom d'utilisateur Twitter",
+        "info": "Sans le @, ex: lumineonshop"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_breadcrumbs",
+        "label": "Activer les fils d'Ariane",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_rich_snippets",
+        "label": "Activer les extraits enrichis",
+        "default": true,
+        "info": "Ajoute des données structurées pour les produits, avis, etc."
+      }
+    ]
+  },
+  {
+    "name": "Typographie",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Polices"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "default": "assistant_n4",
+        "label": "Police des titres",
+        "info": "Sélectionner une police différente peut affecter la vitesse de votre boutique en ligne. Découvrez les [polices système.](https://help.shopify.com/manual/online-store/os/store-speed/improving-speed#fonts)"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "min": 100,
+        "max": 150,
+        "step": 5,
+        "unit": "%",
+        "label": "Échelle des titres",
+        "default": 100
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "default": "assistant_n4",
+        "label": "Police du corps de texte",
+        "info": "Sélectionner une police différente peut affecter la vitesse de votre boutique en ligne. Découvrez les [polices système.](https://help.shopify.com/manual/online-store/os/store-speed/improving-speed#fonts)"
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "min": 100,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "label": "Échelle du corps de texte",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Couleurs",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Couleurs néon personnalisées"
+      },
+      {
+        "type": "color",
+        "id": "neon_cyan",
+        "label": "Cyan néon",
+        "default": "#00f5ff"
+      },
+      {
+        "type": "color",
+        "id": "neon_purple",
+        "label": "Violet néon",
+        "default": "#a855f7"
+      },
+      {
+        "type": "color",
+        "id": "neon_pink",
+        "label": "Rose néon",
+        "default": "#ec4899"
+      },
+      {
+        "type": "color",
+        "id": "neon_yellow",
+        "label": "Jaune néon",
+        "default": "#fbbf24"
+      },
+      {
+        "type": "color",
+        "id": "neon_green",
+        "label": "Vert néon",
+        "default": "#10b981"
+      }
+    ]
+  },
+  {
+    "name": "Mise en page",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1000,
+        "max": 1600,
+        "step": 100,
+        "default": 1100,
+        "unit": "px",
+        "label": "Largeur de page"
+      },
+      {
+        "type": "range",
+        "id": "spacing_sections",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "unit": "px",
+        "label": "Espacement vertical entre les sections",
+        "default": 32
+      },
+      {
+        "type": "header",
+        "content": "Grille"
+      },
+      {
+        "type": "range",
+        "id": "spacing_grid_horizontal",
+        "min": 4,
+        "max": 40,
+        "step": 4,
+        "default": 8,
+        "unit": "px",
+        "label": "Espacement horizontal"
+      },
+      {
+        "type": "range",
+        "id": "spacing_grid_vertical",
+        "min": 4,
+        "max": 40,
+        "step": 4,
+        "default": 8,
+        "unit": "px",
+        "label": "Espacement vertical"
+      }
+    ]
+  },
+  {
+    "name": "Boutons",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Style des boutons"
+      },
+      {
+        "type": "range",
+        "id": "buttons_radius",
+        "min": 0,
+        "max": 40,
+        "step": 2,
+        "default": 8,
+        "unit": "px",
+        "label": "Rayon des coins"
+      },
+      {
+        "type": "range",
+        "id": "buttons_border_thickness",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "default": 1,
+        "unit": "px",
+        "label": "Épaisseur de la bordure"
+      },
+      {
+        "type": "range",
+        "id": "buttons_border_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 100,
+        "unit": "%",
+        "label": "Opacité de la bordure"
+      },
+      {
+        "type": "header",
+        "content": "Ombre"
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_opacity",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "default": 0,
+        "unit": "%",
+        "label": "Opacité de l'ombre"
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_horizontal_offset",
+        "min": -12,
+        "max": 12,
+        "step": 2,
+        "default": 0,
+        "unit": "px",
+        "label": "Décalage horizontal"
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_vertical_offset",
+        "min": -12,
+        "max": 12,
+        "step": 2,
+        "default": 4,
+        "unit": "px",
+        "label": "Décalage vertical"
+      },
+      {
+        "type": "range",
+        "id": "buttons_shadow_blur",
+        "min": 0,
+        "max": 20,
+        "step": 5,
+        "default": 5,
+        "unit": "px",
+        "label": "Flou"
+      }
+    ]
+  }
+]

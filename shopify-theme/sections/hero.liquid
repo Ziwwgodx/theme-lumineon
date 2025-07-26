@@ -1,0 +1,224 @@
+{% comment %}
+  Section Hero - Page d'accueil principale
+{% endcomment %}
+
+<section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 md:pt-0">
+  <!-- Background Effects -->
+  <div class="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-gray-900 to-cyan-900/20"></div>
+  <div class="parallax-container absolute inset-0" data-speed="0.3">
+    <div class="absolute top-1/4 left-1/4 w-72 h-72 bg-cyan-500/10 rounded-full blur-3xl animate-pulse floating-element"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse animation-delay-2000 floating-element"></div>
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl animate-pulse animation-delay-4000 floating-element"></div>
+  </div>
+
+  <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+    <!-- Main Title -->
+    <div class="mb-8">
+      <h1 class="text-4xl sm:text-6xl lg:text-8xl font-bold mb-6 leading-tight glitch-effect" itemprop="headline">
+        <span class="neon-text-gradient block mb-4">{{ section.settings.title_line_1 | default: 'Illuminez' }}</span>
+        <span class="text-white block mb-4">{{ section.settings.title_line_2 | default: 'Vos Rêves' }}</span>
+        <span class="neon-text-cyan block animate-pulse-glow">{{ section.settings.title_line_3 | default: 'En Néon' }}</span>
+      </h1>
+    </div>
+
+    <!-- Subtitle -->
+    <p class="text-xl sm:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed" itemprop="description">
+      {{ section.settings.subtitle | default: '🏆 Fabricant français de néons LED personnalisés haut de gamme depuis 10 ans. Spécialiste des enseignes lumineuses sur mesure, nous transformons vos idées en créations lumineuses exceptionnelles avec garantie 2 ans.' }}
+    </p>
+    
+    <!-- Urgency & Social Proof -->
+    <div class="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl p-4 mb-8 max-w-2xl mx-auto">
+      <p class="text-green-300 font-semibold mb-2">{{ section.settings.urgency_text | default: '🔥 OFFRE LIMITÉE - Devis gratuit + Mockup 3D offert pour votre néon personnalisé' }}</p>
+      <p class="text-sm text-gray-300">{{ section.settings.delivery_text | default: '📦 Fabrication française premium : Production 7-12 jours + Livraison express 2-3 jours partout en France' }}</p>
+    </div>
+
+    <!-- CTA Buttons -->
+    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-16">
+      <button onclick="window.location.href='/pages/customizer?view=customiser'" class="group relative px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-neon-yellow flex items-center gap-3 morph-button interactive">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+        {{ section.settings.cta_1_text | default: '🎨 CRÉER MON NÉON PERSONNALISÉ' }}
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+      
+      <button onclick="openDevisPopup()" class="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-neon-cyan flex items-center gap-3 morph-button interactive">
+        {{ section.settings.cta_2_text | default: '🚀 DEVIS GRATUIT SOUS 24H' }}
+        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+      
+      <button onclick="window.location.href='/pages/galerie'" class="px-8 py-4 border-2 border-cyan-400 text-cyan-400 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-cyan-400 hover:text-gray-900 hover:shadow-neon-cyan morph-button interactive">
+        {{ section.settings.cta_3_text | default: '📸 Voir +500 Créations Néon' }}
+      </button>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-1 sm:grid-cols-4 gap-6 max-w-3xl mx-auto">
+      {% for block in section.blocks %}
+        {% if block.type == 'stat' %}
+          <div class="text-center">
+            <div class="text-3xl sm:text-4xl font-bold neon-text-{{ block.settings.color }} mb-2">{{ block.settings.number }}</div>
+            <div class="text-gray-400">{{ block.settings.label }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Animated Elements -->
+  <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <div class="w-6 h-10 border-2 border-cyan-400 rounded-full flex justify-center">
+      <div class="w-1 h-3 bg-cyan-400 rounded-full mt-2 animate-pulse"></div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_line_1",
+      "label": "Titre ligne 1",
+      "default": "Illuminez"
+    },
+    {
+      "type": "text",
+      "id": "title_line_2",
+      "label": "Titre ligne 2",
+      "default": "Vos Rêves"
+    },
+    {
+      "type": "text",
+      "id": "title_line_3",
+      "label": "Titre ligne 3",
+      "default": "En Néon"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "🏆 Créateur de néons personnalisés haut de gamme depuis 10 ans. Transformez vos idées en œuvres lumineuses exceptionnelles."
+    },
+    {
+      "type": "text",
+      "id": "urgency_text",
+      "label": "Texte d'urgence",
+      "default": "🔥 OFFRE LIMITÉE - Devis gratuit + Mockup 3D offert"
+    },
+    {
+      "type": "text",
+      "id": "delivery_text",
+      "label": "Texte livraison",
+      "default": "📦 Production 7-12 jours + Livraison 2-3 jours partout en France"
+    },
+    {
+      "type": "text",
+      "id": "cta_1_text",
+      "label": "Bouton CTA 1",
+      "default": "🎨 CRÉER MON NÉON"
+    },
+    {
+      "type": "text",
+      "id": "cta_2_text",
+      "label": "Bouton CTA 2",
+      "default": "🚀 DEVIS GRATUIT 24H"
+    },
+    {
+      "type": "text",
+      "id": "cta_3_text",
+      "label": "Bouton CTA 3",
+      "default": "📸 Voir +500 Créations"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistique",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Nombre",
+          "default": "500+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé",
+          "default": "Néons Créés"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Couleur néon",
+          "options": [
+            {"value": "cyan", "label": "Cyan"},
+            {"value": "purple", "label": "Purple"},
+            {"value": "pink", "label": "Pink"},
+            {"value": "yellow", "label": "Yellow"},
+            {"value": "green", "label": "Green"}
+          ],
+          "default": "cyan"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Section",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "number": "500+",
+            "label": "Néons Créés",
+            "color": "cyan"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "98%",
+            "label": "Clients Satisfaits",
+            "color": "purple"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "24/7",
+            "label": "Support Client",
+            "color": "pink"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "2 ANS",
+            "label": "Garantie",
+            "color": "yellow"
+          }
+        }
+      ],
+      "settings": {
+        "title_line_1": "Illuminez",
+        "title_line_2": "Vos Rêves",
+        "title_line_3": "En Néon",
+        "subtitle": "🏆 Créateur de néons personnalisés haut de gamme depuis 10 ans. Transformez vos idées en œuvres lumineuses exceptionnelles.",
+        "urgency_text": "🔥 OFFRE LIMITÉE - Devis gratuit + Mockup 3D offert",
+        "delivery_text": "📦 Production 7-12 jours + Livraison 2-3 jours partout en France",
+        "cta_1_text": "🎨 CRÉER MON NÉON",
+        "cta_2_text": "🚀 DEVIS GRATUIT 24H",
+        "cta_3_text": "📸 Voir +500 Créations"
+      }
+    }
+  ]
+}
+{% endschema %}

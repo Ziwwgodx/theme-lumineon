@@ -1,0 +1,671 @@
+{% comment %}
+  Section Main 404 - Page d'erreur 404 immersive et fun
+{% endcomment %}
+
+<style>
+/* 404 Page Styles */
+.error-404-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #111827 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+/* Animated Background Elements */
+.floating-neon {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: float-neon 8s ease-in-out infinite;
+}
+
+.floating-neon:nth-child(1) {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, #00f5ff, transparent);
+  top: 10%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.floating-neon:nth-child(2) {
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, #a855f7, transparent);
+  top: 60%;
+  right: 15%;
+  animation-delay: -2s;
+}
+
+.floating-neon:nth-child(3) {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, #ec4899, transparent);
+  bottom: 20%;
+  left: 20%;
+  animation-delay: -4s;
+}
+
+.floating-neon:nth-child(4) {
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, #fbbf24, transparent);
+  top: 30%;
+  right: 30%;
+  animation-delay: -6s;
+}
+
+@keyframes float-neon {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-20px) rotate(90deg);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-40px) rotate(180deg);
+    opacity: 0.15;
+  }
+  75% {
+    transform: translateY(-20px) rotate(270deg);
+    opacity: 0.2;
+  }
+}
+
+/* Glitch Effect for 404 */
+.glitch-404 {
+  font-size: clamp(4rem, 15vw, 12rem);
+  font-weight: 900;
+  color: #00f5ff;
+  text-shadow: 
+    0 0 10px #00f5ff,
+    0 0 20px #00f5ff,
+    0 0 40px #00f5ff,
+    0 0 80px #00f5ff;
+  position: relative;
+  animation: glitch-main 2s infinite;
+}
+
+.glitch-404::before,
+.glitch-404::after {
+  content: '404';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-404::before {
+  color: #ec4899;
+  animation: glitch-1 0.5s infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+}
+
+.glitch-404::after {
+  color: #a855f7;
+  animation: glitch-2 0.5s infinite;
+  clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+}
+
+@keyframes glitch-main {
+  0%, 100% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+}
+
+@keyframes glitch-1 {
+  0%, 100% { transform: translate(0); }
+  10% { transform: translate(-2px, -2px); }
+  20% { transform: translate(2px, 2px); }
+  30% { transform: translate(-2px, 2px); }
+  40% { transform: translate(2px, -2px); }
+  50% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  70% { transform: translate(-2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  90% { transform: translate(-2px, -2px); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { transform: translate(0); }
+  10% { transform: translate(2px, 2px); }
+  20% { transform: translate(-2px, -2px); }
+  30% { transform: translate(2px, -2px); }
+  40% { transform: translate(-2px, 2px); }
+  50% { transform: translate(2px, 2px); }
+  60% { transform: translate(-2px, -2px); }
+  70% { transform: translate(2px, -2px); }
+  80% { transform: translate(-2px, 2px); }
+  90% { transform: translate(2px, 2px); }
+}
+
+/* Neon Text Effects */
+.neon-title {
+  color: #fbbf24;
+  text-shadow: 
+    0 0 5px #fbbf24,
+    0 0 10px #fbbf24,
+    0 0 15px #fbbf24,
+    0 0 20px #fbbf24;
+  animation: neon-flicker 3s infinite alternate;
+}
+
+.neon-subtitle {
+  color: #10b981;
+  text-shadow: 
+    0 0 5px #10b981,
+    0 0 10px #10b981,
+    0 0 15px #10b981;
+}
+
+@keyframes neon-flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+  75% { opacity: 0.9; }
+}
+
+/* Interactive Buttons */
+.neon-button {
+  position: relative;
+  padding: 1rem 2rem;
+  background: transparent;
+  border: 2px solid;
+  border-radius: 50px;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.neon-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.neon-button:hover::before {
+  left: 100%;
+}
+
+.btn-primary {
+  border-color: #00f5ff;
+  color: #00f5ff;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+}
+
+.btn-primary:hover {
+  background: rgba(0, 245, 255, 0.1);
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+}
+
+.btn-secondary {
+  border-color: #a855f7;
+  color: #a855f7;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+}
+
+.btn-secondary:hover {
+  background: rgba(168, 85, 247, 0.1);
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(168, 85, 247, 0.5);
+}
+
+/* Floating Icons */
+.floating-icons {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floating-icon {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.1);
+  animation: float-icon 10s linear infinite;
+}
+
+.floating-icon:nth-child(1) {
+  left: 10%;
+  animation-delay: 0s;
+  font-size: 2rem;
+}
+
+.floating-icon:nth-child(2) {
+  left: 20%;
+  animation-delay: -2s;
+  font-size: 1.5rem;
+}
+
+.floating-icon:nth-child(3) {
+  left: 30%;
+  animation-delay: -4s;
+  font-size: 2.5rem;
+}
+
+.floating-icon:nth-child(4) {
+  left: 40%;
+  animation-delay: -6s;
+  font-size: 1.8rem;
+}
+
+.floating-icon:nth-child(5) {
+  left: 50%;
+  animation-delay: -8s;
+  font-size: 2.2rem;
+}
+
+.floating-icon:nth-child(6) {
+  left: 60%;
+  animation-delay: -10s;
+  font-size: 1.6rem;
+}
+
+.floating-icon:nth-child(7) {
+  left: 70%;
+  animation-delay: -12s;
+  font-size: 2.4rem;
+}
+
+.floating-icon:nth-child(8) {
+  left: 80%;
+  animation-delay: -14s;
+  font-size: 1.9rem;
+}
+
+@keyframes float-icon {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.1;
+  }
+  90% {
+    opacity: 0.1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Content Container */
+.error-content {
+  text-align: center;
+  z-index: 10;
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Fun Messages */
+.fun-messages {
+  margin: 2rem 0;
+}
+
+.fun-message {
+  display: none;
+  font-size: 1.2rem;
+  color: #d1d5db;
+  margin: 1rem 0;
+  animation: fadeInOut 4s ease-in-out;
+}
+
+.fun-message.active {
+  display: block;
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; transform: translateY(20px); }
+  20%, 80% { opacity: 1; transform: translateY(0); }
+}
+
+/* Search Box */
+.search-container {
+  margin: 2rem 0;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem 1.5rem;
+  background: rgba(31, 41, 55, 0.8);
+  border: 2px solid #374151;
+  border-radius: 50px;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #00f5ff;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+  background: rgba(31, 41, 55, 0.9);
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .error-content {
+    padding: 1rem;
+  }
+  
+  .glitch-404 {
+    font-size: clamp(3rem, 20vw, 8rem);
+  }
+  
+  .floating-neon {
+    display: none;
+  }
+  
+  .neon-button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Easter Egg - Konami Code */
+.konami-activated {
+  animation: rainbow-bg 2s infinite;
+}
+
+@keyframes rainbow-bg {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+</style>
+
+<div class="error-404-container">
+  <!-- Floating Neon Orbs -->
+  <div class="floating-neon"></div>
+  <div class="floating-neon"></div>
+  <div class="floating-neon"></div>
+  <div class="floating-neon"></div>
+  
+  <!-- Floating Icons -->
+  <div class="floating-icons">
+    <div class="floating-icon">💡</div>
+    <div class="floating-icon">⚡</div>
+    <div class="floating-icon">🌟</div>
+    <div class="floating-icon">✨</div>
+    <div class="floating-icon">🎨</div>
+    <div class="floating-icon">🔥</div>
+    <div class="floating-icon">💫</div>
+    <div class="floating-icon">🌈</div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="error-content">
+    <!-- Glitch 404 -->
+    <div class="glitch-404">404</div>
+    
+    <!-- Title -->
+    <h1 class="neon-title text-4xl md:text-6xl font-bold mb-6">
+      {{ section.settings.title | default: 'Oups ! Page Introuvable' }}
+    </h1>
+    
+    <!-- Subtitle -->
+    <p class="neon-subtitle text-xl md:text-2xl mb-8">
+      {{ section.settings.subtitle | default: 'Cette page s\'est éteinte comme un néon défaillant...' }}
+    </p>
+    
+    <!-- Fun Messages -->
+    <div class="fun-messages">
+      <div class="fun-message active">
+        🔍 Peut-être que cette page est partie créer son propre néon ?
+      </div>
+      <div class="fun-message">
+        💡 Erreur 404 : Page non trouvée, mais votre créativité, elle, brille toujours !
+      </div>
+      <div class="fun-message">
+        ⚡ Cette URL a besoin d'un petit coup de jus... comme nos néons !
+      </div>
+      <div class="fun-message">
+        🎨 Page en panne ? Pas de panique, nos néons eux fonctionnent parfaitement !
+      </div>
+      <div class="fun-message">
+        🌟 404 : La seule chose qui ne brille pas ici, c'est cette page !
+      </div>
+    </div>
+    
+    <!-- Search Box -->
+    <div class="search-container">
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder="🔍 Rechercher quelque chose d'illuminant..."
+        id="search-404"
+      />
+    </div>
+    
+    <!-- Action Buttons -->
+    <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mt-8">
+      <a href="/" class="neon-button btn-primary">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+        </svg>
+        🏠 Retour à l'Accueil
+      </a>
+      
+      <button onclick="openDevisPopup()" class="neon-button btn-secondary">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+        ⚡ Créer Mon Néon
+      </button>
+    </div>
+    
+    <!-- Additional Links -->
+    <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      <a href="/collections/all" class="text-cyan-400 hover:text-cyan-300 transition-colors">
+        🛍️ Boutique
+      </a>
+      <button onclick="scrollToSection('about')" class="text-purple-400 hover:text-purple-300 transition-colors">
+        ℹ️ À Propos
+      </button>
+      <a href="/pages/blogs" class="text-pink-400 hover:text-pink-300 transition-colors">
+        📝 Blog
+      </a>
+      <button onclick="openDevisPopup()" class="text-yellow-400 hover:text-yellow-300 transition-colors">
+        📞 Contact
+      </button>
+    </div>
+    
+    <!-- Easter Egg Message -->
+    <div id="easter-egg" class="mt-8 text-sm text-gray-500 hidden">
+      🎉 Konami Code activé ! Vous avez trouvé l'easter egg ! 🎮
+    </div>
+  </div>
+</div>
+
+<script>
+// Fun Messages Rotation
+document.addEventListener('DOMContentLoaded', function() {
+  const messages = document.querySelectorAll('.fun-message');
+  let currentMessage = 0;
+  
+  function rotateMessages() {
+    messages[currentMessage].classList.remove('active');
+    currentMessage = (currentMessage + 1) % messages.length;
+    messages[currentMessage].classList.add('active');
+  }
+  
+  setInterval(rotateMessages, 4000);
+  
+  // Search functionality
+  const searchInput = document.getElementById('search-404');
+  if (searchInput) {
+    searchInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        const query = this.value.trim();
+        if (query) {
+          window.location.href = `/search?q=${encodeURIComponent(query)}`;
+        }
+      }
+    });
+  }
+  
+  // Konami Code Easter Egg
+  let konamiCode = [];
+  const konamiSequence = [
+    'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+    'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+    'KeyB', 'KeyA'
+  ];
+  
+  document.addEventListener('keydown', function(e) {
+    konamiCode.push(e.code);
+    
+    if (konamiCode.length > konamiSequence.length) {
+      konamiCode.shift();
+    }
+    
+    if (konamiCode.length === konamiSequence.length) {
+      let isMatch = true;
+      for (let i = 0; i < konamiSequence.length; i++) {
+        if (konamiCode[i] !== konamiSequence[i]) {
+          isMatch = false;
+          break;
+        }
+      }
+      
+      if (isMatch) {
+        document.body.classList.add('konami-activated');
+        document.getElementById('easter-egg').classList.remove('hidden');
+        
+        // Create rainbow particles
+        createRainbowParticles();
+        
+        setTimeout(() => {
+          document.body.classList.remove('konami-activated');
+        }, 5000);
+      }
+    }
+  });
+  
+  // Rainbow Particles for Easter Egg
+  function createRainbowParticles() {
+    for (let i = 0; i < 50; i++) {
+      setTimeout(() => {
+        const particle = document.createElement('div');
+        particle.style.cssText = `
+          position: fixed;
+          width: 10px;
+          height: 10px;
+          background: hsl(${Math.random() * 360}, 100%, 50%);
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9999;
+          left: ${Math.random() * 100}vw;
+          top: ${Math.random() * 100}vh;
+          animation: rainbow-particle 3s ease-out forwards;
+        `;
+        
+        document.body.appendChild(particle);
+        
+        setTimeout(() => {
+          if (document.body.contains(particle)) {
+            document.body.removeChild(particle);
+          }
+        }, 3000);
+      }, i * 50);
+    }
+  }
+  
+  // Add rainbow particle animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes rainbow-particle {
+      0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1) rotate(180deg);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // Interactive hover effects
+  document.querySelectorAll('.neon-button').forEach(button => {
+    button.addEventListener('mouseenter', function() {
+      this.style.transform = 'scale(1.05) rotateZ(1deg)';
+    });
+    
+    button.addEventListener('mouseleave', function() {
+      this.style.transform = 'scale(1) rotateZ(0deg)';
+    });
+  });
+});
+
+// Global function for devis popup
+function openDevisPopup() {
+  if (typeof window.openDevisPopup === 'function') {
+    window.openDevisPopup();
+  } else {
+    alert('🎨 Contactez-nous pour créer votre néon personnalisé !\n📞 +33 1 23 45 67 89\n📧 contact@lumineon.fr');
+  }
+}
+</script>
+
+{% schema %}
+{
+  "name": "Page 404",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre principal",
+      "default": "Oups ! Page Introuvable"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "Cette page s'est éteinte comme un néon défaillant..."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Ne vous inquiétez pas, nos néons eux brillent toujours ! Retournez à l'accueil ou créez votre néon personnalisé."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page 404",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

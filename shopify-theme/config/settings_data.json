@@ -1,0 +1,447 @@
+{
+  "current": {
+    "sections": {
+      "hero": {
+        "type": "hero",
+        "blocks": {
+          "stat-1": {
+            "type": "stat",
+            "settings": {
+              "number": "500+",
+              "label": "Néons Créés",
+              "color": "cyan"
+            }
+          },
+          "stat-2": {
+            "type": "stat",
+            "settings": {
+              "number": "98%",
+              "label": "Clients Satisfaits",
+              "color": "purple"
+            }
+          },
+          "stat-3": {
+            "type": "stat",
+            "settings": {
+              "number": "24/7",
+              "label": "Support Client",
+              "color": "pink"
+            }
+          },
+          "stat-4": {
+            "type": "stat",
+            "settings": {
+              "number": "2 ANS",
+              "label": "Garantie",
+              "color": "yellow"
+            }
+          }
+        },
+        "block_order": ["stat-1", "stat-2", "stat-3", "stat-4"],
+        "settings": {
+          "title_line_1": "Illuminez",
+          "title_line_2": "Vos Rêves",
+          "title_line_3": "En Néon",
+          "subtitle": "🏆 Créateur de néons personnalisés haut de gamme depuis 10 ans. Transformez vos idées en œuvres lumineuses exceptionnelles.",
+          "urgency_text": "🔥 OFFRE LIMITÉE - Devis gratuit + Mockup 3D offert",
+          "delivery_text": "📦 Production 7-12 jours + Livraison 2-3 jours partout en France",
+          "cta_1_text": "🎨 CRÉER MON NÉON",
+          "cta_2_text": "🚀 DEVIS GRATUIT 24H",
+          "cta_3_text": "📸 Voir +500 Créations"
+        }
+      },
+      "customizer": {
+        "type": "customizer",
+        "settings": {
+          "badge_text": "NOUVEAU : Customizer 3D Interactif",
+          "title_line_1": "Créez Votre Néon",
+          "title_line_2": "En Quelques Clics"
+        }
+      },
+      "about": {
+        "type": "about",
+        "settings": {
+          "title_line_1": "L'Art Du",
+          "title_line_2": "Néon"
+        }
+      },
+      "gallery": {
+        "type": "gallery",
+        "settings": {
+          "title_line_1": "Nos",
+          "title_line_2": "Créations"
+        }
+      },
+      "gallery": {
+        "type": "gallery",
+        "blocks": {
+          "social-proof-1": {
+            "type": "social_proof",
+            "settings": {
+              "text": "⭐ 4.9/5 sur Google (127 avis)",
+              "color": "purple"
+            }
+          },
+          "social-proof-2": {
+            "type": "social_proof",
+            "settings": {
+              "text": "🏆 +500 projets réalisés",
+              "color": "green"
+            }
+          },
+          "project-1": {
+            "type": "project",
+            "settings": {
+              "title": "Néon WOW - Impact Visuel",
+              "category": "Décoration",
+              "description": "Néon expressif 'WOW' avec effet de profondeur et éclairage dynamique"
+            }
+          },
+          "project-2": {
+            "type": "project",
+            "settings": {
+              "title": "Néon Vague Surf - Style Californien",
+              "category": "Loisirs",
+              "description": "Design néon vague surf avec dégradé bleu océan, parfait pour ambiance beach"
+            }
+          },
+          "project-3": {
+            "type": "project",
+            "settings": {
+              "title": "Netflix and Chill - Pop Culture",
+              "category": "Divertissement",
+              "description": "Néon tendance 'Netflix and Chill' avec typographie moderne et éclairage rouge"
+            }
+          },
+          "project-4": {
+            "type": "project",
+            "settings": {
+              "title": "Logo Friends - Nostalgie TV",
+              "category": "Logo",
+              "description": "Reproduction fidèle du logo Friends en néon, couleurs authentiques de la série"
+            }
+          },
+          "project-5": {
+            "type": "project",
+            "settings": {
+              "title": "Lettres Hello - Accueil Chaleureux",
+              "category": "Texte",
+              "description": "Lettres néon 'Hello' en script élégant, parfait pour entrées et réceptions"
+            }
+          },
+          "project-6": {
+            "type": "project",
+            "settings": {
+              "title": "Hot Deal LED Flex - Promotion Dynamique",
+              "category": "Commercial",
+              "description": "Néon LED flexible 'Hot Deal' avec éclairage rouge vif, idéal pour promotions commerciales"
+            }
+          }
+        },
+        "block_order": ["social-proof-1", "social-proof-2", "project-1", "project-2", "project-3", "project-4", "project-5", "project-6"],
+        "settings": {
+          "title_line_1": "Nos",
+          "title_line_2": "Créations",
+          "description": "📸 Découvrez notre portfolio de +500 créations uniques. Chaque projet raconte une histoire, chaque néon illumine un rêve."
+        }
+      },
+      "services": {
+        "type": "services",
+        "settings": {
+          "title_line_1": "Nos",
+          "title_line_2": "Services"
+        }
+      },
+      "testimonials": {
+        "type": "testimonials",
+        "blocks": {
+          "trust-1": {
+            "type": "trust_indicator",
+            "settings": {
+              "text": "4.8/5 sur Google",
+              "color": "green",
+              "show_star": true
+            }
+          },
+          "trust-2": {
+            "type": "trust_indicator",
+            "settings": {
+              "text": "127+ Avis Vérifiés",
+              "color": "blue",
+              "show_star": false
+            }
+          },
+          "trust-3": {
+            "type": "trust_indicator",
+            "settings": {
+              "text": "98% Recommandent",
+              "color": "purple",
+              "show_star": false
+            }
+          },
+          "testimonial-1": {
+            "type": "testimonial",
+            "settings": {
+              "author_name": "Sophie Martin",
+              "author_role": "Propriétaire Restaurant Le Gourmet",
+              "content": "LumiNéon a transformé notre façade ! Le néon personnalisé attire l'œil de tous les passants. L'équipe est professionnelle et le résultat dépasse nos attentes.",
+              "rating": 5,
+              "date": "Il y a 2 semaines"
+            }
+          },
+          "testimonial-2": {
+            "type": "testimonial",
+            "settings": {
+              "author_name": "Marc Dubois",
+              "author_role": "Gérant Bar à Cocktails Neon",
+              "content": "Installation parfaite, design unique et service client exceptionnel. Nos clients adorent l'ambiance créée par nos néons sur mesure. Je recommande vivement !",
+              "rating": 5,
+              "date": "Il y a 1 mois"
+            }
+          },
+          "stat-1": {
+            "type": "stat",
+            "settings": {
+              "number": "98%",
+              "label": "Satisfaction Client",
+              "color": "yellow"
+            }
+          },
+          "stat-2": {
+            "type": "stat",
+            "settings": {
+              "number": "500+",
+              "label": "Projets Réalisés",
+              "color": "cyan"
+            }
+          },
+          "stat-3": {
+            "type": "stat",
+            "settings": {
+              "number": "127+",
+              "label": "Avis Google",
+              "color": "purple"
+            }
+          },
+          "stat-4": {
+            "type": "stat",
+            "settings": {
+              "number": "4.8★",
+              "label": "Note Moyenne",
+              "color": "pink"
+            }
+          }
+        },
+        "block_order": [
+          "trust-1", "trust-2", "trust-3",
+          "testimonial-1", "testimonial-2",
+          "stat-1", "stat-2", "stat-3", "stat-4"
+        ],
+        "settings": {
+          "title_line_1": "Ils Nous Font",
+          "title_line_2": "Confiance",
+          "description": "Découvrez les témoignages de nos clients satisfaits. Leur succès est notre plus belle récompense et votre garantie de qualité.",
+          "cta_text": "Rejoignez nos clients satisfaits et illuminez votre success story",
+          "cta_button": "Commencer Mon Projet"
+        }
+      },
+      "order-tracking": {
+        "type": "order-tracking",
+        "settings": {
+          "title_line_1": "Suivi",
+          "title_line_2": "Commande"
+        }
+      },
+      "faq": {
+        "type": "faq",
+        "settings": {
+          "title_line_1": "Questions",
+          "title_line_2": "Fréquentes"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "feature-1": {
+            "type": "feature_tag",
+            "settings": {
+              "text": "Design Sur Mesure",
+              "color": "cyan"
+            }
+          },
+          "feature-2": {
+            "type": "feature_tag",
+            "settings": {
+              "text": "Fabrication Premium",
+              "color": "purple"
+            }
+          },
+          "feature-3": {
+            "type": "feature_tag",
+            "settings": {
+              "text": "Installation Pro",
+              "color": "pink"
+            }
+          },
+          "nav-1": {
+            "type": "nav_link",
+            "settings": {
+              "label": "Accueil",
+              "target_section": "hero"
+            }
+          },
+          "nav-2": {
+            "type": "nav_link",
+            "settings": {
+              "label": "À Propos",
+              "target_section": "about"
+            }
+          },
+          "nav-3": {
+            "type": "nav_link",
+            "settings": {
+              "label": "Galerie",
+              "target_section": "gallery"
+            }
+          },
+          "nav-4": {
+            "type": "nav_link",
+            "settings": {
+              "label": "Services",
+              "target_section": "services"
+            }
+          },
+          "nav-5": {
+            "type": "nav_link",
+            "settings": {
+              "label": "Suivi",
+              "target_section": "order-tracking"
+            }
+          },
+          "legal-1": {
+            "type": "legal_link",
+            "settings": {
+              "label": "Mentions Légales",
+              "page_type": "mentions"
+            }
+          },
+          "legal-2": {
+            "type": "legal_link",
+            "settings": {
+              "label": "CGV",
+              "page_type": "cgv"
+            }
+          },
+          "legal-3": {
+            "type": "legal_link",
+            "settings": {
+              "label": "Confidentialité",
+              "page_type": "confidentialite"
+            }
+          }
+        },
+        "block_order": [
+          "feature-1", "feature-2", "feature-3",
+          "nav-1", "nav-2", "nav-3", "nav-4", "nav-5",
+          "legal-1", "legal-2", "legal-3"
+        ],
+        "settings": {
+          "nav_title": "Navigation",
+          "contact_title": "Contact",
+          "copyright_text": "Créé avec ❤️ pour illuminer vos rêves.",
+          "back_to_top": "Haut de page"
+        }
+      }
+    },
+    "trust-bar": {
+      "type": "trust-bar",
+      "blocks": {
+        "trust-1": {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "emoji",
+            "emoji": "🛡️",
+            "text": "Paiement 100% sécurisé",
+            "color": "green"
+          }
+        },
+        "trust-2": {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "emoji",
+            "emoji": "💳",
+            "text": "Visa, Mastercard, PayPal",
+            "color": "blue"
+          }
+        },
+        "trust-3": {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "emoji",
+            "emoji": "🚚",
+            "text": "Livraison gratuite",
+            "color": "purple"
+          }
+        },
+        "trust-4": {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "emoji",
+            "emoji": "🕐",
+            "text": "Support 24/7",
+            "color": "cyan"
+          }
+        }
+      },
+      "block_order": ["trust-1", "trust-2", "trust-3", "trust-4"],
+      "settings": {
+        "show_trust_bar": true
+      }
+    },
+    "order": ["hero", "trust-bar", "customizer", "about", "gallery", "services", "testimonials", "order-tracking", "faq", "footer"],
+    "contact_phone": "+33 1 23 45 67 89",
+    "contact_email": "contact@lumineon.fr",
+    "contact_address": "123 Rue de la Lumière",
+    "contact_city": "Paris",
+    "contact_postal_code": "75001",
+    "contact_country": "FR",
+    "opening_hours": "Mo-Fr 09:00-18:00, Sa 10:00-16:00",
+    "rating_value": "4.8",
+    "review_count": "127",
+    "price_range": "€€€",
+    "enable_particles": true,
+    "enable_light_beams": true,
+    "enable_interactive_cursor": true,
+    "enable_parallax": true,
+    "animation_speed": 1,
+    "enable_live_chat": true,
+    "chat_agent_name": "Sophie",
+    "chat_agent_title": "Expert Néon",
+    "chat_welcome_message": "👋 Bonjour ! Je suis Sophie, votre experte néon. Comment puis-je vous aider ?",
+    "enable_welcome_popup": true,
+    "welcome_popup_delay": 3,
+    "enable_exit_intent": true,
+    "promo_discount": "20",
+    "enable_performance_optimization": true,
+    "enable_lazy_loading": true,
+    "enable_preload_critical": true,
+    "enable_structured_data": true,
+    "enable_open_graph": true,
+    "neon_cyan": "#00f5ff",
+    "neon_purple": "#a855f7",
+    "neon_pink": "#ec4899",
+    "neon_yellow": "#fbbf24",
+    "neon_green": "#10b981",
+    "page_width": 1200,
+    "spacing_sections": 36,
+    "spacing_grid_horizontal": 8,
+    "spacing_grid_vertical": 8,
+    "buttons_radius": 8,
+    "buttons_border_thickness": 1,
+    "buttons_border_opacity": 100,
+    "buttons_shadow_opacity": 0,
+    "buttons_shadow_horizontal_offset": 0,
+    "buttons_shadow_vertical_offset": 4,
+    "buttons_shadow_blur": 5
+  }
+}

@@ -1,0 +1,418 @@
+{% comment %}
+  Snippet Gallery Immersive - Galerie immersive pour la page galerie
+{% endcomment %}
+
+<style>
+/* Gallery Page Styles */
+.gallery-immersive {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animated Background */
+.gallery-bg-effects {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-neon-orb {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: float-orb 12s ease-in-out infinite;
+  filter: blur(2px);
+}
+
+.orb-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #00f5ff, transparent);
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, #a855f7, transparent);
+  top: 60%;
+  right: 10%;
+  animation-delay: -4s;
+}
+
+.orb-3 {
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, #ec4899, transparent);
+  bottom: 20%;
+  left: 15%;
+  animation-delay: -8s;
+}
+
+.orb-4 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, #fbbf24, transparent);
+  top: 30%;
+  right: 30%;
+  animation-delay: -2s;
+}
+
+@keyframes float-orb {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-30px) rotate(90deg) scale(1.1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-60px) rotate(180deg) scale(0.9);
+    opacity: 0.2;
+  }
+  75% {
+    transform: translateY(-30px) rotate(270deg) scale(1.05);
+    opacity: 0.15;
+  }
+}
+
+/* Gallery Grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+  position: relative;
+  z-index: 10;
+}
+
+.gallery-item {
+  position: relative;
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(55, 65, 81, 0.7));
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  backdrop-filter: blur(15px);
+}
+
+.gallery-item:hover {
+  transform: translateY(-10px) rotateX(5deg) rotateY(2deg);
+  border-color: #00f5ff;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(0, 245, 255, 0.3),
+    inset 0 0 20px rgba(0, 245, 255, 0.1);
+}
+
+.gallery-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gallery-item:hover .gallery-image {
+  transform: scale(1.1) rotate(1deg);
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, 
+    rgba(17, 24, 39, 0.95) 0%,
+    rgba(17, 24, 39, 0.8) 50%,
+    transparent 100%
+  );
+  padding: 2rem;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.gallery-category {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(45deg, #00f5ff, #a855f7);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.gallery-title-item {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.gallery-description {
+  color: #d1d5db;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Stats Counter */
+.gallery-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 10;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(55, 65, 81, 0.6));
+  border-radius: 20px;
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px) scale(1.05);
+  border-color: #00f5ff;
+  box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #00f5ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .gallery-stats {
+    gap: 1.5rem;
+  }
+  
+  .stat-item {
+    padding: 1rem;
+    min-width: 100px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+}
+</style>
+
+<div class="gallery-immersive">
+  <!-- Background Effects -->
+  <div class="gallery-bg-effects">
+    <div class="floating-neon-orb orb-1"></div>
+    <div class="floating-neon-orb orb-2"></div>
+    <div class="floating-neon-orb orb-3"></div>
+    <div class="floating-neon-orb orb-4"></div>
+  </div>
+
+  <!-- Stats -->
+  <div class="gallery-stats">
+    <div class="stat-item">
+      <div class="stat-number" data-count="500">0</div>
+      <div class="stat-label">Créations</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" data-count="98">0</div>
+      <div class="stat-label">% Satisfaits</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" data-count="50">0</div>
+      <div class="stat-label">Villes</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" data-count="10">0</div>
+      <div class="stat-label">Ans d'Expertise</div>
+    </div>
+  </div>
+
+  <!-- Gallery Grid -->
+  <div class="gallery-grid">
+    <!-- Néon WOW -->
+    <div class="gallery-item">
+      <img src="/neon-wow.jpg" alt="Néon WOW" class="gallery-image" />
+      <div class="gallery-overlay">
+        <div class="gallery-category">Décoration</div>
+        <h3 class="gallery-title-item">Néon WOW - Impact Visuel</h3>
+        <p class="gallery-description">Néon expressif 'WOW' avec effet de profondeur et éclairage dynamique</p>
+      </div>
+    </div>
+
+    <!-- Néon Vague Surf -->
+    <div class="gallery-item">
+      <img src="/neon-vague-surf.jpg" alt="Néon Vague Surf" class="gallery-image" />
+      <div class="gallery-overlay">
+        <div class="gallery-category">Loisirs</div>
+        <h3 class="gallery-title-item">Néon Vague Surf - Style Californien</h3>
+        <p class="gallery-description">Design néon vague surf avec dégradé bleu océan, parfait pour ambiance beach</p>
+      </div>
+    </div>
+
+    <!-- Netflix and Chill -->
+    <div class="gallery-item">
+      <img src="/neon-netflix-and-chill.jpg" alt="Netflix and Chill" class="gallery-image" />
+      <div class="gallery-overlay">
+        <div class="gallery-category">Divertissement</div>
+        <h3 class="gallery-title-item">Netflix and Chill - Pop Culture</h3>
+        <p class="gallery-description">Néon tendance 'Netflix and Chill' avec typographie moderne et éclairage rouge</p>
+      </div>
+    </div>
+
+    <!-- Logo Friends -->
+    <div class="gallery-item">
+      <img src="/neon-logo-friends.jpg" alt="Logo Friends" class="gallery-image" />
+      <div class="gallery-overlay">
+        <div class="gallery-category">Logo</div>
+        <h3 class="gallery-title-item">Logo Friends - Nostalgie TV</h3>
+        <p class="gallery-description">Reproduction fidèle du logo Friends en néon, couleurs authentiques de la série</p>
+      </div>
+    </div>
+
+    <!-- Lettres Hello -->
+    <div class="gallery-item">
+      <img src="/neon-lettres-hello.jpg" alt="Lettres Hello" class="gallery-image" />
+      <div class="gallery-overlay">
+        <div class="gallery-category">Texte</div>
+        <h3 class="gallery-title-item">Lettres Hello - Accueil Chaleureux</h3>
+        <p class="gallery-description">Lettres néon 'Hello' en script élégant, parfait pour entrées et réceptions</p>
+      </div>
+    </div>
+
+    <!-- Hot Deal LED -->
+    <div class="gallery-item">
+      <img src="/neon-led-flex-hot-deal.jpg" alt="Hot Deal LED" class="gallery-image" />
+      <div class="gallery-overlay">
+        <div class="gallery-category">Commercial</div>
+        <h3 class="gallery-title-item">Hot Deal LED Flex - Promotion Dynamique</h3>
+        <p class="gallery-description">Néon LED flexible 'Hot Deal' avec éclairage rouge vif, idéal pour promotions commerciales</p>
+      </div>
+    </div>
+
+    <!-- La Vie Est Belle -->
+    <div class="gallery-item">
+      <img src="/neón-la-via-est-belle.jpg" alt="La Vie Est Belle" class="gallery-image" />
+      <div class="gallery-overlay">
+        <div class="gallery-category">Citation</div>
+        <h3 class="gallery-title-item">La Vie Est Belle - Philosophie Lumineuse</h3>
+        <p class="gallery-description">Citation inspirante 'La Vie Est Belle' en néon élégant, parfait pour espaces de bien-être</p>
+      </div>
+    </div>
+
+    <!-- Happy Birthday -->
+    <div class="gallery-item">
+      <img src="/neon-happy-birthday.jpg" alt="Happy Birthday" class="gallery-image" />
+      <div class="gallery-overlay">
+        <div class="gallery-category">Événementiel</div>
+        <h3 class="gallery-title-item">Happy Birthday - Célébration Festive</h3>
+        <p class="gallery-description">Néon festif 'Happy Birthday' multicolore, création parfaite pour anniversaires mémorables</p>
+      </div>
+    </div>
+
+    <!-- Game Zone -->
+    <div class="gallery-item">
+      <img src="/neon-game-zone.jpg" alt="Game Zone" class="gallery-image" />
+      <div class="gallery-overlay">
+        <div class="gallery-category">Gaming</div>
+        <h3 class="gallery-title-item">Game Zone - Univers Gaming</h3>
+        <p class="gallery-description">Néon gaming 'Game Zone' avec effets dynamiques, ambiance parfaite pour espaces de jeu</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="text-center py-12 relative z-10">
+    <h3 class="text-3xl font-bold mb-4 neon-text-cyan">
+      Prêt à Créer Votre Néon ?
+    </h3>
+    <p class="text-gray-300 mb-8 text-lg max-w-2xl mx-auto">
+      Rejoignez nos clients satisfaits et donnez vie à votre vision lumineuse.
+    </p>
+    <button 
+      onclick="openDevisPopup()"
+      class="px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-neon-yellow"
+    >
+      🚀 Commencer Mon Projet
+    </button>
+  </div>
+</div>
+
+<script>
+// Animated counters
+document.addEventListener('DOMContentLoaded', function() {
+  const counters = document.querySelectorAll('[data-count]');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        const target = parseInt(counter.dataset.count);
+        let current = 0;
+        const increment = target / 100;
+        
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          counter.textContent = Math.floor(current) + (target >= 100 ? '+' : '');
+        }, 20);
+        
+        observer.unobserve(counter);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  counters.forEach(counter => observer.observe(counter));
+});
+
+// Open devis popup
+function openDevisPopup() {
+  if (typeof window.openDevisPopup === 'function') {
+    window.openDevisPopup();
+  } else {
+    alert('🎨 Contactez-nous pour créer votre néon personnalisé !\n📞 +33 1 23 45 67 89\n📧 contact@lumineon.fr');
+  }
+}
+</script>

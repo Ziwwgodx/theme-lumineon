@@ -1,0 +1,140 @@
+{% comment %}
+  Section Trust Bar - Barre de confiance
+{% endcomment %}
+
+<div class="bg-gray-800/90 border-t border-gray-700 py-3 px-4 relative overflow-hidden">
+  <!-- Animated Background -->
+  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/5 to-transparent animate-pulse"></div>
+  
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <div class="flex flex-wrap justify-center items-center gap-6 lg:gap-12">
+      {% for block in section.blocks %}
+        {% if block.type == 'trust_item' %}
+          <div class="flex items-center gap-2 text-{{ block.settings.color }}-300">
+            {% if block.settings.icon_type == 'emoji' %}
+              <span class="text-lg">{{ block.settings.emoji }}</span>
+            {% else %}
+              <div class="w-5 h-5 text-{{ block.settings.color }}-400">
+                {{ block.settings.svg_icon }}
+              </div>
+            {% endif %}
+            <span class="font-medium text-sm">{{ block.settings.text }}</span>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Trust Bar",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Configuration de la barre de confiance"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_trust_bar",
+      "label": "Afficher la barre de confiance",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_item",
+      "name": "Élément de confiance",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_type",
+          "label": "Type d'icône",
+          "options": [
+            {"value": "emoji", "label": "Emoji"},
+            {"value": "svg", "label": "Icône SVG"}
+          ],
+          "default": "emoji"
+        },
+        {
+          "type": "text",
+          "id": "emoji",
+          "label": "Emoji",
+          "default": "🛡️"
+        },
+        {
+          "type": "html",
+          "id": "svg_icon",
+          "label": "Icône SVG",
+          "default": "<svg fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z\"></path></svg>"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte",
+          "default": "Paiement 100% sécurisé"
+        },
+        {
+          "type": "select",
+          "id": "color",
+          "label": "Couleur",
+          "options": [
+            {"value": "green", "label": "Vert"},
+            {"value": "blue", "label": "Bleu"},
+            {"value": "purple", "label": "Violet"},
+            {"value": "cyan", "label": "Cyan"}
+          ],
+          "default": "green"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Bar",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "emoji",
+            "emoji": "🛡️",
+            "text": "Paiement 100% sécurisé",
+            "color": "green"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "emoji",
+            "emoji": "💳",
+            "text": "Visa, Mastercard, PayPal",
+            "color": "blue"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "emoji",
+            "emoji": "🚚",
+            "text": "Livraison gratuite",
+            "color": "purple"
+          }
+        },
+        {
+          "type": "trust_item",
+          "settings": {
+            "icon_type": "emoji",
+            "emoji": "🕐",
+            "text": "Support 24/7",
+            "color": "cyan"
+          }
+        }
+      ],
+      "settings": {
+        "show_trust_bar": true
+      }
+    }
+  ]
+}
+{% endschema %}

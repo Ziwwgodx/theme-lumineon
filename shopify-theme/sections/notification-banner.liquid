@@ -1,0 +1,149 @@
+{% comment %}
+  Section Notification Banner - Bandeau de notifications en temps réel
+{% endcomment %}
+
+<div class="bg-gradient-to-r from-gray-800/90 to-gray-900/90 border-y border-cyan-500/30 py-2 px-4 relative overflow-hidden">
+  <!-- Animated Line -->
+  <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 animate-pulse"></div>
+  
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <div class="flex items-center justify-center gap-4">
+      
+      <!-- Live Indicator -->
+      <div class="flex items-center gap-2">
+        <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+        <span class="text-green-300 text-sm font-medium">🟢 LIVE</span>
+      </div>
+      
+      <!-- Notification Text -->
+      <div class="text-white text-sm" id="notification-text">
+        {{ section.settings.default_notification | default: '👤 Sophie M. vient de commander un néon "OPEN" - Paris (75001)' }}
+      </div>
+      
+      <!-- Time -->
+      <div class="text-gray-400 text-xs" id="notification-time">
+        Il y a 2 min
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const notifications = [
+    {
+      text: "{{ section.settings.notification_1 | default: '👤 Sophie M. vient de commander un néon \"OPEN\" - Paris (75001)' }}",
+      time: "Il y a 2 min"
+    },
+    {
+      text: "{{ section.settings.notification_2 | default: '🎨 Marc D. a demandé un devis pour son restaurant - Lyon (69000)' }}",
+      time: "Il y a 5 min"
+    },
+    {
+      text: "{{ section.settings.notification_3 | default: '✅ Installation terminée chez Café Central - Marseille (13000)' }}",
+      time: "Il y a 8 min"
+    },
+    {
+      text: "{{ section.settings.notification_4 | default: '🚚 Livraison en cours pour Bar Lounge - Toulouse (31000)' }}",
+      time: "Il y a 12 min"
+    },
+    {
+      text: "{{ section.settings.notification_5 | default: '💡 Emma L. utilise le customizer 3D en ce moment' }}",
+      time: "Il y a 1 min"
+    },
+    {
+      text: "{{ section.settings.notification_6 | default: '📞 Consultation téléphonique programmée - Bordeaux (33000)' }}",
+      time: "Il y a 15 min"
+    }
+  ];
+  
+  const textElement = document.getElementById('notification-text');
+  const timeElement = document.getElementById('notification-time');
+  let currentIndex = 0;
+  
+  function updateNotification() {
+    // Fade out
+    textElement.style.opacity = '0';
+    timeElement.style.opacity = '0';
+    
+    setTimeout(() => {
+      // Update content
+      currentIndex = (currentIndex + 1) % notifications.length;
+      textElement.textContent = notifications[currentIndex].text;
+      timeElement.textContent = notifications[currentIndex].time;
+      
+      // Fade in
+      textElement.style.opacity = '1';
+      timeElement.style.opacity = '1';
+    }, 300);
+  }
+  
+  // Change notification every 6 seconds
+  setInterval(updateNotification, 6000);
+  
+  // Add transition styles
+  textElement.style.transition = 'opacity 0.3s ease';
+  timeElement.style.transition = 'opacity 0.3s ease';
+});
+</script>
+
+{% schema %}
+{
+  "name": "Bandeau Notifications Live",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Afficher le bandeau",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "default_notification",
+      "label": "Notification par défaut",
+      "default": "👤 Sophie M. vient de commander un néon \"OPEN\" - Paris (75001)"
+    },
+    {
+      "type": "text",
+      "id": "notification_1",
+      "label": "Notification 1",
+      "default": "👤 Sophie M. vient de commander un néon \"OPEN\" - Paris (75001)"
+    },
+    {
+      "type": "text",
+      "id": "notification_2",
+      "label": "Notification 2",
+      "default": "🎨 Marc D. a demandé un devis pour son restaurant - Lyon (69000)"
+    },
+    {
+      "type": "text",
+      "id": "notification_3",
+      "label": "Notification 3",
+      "default": "✅ Installation terminée chez Café Central - Marseille (13000)"
+    },
+    {
+      "type": "text",
+      "id": "notification_4",
+      "label": "Notification 4",
+      "default": "🚚 Livraison en cours pour Bar Lounge - Toulouse (31000)"
+    },
+    {
+      "type": "text",
+      "id": "notification_5",
+      "label": "Notification 5",
+      "default": "💡 Emma L. utilise le customizer 3D en ce moment"
+    },
+    {
+      "type": "text",
+      "id": "notification_6",
+      "label": "Notification 6",
+      "default": "📞 Consultation téléphonique programmée - Bordeaux (33000)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bandeau Notifications Live"
+    }
+  ]
+}
+{% endschema %}

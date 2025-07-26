@@ -1,0 +1,171 @@
+{% comment %}
+  Snippet Live Chat - Chat en direct
+{% endcomment %}
+
+<div id="live-chat" class="fixed bottom-6 right-6 z-50">
+  <button id="chat-toggle" class="w-16 h-16 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full flex items-center justify-center text-white shadow-neon-cyan hover:scale-110 transition-all duration-300 animate-pulse-glow">
+    <svg id="chat-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+    </svg>
+  </button>
+  
+  <div id="chat-notification" class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-xs font-bold animate-bounce">
+    1
+  </div>
+
+  <div id="chat-window" class="absolute bottom-20 right-0 w-80 h-96 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl border border-gray-700 shadow-2xl flex flex-col overflow-hidden hidden">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-cyan-500 to-purple-600 p-4 text-white">
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="font-semibold">{{ settings.chat_agent_name | default: 'Sophie' }} - {{ settings.chat_agent_title | default: 'Expert Néon' }}</div>
+          <div class="text-xs opacity-80">🟢 {{ settings.chat_status | default: 'En ligne - R&eacute;pond en 2min' }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3">
+      <div class="flex justify-start">
+        <div class="max-w-xs px-3 py-2 rounded-lg text-sm bg-gray-700 text-gray-100">
+          <div>{{ settings.chat_welcome_message | default: '👋 Bonjour ! Je suis Sophie, votre experte n&eacute;on. Comment puis-je vous aider ?' }}</div>
+          <div class="text-xs opacity-70 mt-1" id="welcome-time"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Replies -->
+    <div class="p-2 border-t border-gray-700">
+      <div class="flex flex-wrap gap-1 mb-2">
+        <button class="quick-reply text-xs px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-gray-300 hover:text-white transition-colors duration-200" data-message="{{ settings.quick_reply_1 | default: '💰 Quel est le prix ?' }}">
+          {{ settings.quick_reply_1 | default: '💰 Quel est le prix ?' }}
+        </button>
+        <button class="quick-reply text-xs px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-gray-300 hover:text-white transition-colors duration-200" data-message="{{ settings.quick_reply_2 | default: '⏱️ Délai de fabrication ?' }}">
+          {{ settings.quick_reply_2 | default: '⏱️ Délai de fabrication ?' }}
+        </button>
+        <button class="quick-reply text-xs px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-gray-300 hover:text-white transition-colors duration-200" data-message="{{ settings.quick_reply_3 | default: '🎨 Voir des exemples' }}">
+          {{ settings.quick_reply_3 | default: '🎨 Voir des exemples' }}
+        </button>
+        <button class="quick-reply text-xs px-2 py-1 bg-gray-700 hover:bg-gray-600 rounded-full text-gray-300 hover:text-white transition-colors duration-200" data-message="{{ settings.quick_reply_4 | default: '📞 Être rappelé' }}">
+          {{ settings.quick_reply_4 | default: '📞 Être rappelé' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="p-3 border-t border-gray-700">
+      <div class="flex gap-2">
+        <input id="chat-input" type="text" placeholder="{{ settings.chat_input_placeholder | default: 'Tapez votre message...' }}" class="flex-1 px-3 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white text-sm focus:border-cyan-400 focus:outline-none" />
+        <button id="chat-send" class="px-3 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-lg text-white hover:scale-105 transition-transform duration-200">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const chatToggle = document.getElementById('chat-toggle');
+  const chatWindow = document.getElementById('chat-window');
+  const chatNotification = document.getElementById('chat-notification');
+  const chatMessages = document.getElementById('chat-messages');
+  const chatInput = document.getElementById('chat-input');
+  const chatSend = document.getElementById('chat-send');
+  const chatIcon = document.getElementById('chat-icon');
+  const quickReplies = document.querySelectorAll('.quick-reply');
+
+  let isChatOpen = false;
+
+  // Set welcome message time
+  document.getElementById('welcome-time').textContent = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+  chatToggle.addEventListener('click', () => {
+    isChatOpen = !isChatOpen;
+    if (isChatOpen) {
+      chatWindow.classList.remove('hidden');
+      chatNotification.style.display = 'none';
+      chatIcon.innerHTML = `
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      `;
+    } else {
+      chatWindow.classList.add('hidden');
+      chatIcon.innerHTML = `
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+      `;
+    }
+  });
+
+  function sendMessage(text) {
+    if (!text.trim()) return;
+
+    // Add user message
+    const userMessage = document.createElement('div');
+    userMessage.className = 'flex justify-end';
+    userMessage.innerHTML = `
+      <div class="max-w-xs px-3 py-2 rounded-lg text-sm bg-gradient-to-r from-cyan-500 to-purple-600 text-white">
+        <div>${text}</div>
+        <div class="text-xs opacity-70 mt-1">${new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</div>
+      </div>
+    `;
+    chatMessages.appendChild(userMessage);
+
+    // Show typing indicator
+    const typingIndicator = document.createElement('div');
+    typingIndicator.className = 'flex justify-start';
+    typingIndicator.innerHTML = `
+      <div class="bg-gray-700 px-3 py-2 rounded-lg">
+        <div class="flex space-x-1">
+          <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+          <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
+          <div class="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+        </div>
+      </div>
+    `;
+    chatMessages.appendChild(typingIndicator);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Bot responses
+    const botResponses = {
+      "{{ settings.quick_reply_1 | default: '💰 Quel est le prix ?' }}": "{{ settings.bot_response_1 | default: 'Les prix démarrent à 150€ pour un petit néon décoratif. Pour un devis précis, puis-je connaître vos dimensions souhaitées ?' }}",
+      "{{ settings.quick_reply_2 | default: '⏱️ Délai de fabrication ?' }}": "{{ settings.bot_response_2 | default: '7-12 jours de production + 2-3 jours de livraison. Pour un projet urgent, nous avons des options express !' }}",
+      "{{ settings.quick_reply_3 | default: '🎨 Voir des exemples' }}": "{{ settings.bot_response_3 | default: 'Consultez notre galerie avec +500 créations ! Quel style vous intéresse : commercial, décoratif, événementiel ?' }}",
+      "{{ settings.quick_reply_4 | default: '📞 Être rappelé' }}": "{{ settings.bot_response_4 | default: 'Parfait ! Laissez-moi votre numéro et nos experts vous rappellent sous 2h en journée.' }}"
+    };
+
+    setTimeout(() => {
+      chatMessages.removeChild(typingIndicator);
+      
+      const botMessage = document.createElement('div');
+      botMessage.className = 'flex justify-start';
+      botMessage.innerHTML = `
+        <div class="max-w-xs px-3 py-2 rounded-lg text-sm bg-gray-700 text-gray-100">
+          <div>${botResponses[text] || "{{ settings.bot_default_response | default: 'Merci pour votre message ! Un expert va vous répondre dans quelques instants. En attendant, souhaitez-vous un devis gratuit ?' }}"}</div>
+          <div class="text-xs opacity-70 mt-1">${new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}</div>
+        </div>
+      `;
+      chatMessages.appendChild(botMessage);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }, 1500);
+
+    chatInput.value = '';
+    chatMessages.scrollTop = chatMessages.scrollHeight;
+  }
+
+  chatSend.addEventListener('click', () => sendMessage(chatInput.value));
+  chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') sendMessage(chatInput.value);
+  });
+
+  quickReplies.forEach(btn => {
+    btn.addEventListener('click', () => sendMessage(btn.dataset.message));
+  });
+});
+</script>

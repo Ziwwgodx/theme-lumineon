@@ -1,0 +1,93 @@
+{% comment %}
+  Section Scarcity Banner - Bandeau de rareté
+{% endcomment %}
+
+<div class="bg-gradient-to-r from-orange-500/20 to-red-500/20 border-y border-orange-500/30 py-3 px-4 relative overflow-hidden">
+  <!-- Animated Background -->
+  <div class="absolute inset-0 bg-gradient-to-r from-transparent via-orange-500/10 to-transparent animate-pulse"></div>
+  
+  <!-- Pulsing Dots -->
+  <div class="absolute left-0 top-0 w-full h-full">
+    <div class="absolute top-1/2 left-1/4 w-2 h-2 bg-orange-400 rounded-full animate-ping"></div>
+    <div class="absolute top-1/2 right-1/4 w-2 h-2 bg-red-400 rounded-full animate-ping animation-delay-1000"></div>
+  </div>
+  
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-center gap-4 text-center">
+      
+      <!-- Stock Alert -->
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+          <span class="text-red-300 font-bold text-lg">🔥 {{ section.settings.stock_text | default: 'ATTENTION' }}</span>
+        </div>
+        
+        <div class="text-white">
+          <span class="font-semibold">{{ section.settings.scarcity_text | default: 'Plus que 3 créneaux disponibles cette semaine' }}</span>
+        </div>
+      </div>
+      
+      <!-- Demand Indicator -->
+      <div class="flex items-center gap-2 text-yellow-300">
+        <svg class="w-5 h-5 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+        </svg>
+        <span class="font-medium">📈 {{ section.settings.demand_text | default: '+40% de demandes ce mois' }}</span>
+      </div>
+      
+      <!-- Action Button -->
+      <button onclick="openDevisPopup()" class="px-6 py-2 bg-gradient-to-r from-red-500 to-orange-600 rounded-full text-white font-bold transition-all duration-300 hover:scale-105 animate-pulse">
+        {{ section.settings.cta_text | default: 'RÉSERVER MA PLACE' }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+.animation-delay-1000 {
+  animation-delay: 1s;
+}
+</style>
+
+{% schema %}
+{
+  "name": "Bandeau Rareté",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Afficher le bandeau",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "stock_text",
+      "label": "Texte alerte stock",
+      "default": "ATTENTION"
+    },
+    {
+      "type": "text",
+      "id": "scarcity_text",
+      "label": "Texte de rareté",
+      "default": "Plus que 3 créneaux disponibles cette semaine"
+    },
+    {
+      "type": "text",
+      "id": "demand_text",
+      "label": "Texte demande",
+      "default": "+40% de demandes ce mois"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte bouton",
+      "default": "RÉSERVER MA PLACE"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bandeau Rareté"
+    }
+  ]
+}
+{% endschema %}

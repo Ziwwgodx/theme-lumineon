@@ -1,0 +1,309 @@
+{% comment %}
+  Section Services - Nos services
+{% endcomment %}
+
+<section id="services" class="py-20 lg:py-32 relative overflow-hidden section-transition">
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900"></div>
+  <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-pink-400 to-transparent opacity-50"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+        <span class="neon-text-pink">{{ section.settings.title_line_1 | default: 'Nos' }}</span>
+        <span class="text-white"> </span>
+        <span class="neon-text-yellow">{{ section.settings.title_line_2 | default: 'Services' }}</span>
+      </h2>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+        {{ section.settings.description | default: '🎯 Un accompagnement complet de A à Z pour donner vie à vos projets les plus ambitieux. Excellence et professionnalisme à chaque étape.' }}
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+      {% for block in section.blocks %}
+        {% if block.type == 'service' %}
+          <div class="group">
+            <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700 transition-all duration-300 hover:border-pink-500/50 hover:shadow-lg hover:shadow-pink-500/20 h-full">
+              <div class="text-pink-400 mb-4 group-hover:scale-110 transition-transform duration-300">
+                {% if block.settings.icon != blank %}
+                  {{ block.settings.icon }}
+                {% else %}
+                  <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                {% endif %}
+              </div>
+              <h3 class="text-xl font-semibold mb-3 text-white group-hover:text-pink-400 transition-colors duration-300">
+                {{ block.settings.title }}
+              </h3>
+              <p class="text-gray-400 mb-4 leading-relaxed">
+                {{ block.settings.description }}
+              </p>
+              <ul class="space-y-2">
+                {% if block.settings.features != blank %}
+                  {% assign features = block.settings.features | split: ',' %}
+                  {% for feature in features %}
+                    <li class="text-sm text-gray-500 flex items-center">
+                      <div class="w-1.5 h-1.5 bg-pink-400 rounded-full mr-2 flex-shrink-0"></div>
+                      {{ feature | strip }}
+                    </li>
+                  {% endfor %}
+                {% endif %}
+              </ul>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Process Section -->
+    <div class="bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-3xl p-8 lg:p-12 border border-gray-700">
+      <div class="text-center mb-12">
+        <h3 class="text-3xl lg:text-4xl font-bold mb-4 neon-text-pink">
+          {{ section.settings.process_title | default: 'Notre Processus' }}
+        </h3>
+        <p class="text-gray-300 text-lg">
+          {{ section.settings.process_description | default: 'Un workflow éprouvé pour des résultats exceptionnels' }}
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {% for block in section.blocks %}
+          {% if block.type == 'process_step' %}
+            <div class="relative text-center group">
+              <!-- Connection Line -->
+              {% unless forloop.last %}
+                <div class="hidden lg:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-pink-400 to-transparent opacity-30"></div>
+              {% endunless %}
+              
+              <div class="relative">
+                <div class="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-2xl font-bold text-white group-hover:scale-110 transition-transform duration-300">
+                  {{ block.settings.step_number }}
+                </div>
+                <h4 class="text-xl font-semibold mb-2 text-white group-hover:text-pink-400 transition-colors duration-300">
+                  {{ block.settings.title }}
+                </h4>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                  {{ block.settings.description }}
+                </p>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="text-center mt-16">
+      <div class="inline-flex items-center gap-4 mb-6">
+        <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span class="text-lg text-gray-300">{{ section.settings.cta_info | default: 'Production 7-12j + Livraison 2-3j' }}</span>
+        <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+        </svg>
+        <span class="text-lg text-gray-300">{{ section.settings.guarantee_info | default: 'Garantie 2 ans' }}</span>
+      </div>
+      <div class="flex justify-center">
+        <button onclick="openDevisPopup()" class="px-8 py-4 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-neon-pink">
+          {{ section.settings.cta_button | default: 'Demander Un Devis Gratuit' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Services Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_line_1",
+      "label": "Titre ligne 1",
+      "default": "Nos"
+    },
+    {
+      "type": "text",
+      "id": "title_line_2",
+      "label": "Titre ligne 2",
+      "default": "Services"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "🎯 Un accompagnement complet de A à Z pour donner vie à vos projets les plus ambitieux."
+    },
+    {
+      "type": "text",
+      "id": "process_title",
+      "label": "Titre du processus",
+      "default": "Notre Processus"
+    },
+    {
+      "type": "text",
+      "id": "process_description",
+      "label": "Description du processus",
+      "default": "Un workflow éprouvé pour des résultats exceptionnels"
+    },
+    {
+      "type": "text",
+      "id": "cta_info",
+      "label": "Info CTA",
+      "default": "Production 7-12j + Livraison 2-3j"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_info",
+      "label": "Info garantie",
+      "default": "Garantie 2 ans"
+    },
+    {
+      "type": "text",
+      "id": "cta_button",
+      "label": "Texte bouton CTA",
+      "default": "Demander Un Devis Gratuit"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service",
+      "name": "Service",
+      "settings": [
+        {
+          "type": "html",
+          "id": "icon",
+          "label": "Icône SVG"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "textarea",
+          "id": "features",
+          "label": "Fonctionnalités (séparées par des virgules)",
+          "info": "Ex: Étude personnalisée, Mockup 3D gratuit, Conseils d'expert"
+        }
+      ]
+    },
+    {
+      "type": "process_step",
+      "name": "Étape du processus",
+      "settings": [
+        {
+          "type": "text",
+          "id": "step_number",
+          "label": "Numéro de l'étape"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Services Section",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "service",
+          "settings": {
+            "icon": "<svg class=\"w-8 h-8\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z\"></path></svg>",
+            "title": "Création Sur Mesure",
+            "description": "Design unique adapté à votre identité visuelle et vos contraintes techniques.",
+            "features": "Étude personnalisée, Mockup 3D gratuit, Conseils d'expert, Révisions illimitées"
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "icon": "<svg class=\"w-8 h-8\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M15 12a3 3 0 11-6 0 3 3 0 016 0z\"></path></svg>",
+            "title": "Fabrication Premium",
+            "description": "Techniques artisanales et technologies LED de pointe pour un rendu exceptionnel.",
+            "features": "LED haute qualité, Matériaux nobles, Finitions parfaites, Tests qualité rigoureux"
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "icon": "<svg class=\"w-8 h-8\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4\"></path></svg>",
+            "title": "Livraison Express",
+            "description": "Livraison rapide et sécurisée partout en France avec suivi en temps réel.",
+            "features": "Livraison sécurisée, Suivi en temps réel, Emballage premium, Support technique"
+          }
+        },
+        {
+          "type": "service",
+          "settings": {
+            "icon": "<svg class=\"w-8 h-8\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a1 1 0 01-1-1V9a1 1 0 011-1h1a2 2 0 100-4H4a1 1 0 01-1-1V5a1 1 0 011-1h3a1 1 0 001-1V4z\"></path></svg>",
+            "title": "Maintenance & SAV",
+            "description": "Support technique 24/7 et maintenance préventive pour une longévité optimale.",
+            "features": "Support 24/7, Maintenance préventive, Réparations rapides, Pièces de rechange"
+          }
+        },
+        {
+          "type": "process_step",
+          "settings": {
+            "step_number": "01",
+            "title": "Consultation",
+            "description": "Échange sur votre projet et vos besoins"
+          }
+        },
+        {
+          "type": "process_step",
+          "settings": {
+            "step_number": "02",
+            "title": "Conception",
+            "description": "Création du design et mockup 3D"
+          }
+        },
+        {
+          "type": "process_step",
+          "settings": {
+            "step_number": "03",
+            "title": "Fabrication",
+            "description": "Production artisanale en 7-12 jours"
+          }
+        },
+        {
+          "type": "process_step",
+          "settings": {
+            "step_number": "04",
+            "title": "Livraison",
+            "description": "Expédition sécurisée sous 2-3 jours"
+          }
+        }
+      ],
+      "settings": {
+        "title_line_1": "Nos",
+        "title_line_2": "Services",
+        "description": "🎯 Un accompagnement complet de A à Z pour donner vie à vos projets les plus ambitieux. Excellence et professionnalisme à chaque étape.",
+        "process_title": "Notre Processus",
+        "process_description": "Un workflow éprouvé pour des résultats exceptionnels",
+        "cta_info": "Production 7-12j + Livraison 2-3j",
+        "guarantee_info": "Garantie 2 ans",
+        "cta_button": "Demander Un Devis Gratuit"
+      }
+    }
+  ]
+}
+{% endschema %}

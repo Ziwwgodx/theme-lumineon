@@ -1,0 +1,93 @@
+{% comment %}
+  Section Guarantee Banner - Bandeau garantie
+{% endcomment %}
+
+<div class="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-y border-purple-500/30 py-4 px-4 relative overflow-hidden">
+  <!-- Animated Shield -->
+  <div class="absolute left-4 top-1/2 transform -translate-y-1/2">
+    <svg class="w-8 h-8 text-purple-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+    </svg>
+  </div>
+  
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <div class="flex flex-wrap justify-center items-center gap-6 lg:gap-12">
+      
+      <!-- Main Guarantee -->
+      <div class="flex items-center gap-3 text-purple-300">
+        <span class="text-2xl">🛡️</span>
+        <div>
+          <div class="font-bold text-lg">{{ section.settings.guarantee_title | default: 'GARANTIE 2 ANS' }}</div>
+          <div class="text-sm opacity-80">{{ section.settings.guarantee_subtitle | default: 'Pièces et main d\'œuvre incluses' }}</div>
+        </div>
+      </div>
+      
+      <!-- Money Back -->
+      <div class="flex items-center gap-2 text-green-300">
+        <span class="text-xl">💰</span>
+        <span class="font-semibold">{{ section.settings.money_back | default: 'Satisfait ou Remboursé 30 jours' }}</span>
+      </div>
+      
+      <!-- Quality -->
+      <div class="flex items-center gap-2 text-yellow-300">
+        <span class="text-xl">🏆</span>
+        <span class="font-medium">{{ section.settings.quality_text | default: 'Qualité Premium Certifiée' }}</span>
+      </div>
+      
+      <!-- Support -->
+      <div class="flex items-center gap-2 text-cyan-300">
+        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+        <span class="font-medium">{{ section.settings.support_text | default: 'Support Expert 24/7' }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Bandeau Garantie",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Afficher le bandeau",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "guarantee_title",
+      "label": "Titre garantie",
+      "default": "GARANTIE 2 ANS"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_subtitle",
+      "label": "Sous-titre garantie",
+      "default": "Pièces et main d'œuvre incluses"
+    },
+    {
+      "type": "text",
+      "id": "money_back",
+      "label": "Satisfait ou remboursé",
+      "default": "Satisfait ou Remboursé 30 jours"
+    },
+    {
+      "type": "text",
+      "id": "quality_text",
+      "label": "Texte qualité",
+      "default": "Qualité Premium Certifiée"
+    },
+    {
+      "type": "text",
+      "id": "support_text",
+      "label": "Texte support",
+      "default": "Support Expert 24/7"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bandeau Garantie"
+    }
+  ]
+}
+{% endschema %}

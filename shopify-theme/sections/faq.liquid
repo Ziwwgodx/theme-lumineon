@@ -1,0 +1,193 @@
+{% comment %}
+  Section FAQ - Questions fréquentes
+{% endcomment %}
+
+<section class="py-20 lg:py-32 relative overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800"></div>
+  <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-orange-400 to-transparent opacity-50"></div>
+
+  <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+        <span class="neon-text-green">{{ section.settings.title_line_1 | default: 'Questions' }}</span>
+        <br />
+        <span class="neon-text-cyan">{{ section.settings.title_line_2 | default: 'Fréquentes' }}</span>
+      </h2>
+      <p class="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+        {{ section.settings.description | default: '🤔 Toutes les réponses à vos questions sur nos néons personnalisés. Besoin d\'autres infos ? Contactez-nous !' }}
+      </p>
+    </div>
+
+    <!-- FAQ Items -->
+    <div class="space-y-4">
+      {% for block in section.blocks %}
+        {% if block.type == 'faq_item' %}
+          <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl border border-gray-700 overflow-hidden transition-all duration-300 hover:border-orange-500/50">
+            <button onclick="toggleFAQ({{ forloop.index0 }})" class="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-gray-800/50 transition-colors duration-300">
+              <h3 class="text-lg font-semibold text-white pr-4">
+                {{ block.settings.question }}
+              </h3>
+              <div class="text-orange-400 flex-shrink-0">
+                <svg id="faq-icon-{{ forloop.index0 }}" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+            </button>
+            
+            <div id="faq-content-{{ forloop.index0 }}" class="hidden px-6 pb-6">
+              <div class="border-t border-gray-700 pt-4">
+                <p class="text-gray-300 leading-relaxed">
+                  {{ block.settings.answer }}
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center mt-12">
+      <p class="text-gray-300 mb-6">
+        {{ section.settings.cta_text | default: 'Une question spécifique ? Nos experts vous répondent en moins de 2h !' }}
+      </p>
+      <button
+        onclick="openDevisPopup()"
+        class="px-8 py-4 bg-gradient-to-r from-orange-500 to-red-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-orange-500/20"
+      >
+        {{ section.settings.cta_button | default: '💬 Poser Ma Question' }}
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleFAQ(index) {
+  const content = document.getElementById(`faq-content-${index}`);
+  const icon = document.getElementById(`faq-icon-${index}`);
+  
+  if (content.classList.contains('hidden')) {
+    content.classList.remove('hidden');
+    icon.style.transform = 'rotate(180deg)';
+  } else {
+    content.classList.add('hidden');
+    icon.style.transform = 'rotate(0deg)';
+  }
+}
+
+function openDevisPopup() {
+  if (typeof window.openDevisPopup === 'function') {
+    window.openDevisPopup();
+  } else {
+    alert('🎨 Contactez-nous pour créer votre néon personnalisé !\n📞 +33 1 23 45 67 89\n📧 contact@lumineon.fr');
+  }
+}
+</script>
+
+{% schema %}
+{
+  "name": "FAQ Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title_line_1",
+      "label": "Titre ligne 1",
+      "default": "Questions"
+    },
+    {
+      "type": "text",
+      "id": "title_line_2",
+      "label": "Titre ligne 2",
+      "default": "Fréquentes"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "🤔 Toutes les réponses à vos questions sur nos néons personnalisés. Besoin d'autres infos ? Contactez-nous !"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte CTA",
+      "default": "Une question spécifique ? Nos experts vous répondent en moins de 2h !"
+    },
+    {
+      "type": "text",
+      "id": "cta_button",
+      "label": "Bouton CTA",
+      "default": "💬 Poser Ma Question"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "Question FAQ",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Réponse"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Quel est le délai de fabrication d'un néon personnalisé ?",
+            "answer": "La production prend 7 à 12 jours ouvrés selon la complexité du projet, suivie d'une livraison express de 2 à 3 jours partout en France."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Livrez-vous partout en France ?",
+            "answer": "Oui, nous livrons dans toute la France métropolitaine en 2-3 jours ouvrés avec un emballage sécurisé et un suivi en temps réel."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Quelle est la durée de vie d'un néon LED ?",
+            "answer": "Nos néons LED ont une durée de vie de 50 000 heures minimum (soit environ 15 ans d'utilisation normale). Ils sont garantis 2 ans pièces et main d'œuvre."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Le devis et le mockup 3D sont-ils vraiment gratuits ?",
+            "answer": "Absolument ! Nous offrons un devis détaillé et un mockup 3D réaliste sans engagement. Cela vous permet de visualiser parfaitement votre projet avant validation."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Quels types de néons proposez-vous ?",
+            "answer": "Nous créons tous types de néons : enseignes commerciales, décoration intérieure, néons événementiels, logos d'entreprise, textes personnalisés, formes sur mesure..."
+          }
+        }
+      ],
+      "settings": {
+        "title_line_1": "Questions",
+        "title_line_2": "Fréquentes",
+        "description": "🤔 Toutes les réponses à vos questions sur nos néons personnalisés. Besoin d'autres infos ? Contactez-nous !",
+        "cta_text": "Une question spécifique ? Nos experts vous répondent en moins de 2h !",
+        "cta_button": "💬 Poser Ma Question"
+      }
+    }
+  ]
+}
+{% endschema %}

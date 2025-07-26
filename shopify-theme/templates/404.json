@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-404",
+      "settings": {
+        "title": "Oups ! Page Introuvable",
+        "subtitle": "Cette page s'est éteinte comme un néon défaillant...",
+        "description": "Ne vous inquiétez pas, nos néons eux brillent toujours ! Retournez à l'accueil ou créez votre néon personnalisé."
+      }
+    }
+  },
+  "order": ["main"]
+}

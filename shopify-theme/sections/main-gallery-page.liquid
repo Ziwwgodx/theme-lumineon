@@ -1,0 +1,1353 @@
+{% comment %}
+  Section Main Gallery Page - Galerie immersive avec effets néon avancés
+{% endcomment %}
+
+<style>
+/* Gallery Page Styles */
+.gallery-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #111827 100%);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Animated Background */
+.gallery-bg-effects {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floating-neon-orb {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  animation: float-orb 12s ease-in-out infinite;
+  filter: blur(2px);
+}
+
+.orb-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, #00f5ff, transparent);
+  top: 10%;
+  left: 5%;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, #a855f7, transparent);
+  top: 60%;
+  right: 10%;
+  animation-delay: -4s;
+}
+
+.orb-3 {
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, #ec4899, transparent);
+  bottom: 20%;
+  left: 15%;
+  animation-delay: -8s;
+}
+
+.orb-4 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, #fbbf24, transparent);
+  top: 30%;
+  right: 30%;
+  animation-delay: -2s;
+}
+
+@keyframes float-orb {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg) scale(1);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-30px) rotate(90deg) scale(1.1);
+    opacity: 0.15;
+  }
+  50% {
+    transform: translateY(-60px) rotate(180deg) scale(0.9);
+    opacity: 0.2;
+  }
+  75% {
+    transform: translateY(-30px) rotate(270deg) scale(1.05);
+    opacity: 0.15;
+  }
+}
+
+/* Neon Grid Lines */
+.neon-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: grid-pulse 4s ease-in-out infinite;
+}
+
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.1; }
+}
+
+/* Gallery Header */
+.gallery-header {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+}
+
+.gallery-title {
+  font-size: clamp(3rem, 8vw, 8rem);
+  font-weight: 900;
+  margin-bottom: 2rem;
+  background: linear-gradient(45deg, #00f5ff, #a855f7, #ec4899, #fbbf24);
+  background-size: 400% 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradient-shift 6s ease-in-out infinite;
+  text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.gallery-subtitle {
+  font-size: 1.5rem;
+  color: #d1d5db;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* Stats Counter */
+.gallery-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(55, 65, 81, 0.6));
+  border-radius: 20px;
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px) scale(1.05);
+  border-color: #00f5ff;
+  box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #00f5ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-label {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Category Filter */
+.category-filter {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+  padding: 0 2rem;
+}
+
+.filter-btn {
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(55, 65, 81, 0.6));
+  border: 2px solid rgba(75, 85, 99, 0.5);
+  border-radius: 50px;
+  color: #d1d5db;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.filter-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.filter-btn:hover::before {
+  left: 100%;
+}
+
+.filter-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  border-color: #00f5ff;
+  color: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #00f5ff, #a855f7);
+  border-color: #00f5ff;
+  color: #ffffff;
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 245, 255, 0.4);
+}
+
+/* Gallery Grid */
+.gallery-container {
+  position: relative;
+  z-index: 10;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.gallery-item {
+  position: relative;
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(55, 65, 81, 0.7));
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  backdrop-filter: blur(15px);
+  group: hover;
+}
+
+.gallery-item:hover {
+  transform: translateY(-10px) rotateX(5deg) rotateY(2deg);
+  border-color: #00f5ff;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(0, 245, 255, 0.3),
+    inset 0 0 20px rgba(0, 245, 255, 0.1);
+}
+
+.gallery-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(0, 245, 255, 0.1), 
+    rgba(168, 85, 247, 0.1), 
+    rgba(236, 72, 153, 0.1),
+    rgba(251, 191, 36, 0.1)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.gallery-item:hover::before {
+  opacity: 1;
+}
+
+.gallery-image {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gallery-item:hover .gallery-image {
+  transform: scale(1.1) rotate(1deg);
+}
+
+.gallery-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, 
+    rgba(17, 24, 39, 0.95) 0%,
+    rgba(17, 24, 39, 0.8) 50%,
+    transparent 100%
+  );
+  padding: 2rem;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.gallery-category {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(45deg, #00f5ff, #a855f7);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.gallery-title-item {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.gallery-description {
+  color: #d1d5db;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.gallery-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+/* Lightbox Modal */
+.lightbox-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(20px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.lightbox-modal.active {
+  display: flex;
+}
+
+.lightbox-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(55, 65, 81, 0.8));
+  border-radius: 20px;
+  border: 2px solid #00f5ff;
+  box-shadow: 0 0 50px rgba(0, 245, 255, 0.5);
+  overflow: hidden;
+  animation: lightbox-appear 0.5s ease;
+}
+
+@keyframes lightbox-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotateY(20deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotateY(0deg);
+  }
+}
+
+.lightbox-image {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  display: block;
+}
+
+.lightbox-info {
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.9), rgba(31, 41, 55, 0.8));
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid #00f5ff;
+  border-radius: 50%;
+  color: #00f5ff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.lightbox-close:hover {
+  background: #00f5ff;
+  color: #000000;
+  transform: scale(1.1) rotate(90deg);
+}
+
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.7);
+  border: 2px solid #00f5ff;
+  border-radius: 50%;
+  color: #00f5ff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.lightbox-nav:hover {
+  background: #00f5ff;
+  color: #000000;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.lightbox-prev {
+  left: 1rem;
+}
+
+.lightbox-next {
+  right: 1rem;
+}
+
+/* Loading Animation */
+.gallery-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1.2rem;
+  color: #00f5ff;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 245, 255, 0.3);
+  border-top: 3px solid #00f5ff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .gallery-header {
+    padding: 6rem 1rem 3rem;
+  }
+  
+  .gallery-title {
+    font-size: clamp(2rem, 12vw, 4rem);
+  }
+  
+  .gallery-stats {
+    gap: 1.5rem;
+  }
+  
+  .stat-item {
+    padding: 1rem;
+    min-width: 100px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .category-filter {
+    gap: 0.5rem;
+    padding: 0 1rem;
+  }
+  
+  .filter-btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .gallery-container {
+    padding: 0 1rem 4rem;
+  }
+  
+  .gallery-item {
+    border-radius: 15px;
+  }
+  
+  .gallery-image {
+    height: 200px;
+  }
+  
+  .gallery-overlay {
+    padding: 1.5rem;
+  }
+  
+  .lightbox-content {
+    margin: 1rem;
+    border-radius: 15px;
+  }
+  
+  .lightbox-info {
+    padding: 1.5rem;
+  }
+  
+  .lightbox-nav {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Scroll Animations */
+.gallery-item {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.6s ease;
+}
+
+.gallery-item.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Particle Effects */
+.gallery-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #00f5ff;
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: float-particle 15s linear infinite;
+}
+
+.particle:nth-child(2n) {
+  background: #a855f7;
+  animation-delay: -5s;
+}
+
+.particle:nth-child(3n) {
+  background: #ec4899;
+  animation-delay: -10s;
+}
+
+.particle:nth-child(4n) {
+  background: #fbbf24;
+  animation-delay: -15s;
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Search Bar */
+.gallery-search {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto 3rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem 1.5rem 1rem 3rem;
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(55, 65, 81, 0.6));
+  border: 2px solid rgba(75, 85, 99, 0.5);
+  border-radius: 50px;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #00f5ff;
+  box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(55, 65, 81, 0.8));
+}
+
+.search-input::placeholder {
+  color: #9ca3af;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  transition: color 0.3s ease;
+}
+
+.search-input:focus + .search-icon {
+  color: #00f5ff;
+}
+</style>
+
+<div class="gallery-page">
+  <!-- Background Effects -->
+  <div class="gallery-bg-effects">
+    <div class="neon-grid"></div>
+    <div class="floating-neon-orb orb-1"></div>
+    <div class="floating-neon-orb orb-2"></div>
+    <div class="floating-neon-orb orb-3"></div>
+    <div class="floating-neon-orb orb-4"></div>
+  </div>
+
+  <!-- Floating Particles -->
+  <div class="gallery-particles" id="gallery-particles"></div>
+
+  <!-- Header -->
+  <div class="gallery-header">
+    <h1 class="gallery-title">{{ section.settings.page_title | default: 'Galerie Néon' }}</h1>
+    <p class="gallery-subtitle">
+      {{ section.settings.page_description | default: '✨ Découvrez notre collection complète de créations lumineuses. Plus de 500 néons personnalisés qui ont illuminé les rêves de nos clients.' }}
+    </p>
+
+    <!-- Stats -->
+    <div class="gallery-stats">
+      {% for block in section.blocks %}
+        {% if block.type == 'stat' %}
+          <div class="stat-item">
+            <div class="stat-number" data-count="{{ block.settings.number }}">0</div>
+            <div class="stat-label">{{ block.settings.label }}</div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Search Bar -->
+    {% if section.settings.show_search %}
+      <div class="gallery-search">
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="{{ section.settings.search_placeholder | default: '🔍 Rechercher dans la galerie...' }}"
+          id="gallery-search"
+        />
+        <svg class="search-icon w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- Category Filter -->
+  <div class="category-filter">
+    <button class="filter-btn active" data-category="all">
+      {{ section.settings.filter_all | default: 'Tous' }}
+    </button>
+    
+    {% assign categories = '' %}
+    {% for block in section.blocks %}
+      {% if block.type == 'gallery_item' %}
+        {% assign category = block.settings.category | downcase %}
+        {% unless categories contains category %}
+          {% assign categories = categories | append: category | append: ',' %}
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+    
+    {% assign category_array = categories | split: ',' %}
+    {% for category in category_array %}
+      {% if category != blank %}
+        <button class="filter-btn" data-category="{{ category }}">
+          {{ category | capitalize }}
+        </button>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- Gallery Grid -->
+  <div class="gallery-container">
+    <div class="gallery-grid" id="gallery-grid">
+      {% assign item_index = 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'gallery_item' %}
+          <div class="gallery-item" data-category="{{ block.settings.category | downcase }}" data-index="{{ item_index }}" onclick="openLightbox({{ item_index }})">
+            {% if block.settings.image %}
+              <img 
+                src="{{ block.settings.image | img_url: '600x400' }}" 
+                alt="Néon LED personnalisé {{ block.settings.title | escape }} - {{ block.settings.category }} - Création LumiNéon"
+                class="gallery-image"
+                loading="lazy"
+                width="600"
+                height="400"
+                itemprop="image"
+              />
+            {% else %}
+              <div class="gallery-image" style="background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(168, 85, 247, 0.2)); display: flex; align-items: center; justify-content: center;">
+                <svg class="w-16 h-16 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+            {% endif %}
+            
+            <div class="gallery-overlay">
+              <div class="gallery-category">{{ block.settings.category }}</div>
+              <h3 class="gallery-title-item" itemprop="name">{{ block.settings.title }}</h3>
+              <p class="gallery-description" itemprop="description">{{ block.settings.description }}</p>
+              <div class="gallery-meta">
+                <span>{{ block.settings.client | default: 'Client Confidentiel' }}</span>
+                <span>{{ block.settings.year | default: '2024' }}</span>
+              </div>
+            </div>
+          </div>
+          {% assign item_index = item_index | plus: 1 %}
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Loading State -->
+    <div class="gallery-loading" id="gallery-loading" style="display: none;">
+      <div class="loading-spinner"></div>
+      Chargement des créations...
+    </div>
+
+    <!-- Empty State -->
+    {% if section.blocks.size == 0 %}
+      <div class="text-center py-20">
+        <svg class="w-24 h-24 text-gray-500 mx-auto mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        <h3 class="text-2xl font-bold text-white mb-4">Galerie en Construction</h3>
+        <p class="text-gray-400 mb-8">Nos plus belles créations arrivent bientôt !</p>
+        <button onclick="openDevisPopup()" class="px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-white font-semibold transition-all duration-300 hover:scale-105">
+          Créer Mon Néon
+        </button>
+      </div>
+    {% endif %}
+  </div>
+
+  <!-- CTA Section -->
+  {% if section.settings.show_cta %}
+    <div class="text-center pb-20">
+      <div class="max-w-2xl mx-auto px-4">
+        <h3 class="text-3xl font-bold mb-4" style="color: #00f5ff; text-shadow: 0 0 20px rgba(0, 245, 255, 0.5);">
+          {{ section.settings.cta_title | default: 'Prêt à Créer Votre Néon ?' }}
+        </h3>
+        <p class="text-gray-300 mb-8 text-lg">
+          {{ section.settings.cta_description | default: 'Rejoignez nos clients satisfaits et donnez vie à votre vision lumineuse.' }}
+        </p>
+        <button 
+          onclick="openDevisPopup()"
+          class="px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105"
+          style="box-shadow: 0 0 30px rgba(251, 191, 36, 0.4);"
+        >
+          {{ section.settings.cta_button | default: '🚀 Commencer Mon Projet' }}
+        </button>
+      </div>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Lightbox Modal -->
+<div class="lightbox-modal" id="lightbox-modal">
+  <div class="lightbox-content">
+    <button class="lightbox-close" onclick="closeLightbox()">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    
+    <button class="lightbox-nav lightbox-prev" onclick="prevImage()">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+      </svg>
+    </button>
+    
+    <button class="lightbox-nav lightbox-next" onclick="nextImage()">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </button>
+    
+    <img id="lightbox-image" class="lightbox-image" src="" alt="" />
+    
+    <div class="lightbox-info">
+      <div class="flex items-center gap-3 mb-3">
+        <span id="lightbox-category" class="gallery-category"></span>
+        <span id="lightbox-meta" class="text-gray-400 text-sm"></span>
+      </div>
+      <h3 id="lightbox-title" class="text-2xl font-bold text-white mb-3"></h3>
+      <p id="lightbox-description" class="text-gray-300 leading-relaxed"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+// Gallery Data
+let galleryItems = [
+  {% assign first_item = true %}
+  {% for block in section.blocks %}
+    {% if block.type == 'gallery_item' %}
+      {% unless first_item %},{% endunless %}
+      {
+        image: "{{ block.settings.image | img_url: 'master' }}",
+        title: "{{ block.settings.title | escape }}",
+        description: "{{ block.settings.description | escape }}",
+        category: "{{ block.settings.category | downcase }}",
+        client: "{{ block.settings.client | default: 'Client Confidentiel' }}",
+        year: "{{ block.settings.year | default: '2024' }}"
+      }
+      {% assign first_item = false %}
+    {% endif %}
+  {% endfor %}
+];
+
+let currentLightboxIndex = 0;
+let filteredItems = [...galleryItems];
+
+// Initialize Gallery
+document.addEventListener('DOMContentLoaded', function() {
+  initializeParticles();
+  initializeScrollAnimations();
+  initializeCounters();
+  initializeSearch();
+  initializeFilters();
+});
+
+// Create floating particles
+function initializeParticles() {
+  const container = document.getElementById('gallery-particles');
+  if (!container) return;
+  
+  for (let i = 0; i < 20; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 15 + 's';
+    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+    container.appendChild(particle);
+  }
+}
+
+// Scroll animations
+function initializeScrollAnimations() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    observer.observe(item);
+  });
+}
+
+// Animated counters
+function initializeCounters() {
+  const counters = document.querySelectorAll('[data-count]');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        const target = parseInt(counter.dataset.count);
+        let current = 0;
+        const increment = target / 100;
+        
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          counter.textContent = Math.floor(current) + (target >= 1000 ? '+' : '');
+        }, 20);
+        
+        observer.unobserve(counter);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  counters.forEach(counter => observer.observe(counter));
+}
+
+// Search functionality
+function initializeSearch() {
+  const searchInput = document.getElementById('gallery-search');
+  if (!searchInput) return;
+  
+  searchInput.addEventListener('input', function() {
+    const query = this.value.toLowerCase();
+    filterGallery(query);
+  });
+}
+
+// Filter functionality
+function initializeFilters() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      // Update active button
+      filterBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Filter items
+      const category = this.dataset.category;
+      const items = document.querySelectorAll('.gallery-item');
+      
+      items.forEach(item => {
+        if (category === 'all' || item.dataset.category === category) {
+          item.style.display = 'block';
+          setTimeout(() => item.classList.add('animate-in'), 100);
+        } else {
+          item.style.display = 'none';
+          item.classList.remove('animate-in');
+        }
+      });
+      
+      // Update filtered items for lightbox
+      if (category === 'all') {
+        filteredItems = [...galleryItems];
+      } else {
+        filteredItems = galleryItems.filter(item => item.category === category);
+      }
+    });
+  });
+}
+
+// Filter gallery by search
+function filterGallery(query) {
+  const items = document.querySelectorAll('.gallery-item');
+  
+  items.forEach((item, index) => {
+    const galleryData = galleryItems[index];
+    const searchText = (galleryData.title + ' ' + galleryData.description + ' ' + galleryData.category).toLowerCase();
+    
+    if (searchText.includes(query)) {
+      item.style.display = 'block';
+      setTimeout(() => item.classList.add('animate-in'), 100);
+    } else {
+      item.style.display = 'none';
+      item.classList.remove('animate-in');
+    }
+  });
+}
+
+// Lightbox functions
+function openLightbox(index) {
+  currentLightboxIndex = index;
+  updateLightboxContent();
+  document.getElementById('lightbox-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox-modal').classList.remove('active');
+  document.body.style.overflow = 'auto';
+}
+
+function nextImage() {
+  currentLightboxIndex = (currentLightboxIndex + 1) % filteredItems.length;
+  updateLightboxContent();
+}
+
+function prevImage() {
+  currentLightboxIndex = currentLightboxIndex === 0 ? filteredItems.length - 1 : currentLightboxIndex - 1;
+  updateLightboxContent();
+}
+
+function updateLightboxContent() {
+  const item = filteredItems[currentLightboxIndex];
+  if (!item) return;
+  
+  document.getElementById('lightbox-image').src = item.image;
+  document.getElementById('lightbox-title').textContent = item.title;
+  document.getElementById('lightbox-description').textContent = item.description;
+  document.getElementById('lightbox-category').textContent = item.category.charAt(0).toUpperCase() + item.category.slice(1);
+  document.getElementById('lightbox-meta').textContent = `${item.client} • ${item.year}`;
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+  const modal = document.getElementById('lightbox-modal');
+  if (!modal.classList.contains('active')) return;
+  
+  switch(e.key) {
+    case 'Escape':
+      closeLightbox();
+      break;
+    case 'ArrowLeft':
+      prevImage();
+      break;
+    case 'ArrowRight':
+      nextImage();
+      break;
+  }
+});
+
+// Close lightbox on backdrop click
+document.getElementById('lightbox-modal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    closeLightbox();
+  }
+});
+
+// Open devis popup
+function openDevisPopup() {
+  if (typeof window.openDevisPopup === 'function') {
+    window.openDevisPopup();
+  } else {
+    alert('🎨 Contactez-nous pour créer votre néon personnalisé !\n📞 +33 1 23 45 67 89\n📧 contact@lumineon.fr');
+  }
+}
+</script>
+
+{% schema %}
+{
+  "name": "Page Galerie",
+  "settings": [
+    {
+      "type": "header",
+      "content": "En-tête de page"
+    },
+    {
+      "type": "text",
+      "id": "page_title",
+      "label": "Titre de la page",
+      "default": "Galerie Néon"
+    },
+    {
+      "type": "textarea",
+      "id": "page_description",
+      "label": "Description de la page",
+      "default": "✨ Découvrez notre collection complète de créations lumineuses. Plus de 500 néons personnalisés qui ont illuminé les rêves de nos clients."
+    },
+    {
+      "type": "header",
+      "content": "Recherche"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Afficher la barre de recherche",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Placeholder de recherche",
+      "default": "🔍 Rechercher dans la galerie..."
+    },
+    {
+      "type": "header",
+      "content": "Filtres"
+    },
+    {
+      "type": "text",
+      "id": "filter_all",
+      "label": "Texte filtre 'Tous'",
+      "default": "Tous"
+    },
+    {
+      "type": "header",
+      "content": "Section CTA"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Afficher section CTA",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "Titre CTA",
+      "default": "Prêt à Créer Votre Néon ?"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_description",
+      "label": "Description CTA",
+      "default": "Rejoignez nos clients satisfaits et donnez vie à votre vision lumineuse."
+    },
+    {
+      "type": "text",
+      "id": "cta_button",
+      "label": "Texte bouton CTA",
+      "default": "🚀 Commencer Mon Projet"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Statistique",
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Nombre",
+          "default": "500"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Libellé",
+          "default": "Créations"
+        }
+      ]
+    },
+    {
+      "type": "gallery_item",
+      "name": "Élément Galerie",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titre",
+          "default": "Néon Personnalisé"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Une création unique qui illumine l'espace avec style et originalité."
+        },
+        {
+          "type": "select",
+          "id": "category",
+          "label": "Catégorie",
+          "options": [
+            {"value": "Décoration", "label": "Décoration"},
+            {"value": "Commercial", "label": "Commercial"},
+            {"value": "Événementiel", "label": "Événementiel"},
+            {"value": "Logo", "label": "Logo"},
+            {"value": "Citation", "label": "Citation"},
+            {"value": "Gaming", "label": "Gaming"},
+            {"value": "Restaurant", "label": "Restaurant"},
+            {"value": "Bar", "label": "Bar"},
+            {"value": "Boutique", "label": "Boutique"}
+          ],
+          "default": "Décoration"
+        },
+        {
+          "type": "text",
+          "id": "client",
+          "label": "Client",
+          "default": "Client Confidentiel"
+        },
+        {
+          "type": "text",
+          "id": "year",
+          "label": "Année",
+          "default": "2024"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Galerie",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "number": "500",
+            "label": "Créations"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "98",
+            "label": "% Satisfaits"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "50",
+            "label": "Villes"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "number": "10",
+            "label": "Ans d'Expertise"
+          }
+        },
+        {
+          "type": "gallery_item",
+          "settings": {
+            "title": "Néon WOW - Impact Visuel",
+            "description": "Néon expressif 'WOW' avec effet de profondeur et éclairage dynamique pour créer un impact visuel saisissant.",
+            "category": "Décoration",
+            "client": "Studio Design Pro",
+            "year": "2024"
+          }
+        },
+        {
+          "type": "gallery_item",
+          "settings": {
+            "title": "Logo Restaurant Le Gourmet",
+            "description": "Enseigne néon élégante pour restaurant gastronomique avec typographie raffinée et éclairage chaleureux.",
+            "category": "Restaurant",
+            "client": "Restaurant Le Gourmet",
+            "year": "2024"
+          }
+        },
+        {
+          "type": "gallery_item",
+          "settings": {
+            "title": "Néon Gaming Zone",
+            "description": "Création gaming avec effets dynamiques et couleurs RGB pour une ambiance électrisante.",
+            "category": "Gaming",
+            "client": "Gaming Center Pro",
+            "year": "2024"
+          }
+        },
+        {
+          "type": "gallery_item",
+          "settings": {
+            "title": "Citation Motivationnelle",
+            "description": "Néon inspirant 'Dream Big' en script élégant pour bureau moderne et espaces de coworking.",
+            "category": "Citation",
+            "client": "Coworking Space",
+            "year": "2024"
+          }
+        },
+        {
+          "type": "gallery_item",
+          "settings": {
+            "title": "Enseigne Bar Cocktails",
+            "description": "Néon vintage pour bar à cocktails avec design rétro et ambiance années 80 authentique.",
+            "category": "Bar",
+            "client": "Cocktail Bar Vintage",
+            "year": "2024"
+          }
+        },
+        {
+          "type": "gallery_item",
+          "settings": {
+            "title": "Logo Boutique Mode",
+            "description": "Enseigne haut de gamme pour boutique de mode avec finitions premium et éclairage sophistiqué.",
+            "category": "Boutique",
+            "client": "Fashion Store Elite",
+            "year": "2024"
+          }
+        }
+      ],
+      "settings": {
+        "page_title": "Galerie Néon",
+        "page_description": "✨ Découvrez notre collection complète de créations lumineuses. Plus de 500 néons personnalisés qui ont illuminé les rêves de nos clients.",
+        "show_search": true,
+        "search_placeholder": "🔍 Rechercher dans la galerie...",
+        "filter_all": "Tous",
+        "show_cta": true,
+        "cta_title": "Prêt à Créer Votre Néon ?",
+        "cta_description": "Rejoignez nos clients satisfaits et donnez vie à votre vision lumineuse.",
+        "cta_button": "🚀 Commencer Mon Projet"
+      }
+    }
+  ]
+}
+{% endschema %}

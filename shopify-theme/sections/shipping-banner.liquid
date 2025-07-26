@@ -1,0 +1,118 @@
+{% comment %}
+  Section Shipping Banner - Bandeau livraison
+{% endcomment %}
+
+<div class="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border-y border-blue-500/30 py-3 px-4 relative overflow-hidden">
+  <!-- Moving Truck Animation -->
+  <div class="absolute top-1/2 transform -translate-y-1/2 animate-pulse">
+    <div class="truck-animation">
+      <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+      </svg>
+    </div>
+  </div>
+  
+  <div class="relative z-10 max-w-7xl mx-auto">
+    <div class="flex flex-wrap justify-center items-center gap-6 lg:gap-12 text-center">
+      
+      <!-- Free Shipping -->
+      <div class="flex items-center gap-2 text-blue-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+        </svg>
+        <span class="font-semibold">🚚 {{ section.settings.shipping_text | default: 'Livraison GRATUITE partout en France' }}</span>
+      </div>
+      
+      <!-- Fast Delivery -->
+      <div class="flex items-center gap-2 text-cyan-300">
+        <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+        <span class="font-medium">⚡ {{ section.settings.speed_text | default: 'Production 7-12j + Livraison Express 2-3j' }}</span>
+      </div>
+      
+      <!-- Tracking -->
+      <div class="flex items-center gap-2 text-purple-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
+        <span class="font-medium">📍 {{ section.settings.tracking_text | default: 'Suivi en temps réel SMS + Email' }}</span>
+      </div>
+      
+      <!-- Secure Packaging -->
+      <div class="flex items-center gap-2 text-green-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+        </svg>
+        <span class="font-medium">📦 {{ section.settings.packaging_text | default: 'Emballage premium anti-choc' }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.truck-animation {
+  animation: moveTruck 10s linear infinite;
+}
+
+@keyframes moveTruck {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100vw);
+    opacity: 0;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Bandeau Livraison",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_banner",
+      "label": "Afficher le bandeau",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "shipping_text",
+      "label": "Texte livraison gratuite",
+      "default": "Livraison GRATUITE partout en France"
+    },
+    {
+      "type": "text",
+      "id": "speed_text",
+      "label": "Texte rapidité",
+      "default": "Production 7-12j + Livraison Express 2-3j"
+    },
+    {
+      "type": "text",
+      "id": "tracking_text",
+      "label": "Texte suivi",
+      "default": "Suivi en temps réel SMS + Email"
+    },
+    {
+      "type": "text",
+      "id": "packaging_text",
+      "label": "Texte emballage",
+      "default": "Emballage premium anti-choc"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bandeau Livraison"
+    }
+  ]
+}
+{% endschema %}
