@@ -1,0 +1,1507 @@
+{%- style -%}
+  .neon-customizer-section {
+    padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
+    background: linear-gradient(135deg, #111827 0%, #1f2937 50%, #111827 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Background Effects */
+  .customizer-bg-effects {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+  
+  .floating-orb {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float-orb 12s ease-in-out infinite;
+    filter: blur(2px);
+  }
+  
+  .orb-1 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #00f5ff, transparent);
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+  
+  .orb-2 {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, #a855f7, transparent);
+    top: 60%;
+    right: 15%;
+    animation-delay: -4s;
+  }
+  
+  .orb-3 {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle, #ec4899, transparent);
+    bottom: 30%;
+    left: 20%;
+    animation-delay: -8s;
+  }
+  
+  @keyframes float-orb {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg) scale(1);
+      opacity: 0.1;
+    }
+    25% {
+      transform: translateY(-20px) rotate(90deg) scale(1.1);
+      opacity: 0.15;
+    }
+    50% {
+      transform: translateY(-40px) rotate(180deg) scale(0.9);
+      opacity: 0.2;
+    }
+    75% {
+      transform: translateY(-20px) rotate(270deg) scale(1.05);
+      opacity: 0.15;
+    }
+  }
+  
+  /* Neon Grid */
+  .neon-grid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: grid-pulse 4s ease-in-out infinite;
+  }
+  
+  @keyframes grid-pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.1; }
+  }
+  
+  /* Main Container */
+  .neon-customizer-wrapper {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.95), rgba(55, 65, 81, 0.9));
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(0, 245, 255, 0.3);
+    border-radius: 24px;
+    box-shadow: 
+      0 25px 50px rgba(0, 0, 0, 0.5),
+      0 0 50px rgba(0, 245, 255, 0.2),
+      inset 0 0 30px rgba(0, 245, 255, 0.05);
+    position: relative;
+    z-index: 10;
+    overflow: hidden;
+  }
+  
+  .neon-customizer-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #00f5ff, #a855f7, #ec4899, #fbbf24);
+    animation: border-flow 3s linear infinite;
+  }
+  
+  @keyframes border-flow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  
+  /* Preview Area */
+  .neon-preview-area {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+    position: relative;
+    border-right: 1px solid rgba(0, 245, 255, 0.2);
+  }
+  
+  .neon-preview-area::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(168, 85, 247, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(236, 72, 153, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  /* Controls */
+  .neon-toggle-btn {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(55, 65, 81, 0.6));
+    border: 1px solid rgba(75, 85, 99, 0.5);
+    color: #9ca3af;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .neon-toggle-btn:hover {
+    border-color: #00f5ff;
+    color: #00f5ff;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 245, 255, 0.2);
+  }
+  
+  .neon-toggle-btn.active {
+    background: linear-gradient(135deg, #00f5ff, #0891b2);
+    border-color: #00f5ff;
+    color: #ffffff;
+    box-shadow: 
+      0 0 20px rgba(0, 245, 255, 0.4),
+      0 10px 25px rgba(0, 245, 255, 0.3);
+  }
+  
+  /* Price Display */
+  .price-display {
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(31, 41, 55, 0.9));
+    border: 1px solid rgba(0, 245, 255, 0.3);
+    backdrop-filter: blur(15px);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+  
+  .neon-price {
+    background: linear-gradient(45deg, #fbbf24, #f59e0b);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+    animation: price-glow 2s ease-in-out infinite;
+  }
+  
+  @keyframes price-glow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.2); }
+  }
+  
+  /* Neon Text Display */
+  .neon-text {
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+  }
+  
+  .neon-on {
+    filter: brightness(1.2) saturate(1.3);
+    animation: neon-flicker 3s ease-in-out infinite;
+  }
+  
+  @keyframes neon-flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+      opacity: 1;
+      filter: brightness(1.2) saturate(1.3);
+    }
+    20%, 24%, 55% {
+      opacity: 0.9;
+      filter: brightness(1) saturate(1);
+    }
+  }
+  
+  /* Customizer Panel */
+  .customizer-panel {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(55, 65, 81, 0.8));
+    color: #ffffff;
+    position: relative;
+  }
+  
+  .customizer-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, #00f5ff, #a855f7, #ec4899);
+    animation: side-glow 3s ease-in-out infinite;
+  }
+  
+  @keyframes side-glow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  
+  /* Panel Header */
+  .panel-header {
+    border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+    background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(168, 85, 247, 0.1));
+    position: relative;
+  }
+  
+  .panel-title {
+    background: linear-gradient(45deg, #00f5ff, #a855f7);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+  }
+  
+  .shop-badge {
+    background: linear-gradient(45deg, #ec4899, #f97316);
+    border: 1px solid rgba(236, 72, 153, 0.5);
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.3);
+    animation: badge-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes badge-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+  
+  /* Mode Toggle */
+  .mode-toggle {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(55, 65, 81, 0.6));
+    border: 2px solid rgba(0, 245, 255, 0.3);
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .mode-btn {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    z-index: 2;
+  }
+  
+  .mode-btn:hover {
+    color: #00f5ff;
+    transform: translateY(-1px);
+  }
+  
+  .mode-btn.active {
+    background: linear-gradient(135deg, #00f5ff, #0891b2);
+    color: #ffffff;
+    box-shadow: 
+      0 0 20px rgba(0, 245, 255, 0.4),
+      inset 0 0 20px rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Option Groups */
+  .option-group {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.6), rgba(55, 65, 81, 0.4));
+    border: 1px solid rgba(75, 85, 99, 0.3);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .option-group::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #00f5ff, transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .option-group:hover {
+    border-color: rgba(0, 245, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 245, 255, 0.1);
+  }
+  
+  .option-group:hover::before {
+    opacity: 1;
+  }
+  
+  /* Step Numbers */
+  .step-number {
+    background: linear-gradient(135deg, #00f5ff, #0891b2);
+    box-shadow: 
+      0 0 15px rgba(0, 245, 255, 0.4),
+      inset 0 0 10px rgba(255, 255, 255, 0.2);
+    animation: step-glow 3s ease-in-out infinite;
+  }
+  
+  @keyframes step-glow {
+    0%, 100% { box-shadow: 0 0 15px rgba(0, 245, 255, 0.4), inset 0 0 10px rgba(255, 255, 255, 0.2); }
+    50% { box-shadow: 0 0 25px rgba(0, 245, 255, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.3); }
+  }
+  
+  /* Form Controls */
+  .neon-input {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(55, 65, 81, 0.6));
+    border: 2px solid rgba(75, 85, 99, 0.5);
+    border-radius: 12px;
+    color: #ffffff;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  
+  .neon-input:focus {
+    outline: none;
+    border-color: #00f5ff;
+    box-shadow: 
+      0 0 20px rgba(0, 245, 255, 0.3),
+      inset 0 0 10px rgba(0, 245, 255, 0.1);
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(55, 65, 81, 0.8));
+  }
+  
+  .neon-input::placeholder {
+    color: #9ca3af;
+  }
+  
+  /* Color Swatches */
+  .color-swatch {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .color-swatch::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: linear-gradient(45deg, transparent, rgba(0, 245, 255, 0.5), transparent);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: xor;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .color-swatch:hover {
+    transform: scale(1.1) translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+  
+  .color-swatch:hover::before {
+    opacity: 1;
+  }
+  
+  .color-swatch.active {
+    border-color: #00f5ff;
+    transform: scale(1.15) translateY(-3px);
+    box-shadow: 
+      0 0 25px rgba(0, 245, 255, 0.5),
+      0 15px 35px rgba(0, 0, 0, 0.4);
+  }
+  
+  .color-swatch.active::before {
+    opacity: 1;
+    animation: swatch-glow 2s ease-in-out infinite;
+  }
+  
+  @keyframes swatch-glow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  
+  /* Alignment Buttons */
+  .align-btn {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(55, 65, 81, 0.6));
+    border: 1px solid rgba(75, 85, 99, 0.5);
+    border-radius: 8px;
+    color: #9ca3af;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+  
+  .align-btn:hover {
+    border-color: #00f5ff;
+    color: #00f5ff;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(0, 245, 255, 0.2);
+  }
+  
+  .align-btn.active {
+    background: linear-gradient(135deg, #00f5ff, #0891b2);
+    border-color: #00f5ff;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.4);
+  }
+  
+  /* Size Buttons */
+  .size-btn {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(55, 65, 81, 0.6));
+    border: 2px solid rgba(75, 85, 99, 0.5);
+    border-radius: 12px;
+    color: #ffffff;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    backdrop-filter: blur(10px);
+  }
+  
+  .size-btn:hover {
+    border-color: #a855f7;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(168, 85, 247, 0.2);
+  }
+  
+  .size-btn.active {
+    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    border-color: #a855f7;
+    box-shadow: 
+      0 0 20px rgba(168, 85, 247, 0.4),
+      0 10px 30px rgba(168, 85, 247, 0.3);
+  }
+  
+  /* Custom Size Controls */
+  .custom-size-controls {
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.8), rgba(31, 41, 55, 0.6));
+    border: 1px solid rgba(0, 245, 255, 0.2);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+  }
+  
+  /* Range Slider */
+  .neon-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 6px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, rgba(75, 85, 99, 0.5), rgba(107, 114, 128, 0.5));
+    outline: none;
+  }
+  
+  .neon-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ec4899, #f97316);
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
+    transition: all 0.3s ease;
+  }
+  
+  .neon-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 25px rgba(236, 72, 153, 0.7);
+  }
+  
+  .neon-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ec4899, #f97316);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 15px rgba(236, 72, 153, 0.5);
+  }
+  
+  /* Finish Button */
+  .finish-btn {
+    background: linear-gradient(45deg, #ec4899, #f97316, #fbbf24);
+    background-size: 300% 300%;
+    animation: gradient-shift 3s ease infinite;
+    border: 2px solid transparent;
+    border-radius: 16px;
+    color: #ffffff;
+    font-weight: bold;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+      0 0 30px rgba(236, 72, 153, 0.4),
+      0 15px 35px rgba(0, 0, 0, 0.3);
+  }
+  
+  .finish-btn::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, #ec4899, #f97316, #fbbf24, #ec4899);
+    background-size: 400% 400%;
+    border-radius: inherit;
+    z-index: -1;
+    animation: gradient-shift 2s ease infinite;
+    filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+  
+  .finish-btn:hover::before {
+    opacity: 0.8;
+  }
+  
+  .finish-btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 
+      0 0 40px rgba(236, 72, 153, 0.6),
+      0 0 80px rgba(249, 115, 22, 0.4),
+      0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+  
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  /* Shine Effect */
+  .finish-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.7s;
+  }
+  
+  .finish-btn:hover::after {
+    transform: translateX(100%);
+  }
+  
+  /* Background Options */
+  .background-options {
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.9), rgba(31, 41, 55, 0.8));
+    border-top: 1px solid rgba(0, 245, 255, 0.2);
+  }
+  
+  .bg-thumbnail {
+    width: 60px;
+    height: 40px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .bg-thumbnail:hover {
+    border-color: #00f5ff;
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(0, 245, 255, 0.3);
+  }
+  
+  .bg-thumbnail.active {
+    border-color: #00f5ff;
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.5);
+  }
+  
+  /* Validation Messages */
+  .validation-message {
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 8px;
+    color: #fca5a5;
+  }
+  
+  /* Dimensions Display */
+  .dimensions-display {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(31, 41, 55, 0.8));
+    border: 1px solid rgba(0, 245, 255, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    color: #00f5ff;
+    text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+  }
+  
+  /* Bottom Note */
+  .bottom-note {
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(31, 41, 55, 0.7));
+    border: 1px solid rgba(168, 85, 247, 0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    color: #c4b5fd;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1279px) {
+    .neon-customizer-wrapper {
+      margin: 1rem;
+    }
+    
+    .neon-preview-area {
+      border-right: none;
+      border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .neon-preview-area {
+      height: 400px;
+    }
+    
+    .customizer-panel {
+      max-height: none;
+    }
+    
+    .option-group {
+      padding: 1rem;
+    }
+    
+    .color-swatch {
+      width: 40px;
+      height: 40px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="neon-customizer-section">
+  <!-- Background Effects -->
+  <div class="customizer-bg-effects">
+    <div class="neon-grid"></div>
+    <div class="floating-orb orb-1"></div>
+    <div class="floating-orb orb-2"></div>
+    <div class="floating-orb orb-3"></div>
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    
+    {%- if section.settings.show_header -%}
+    <div class="text-center mb-12">
+      <div class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border border-yellow-500/30 rounded-full text-yellow-300 mb-6">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3l14 9-14 9V3z"></path>
+        </svg>
+        <span class="font-semibold">{{ section.settings.badge_text | default: 'NOUVEAU : Customizer 3D Interactif' }}</span>
+      </div>
+      
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6">
+        <span class="neon-text-cyan">{{ section.settings.title_line_1 | default: 'Créez Votre Néon' }}</span>
+        <br />
+        <span class="neon-text-purple">{{ section.settings.title_line_2 | default: 'En Temps Réel' }}</span>
+      </h1>
+      <p class="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+        {{ section.settings.subtitle | default: '🎨 Notre customizer révolutionnaire vous permet de concevoir votre néon personnalisé en temps réel. Visualisez, personnalisez, commandez - tout en une seule interface intuitive !' }}
+      </p>
+    </div>
+    {%- endif -%}
+
+    <div class="neon-customizer-wrapper">
+      <div class="flex flex-col xl:flex-row">
+        
+        <!-- Preview Area -->
+        <div class="xl:w-2/3 relative">
+          <div class="neon-preview-area h-96 xl:h-[700px] flex items-center justify-center relative overflow-hidden">
+            
+            <!-- Controls -->
+            <div class="absolute top-6 left-6 z-10 flex items-center space-x-0">
+              <button id="neon-on-btn" class="neon-toggle-btn active px-6 py-3 rounded-l-xl font-bold text-sm transition-all">
+                <span class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                  ON
+                </span>
+              </button>
+              <button id="neon-off-btn" class="neon-toggle-btn px-6 py-3 rounded-r-xl font-bold text-sm transition-all">
+                <span class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"></path>
+                  </svg>
+                  OFF
+                </span>
+              </button>
+            </div>
+
+            <!-- Price Display -->
+            <div class="price-display absolute top-6 right-6 z-10 px-6 py-4">
+              <div class="neon-price text-3xl font-bold">{{ section.settings.currency_symbol | default: "€" }}159.47</div>
+              <div class="text-xs text-cyan-300">{{ section.settings.tax_label | default: "TVA incluse" }}</div>
+            </div>
+
+            <!-- Neon Text -->
+            <div class="relative z-10 flex flex-col items-center space-y-6">
+              <div class="bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 rounded-2xl p-6 backdrop-blur-sm">
+                <div class="flex items-center space-x-3 text-cyan-300">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z"></path>
+                  </svg>
+                  <span class="font-semibold">{{ section.settings.cta_text | default: "Cliquez sur un mot pour commencer la personnalisation" }}</span>
+                </div>
+              </div>
+              
+              <div id="neon-text-display" class="neon-text font-bold text-center transition-all duration-500" style="font-size: 80px; color: #ff7b00; line-height: 1.2;">
+                {{ section.settings.default_text | default: "Neon Sign" }}
+              </div>
+              
+              <div class="dimensions-display mt-6 px-4 py-2">
+                Dimensions: <span id="dimensions-display">51.07cm × 20.25cm</span>
+              </div>
+            </div>
+
+            <!-- Bottom Note -->
+            <div class="bottom-note absolute bottom-6 left-1/2 transform -translate-x-1/2 text-sm px-4 py-2">
+              {{ section.settings.color_note | default: "Les couleurs peuvent apparaître différentes en réalité" }}
+            </div>
+          </div>
+
+          <!-- Background Options -->
+          <div class="background-options p-4">
+            <h4 class="text-white font-semibold mb-3 flex items-center gap-2">
+              <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              Arrière-plans Disponibles
+            </h4>
+            <div class="flex space-x-3 overflow-x-auto pb-2" id="background-options">
+              <!-- Background thumbnails will be generated by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Customizer Panel -->
+        <div class="customizer-panel xl:w-1/3 p-6 max-h-screen overflow-y-auto">
+          <div class="panel-header flex items-center justify-between mb-6 pb-4">
+            <h2 class="panel-title text-xl font-bold">{{ section.settings.panel_title | default: "CRÉEZ VOTRE NÉON" }}</h2>
+            <span class="shop-badge px-3 py-1 rounded-full text-xs font-bold">{{ section.settings.shop_badge | default: "Commandez" }}</span>
+          </div>
+          
+          <!-- Mode Toggle -->
+          <div class="mb-6">
+            <div class="mode-toggle flex rounded-xl overflow-hidden">
+              <button id="text-mode-btn" class="mode-btn active flex-1 px-4 py-3 font-bold text-center transition-all">
+                <span class="flex items-center justify-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                  Texte
+                </span>
+              </button>
+              <button id="custom-mode-btn" class="mode-btn flex-1 px-4 py-3 font-bold text-center transition-all">
+                <span class="flex items-center justify-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+                  </svg>
+                  Personnalisé
+                </span>
+              </button>
+            </div>
+          </div>
+
+          <div class="customizer-options space-y-6">
+            
+            <!-- 1. Write your text -->
+            <div class="option-group">
+              <label class="flex items-center space-x-3 text-sm font-bold text-white mb-4">
+                <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+                <span>Écrivez votre texte</span>
+              </label>
+              <input type="text" id="neon-text-input" class="neon-input w-full px-4 py-3" placeholder="{{ section.settings.text_placeholder | default: 'Votre texte néon' }}" value="{{ section.settings.default_text | default: 'Neon Sign' }}">
+              
+              <!-- Alignment -->
+              <div class="flex space-x-2 mt-4">
+                <button class="align-btn active flex-1 py-3 rounded-lg transition-all" data-align="center" title="Centré">
+                  <svg class="w-5 h-5 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm2 4a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm0 4a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1z" />
+                  </svg>
+                </button>
+                <button class="align-btn flex-1 py-3 rounded-lg transition-all" data-align="left" title="Aligné à gauche">
+                  <svg class="w-5 h-5 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" />
+                  </svg>
+                </button>
+                <button class="align-btn flex-1 py-3 rounded-lg transition-all" data-align="right" title="Aligné à droite">
+                  <svg class="w-5 h-5 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm6 4a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2h-12a1 1 0 01-1-1z" />
+                  </svg>
+                </button>
+              </div>
+              
+              <div id="text-validation" class="validation-message mt-3 p-3 rounded-lg hidden">
+                <div class="flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                  </svg>
+                  <span>1 caractère minimum requis pour cette taille, veuillez ajouter plus de caractères.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Font -->
+            <div class="option-group">
+              <label class="flex items-center space-x-3 text-sm font-bold text-white mb-4">
+                <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+                <span>Police</span>
+              </label>
+              <select id="font-selector" class="neon-input w-full px-4 py-3">
+                <option value="Comic">Comic Sans</option>
+                <option value="Arial">Arial</option>
+                <option value="Times">Times New Roman</option>
+                <option value="Helvetica">Helvetica</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Impact">Impact</option>
+              </select>
+            </div>
+
+            <!-- 3. Color -->
+            <div class="option-group">
+              <label class="flex items-center space-x-3 text-sm font-bold text-white mb-4">
+                <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+                <span>Couleur</span>
+              </label>
+              <div class="text-sm text-cyan-300 mb-3 flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+                </svg>
+                Palette RGB Premium
+              </div>
+              <div class="color-picker grid grid-cols-6 gap-3">
+                <!-- Colors will be generated by JavaScript -->
+              </div>
+            </div>
+
+            <!-- 4. Size -->
+            <div class="option-group">
+              <label class="flex items-center space-x-3 text-sm font-bold text-white mb-4">
+                <div class="step-number w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold">4</div>
+                <span>Taille</span>
+              </label>
+              <div class="grid grid-cols-2 gap-3 mb-4">
+                <button id="size-1x" class="size-btn active p-4 rounded-lg text-left transition-all">
+                  <div class="font-semibold flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path>
+                    </svg>
+                    Standard
+                  </div>
+                  <div class="text-xs text-gray-400 mt-1">51.07cm x 20.25cm</div>
+                </button>
+                <button id="size-custom" class="size-btn p-4 rounded-lg text-left transition-all">
+                  <div class="font-semibold flex items-center gap-2">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 100 4m0-4v2m0-6V4"></path>
+                    </svg>
+                    Personnalisé
+                  </div>
+                  <div class="text-xs text-gray-400 mt-1">Sur mesure</div>
+                </button>
+              </div>
+              
+              <div id="custom-size-controls" class="custom-size-controls p-4 hidden">
+                <label class="block text-sm text-cyan-300 mb-2 flex items-center gap-2">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+                  </svg>
+                  Taille Personnalisée
+                </label>
+                <input type="range" id="size-slider" min="50" max="200" value="140" class="neon-slider w-full">
+                <div class="text-center text-sm text-cyan-300 mt-2" id="size-display">
+                  140 x 51.5cm | 55.1 x 20.3in
+                </div>
+              </div>
+              
+              <div class="flex justify-between items-center mt-4 p-3 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-lg">
+                <span class="text-green-300 font-medium">Prix Total :</span>
+                <span class="text-green-400 font-bold text-xl neon-price">{{ section.settings.currency_symbol | default: "€" }}159.47</span>
+              </div>
+            </div>
+
+            <!-- Finish Button -->
+            <button id="finish-btn" class="finish-btn w-full py-4 rounded-xl text-lg font-bold transition-all transform">
+              <span class="flex items-center justify-center gap-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                </svg>
+                {{ section.settings.finish_button_text | default: "Finaliser Ma Commande" }}
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Neon Customizer JavaScript with enhanced effects
+  const NeonCustomizer = {
+    settings: {
+      text: "{{ section.settings.default_text | default: 'Neon Sign' }}",
+      color: '#ff7b00',
+      font: 'Comic',
+      size: 80,
+      alignment: 'center',
+      isOn: true,
+      price: {{ section.settings.base_price | default: 159.47 }}
+    },
+
+    colors: [
+      { name: 'Orange Néon', value: '#ff7b00', gradient: 'linear-gradient(135deg, #ff7b00 0%, #ff9500 100%)' },
+      { name: 'Jaune Électrique', value: '#ffd700', gradient: 'linear-gradient(135deg, #ffd700 0%, #ffed4e 100%)' },
+      { name: 'Rouge Passion', value: '#ff0000', gradient: 'linear-gradient(135deg, #ff0000 0%, #ff4757 100%)' },
+      { name: 'Rose Fluo', value: '#ff006e', gradient: 'linear-gradient(135deg, #ff006e 0%, #fb5581 100%)' },
+      { name: 'Violet Cosmic', value: '#8b5cf6', gradient: 'linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%)' },
+      { name: 'Blanc Pur', value: '#ffffff', gradient: 'linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%)' },
+      { name: 'Cyan Électrique', value: '#06b6d4', gradient: 'linear-gradient(135deg, #06b6d4 0%, #67e8f9 100%)' },
+      { name: 'Bleu Océan', value: '#3b82f6', gradient: 'linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%)' },
+      { name: 'Vert Émeraude', value: '#10b981', gradient: 'linear-gradient(135deg, #10b981 0%, #34d399 100%)' },
+      { name: 'Lime Acidulé', value: '#65a30d', gradient: 'linear-gradient(135deg, #65a30d 0%, #84cc16 100%)' },
+      { name: 'Turquoise', value: '#0d9488', gradient: 'linear-gradient(135deg, #0d9488 0%, #14b8a6 100%)' },
+      { name: 'Arc-en-ciel', value: 'rainbow', gradient: 'linear-gradient(135deg, #ff0000 0%, #ff7b00 16%, #ffd700 33%, #10b981 50%, #06b6d4 66%, #8b5cf6 83%, #ff006e 100%)', special: true }
+    ],
+
+    backgrounds: [
+      { name: 'Mur Brique', url: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400' },
+      { name: 'Béton Moderne', url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400' },
+      { name: 'Bois Vintage', url: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400' },
+      { name: 'Métal Industriel', url: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400' }
+    ],
+
+    init() {
+      this.setupEventListeners();
+      this.generateColorPicker();
+      this.generateBackgroundOptions();
+      this.updateDisplay();
+      this.calculatePrice();
+    },
+
+    setupEventListeners() {
+      // Text input with debounce
+      let textTimeout;
+      document.getElementById('neon-text-input').addEventListener('input', (e) => {
+        clearTimeout(textTimeout);
+        textTimeout = setTimeout(() => {
+          this.settings.text = e.target.value || 'Neon Sign';
+          this.updateDisplay();
+          this.calculatePrice();
+          this.validateText();
+        }, 300);
+      });
+
+      // Neon toggle with sound effect simulation
+      document.getElementById('neon-on-btn').addEventListener('click', () => {
+        this.toggleNeon(true);
+        this.playToggleEffect();
+      });
+      document.getElementById('neon-off-btn').addEventListener('click', () => {
+        this.toggleNeon(false);
+        this.playToggleEffect();
+      });
+
+      // Font selector
+      document.getElementById('font-selector').addEventListener('change', (e) => {
+        this.settings.font = e.target.value;
+        this.updateDisplay();
+        this.addChangeEffect(e.target);
+      });
+
+      // Size buttons
+      document.getElementById('size-1x').addEventListener('click', () => this.setSize('1x'));
+      document.getElementById('size-custom').addEventListener('click', () => this.setSize('custom'));
+
+      // Size slider with real-time preview
+      document.getElementById('size-slider').addEventListener('input', (e) => {
+        this.updateCustomSize(e.target.value);
+      });
+
+      // Alignment buttons
+      document.querySelectorAll('.align-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          this.setAlignment(e.currentTarget.dataset.align);
+          this.addClickEffect(e.currentTarget);
+        });
+      });
+
+      // Mode toggle
+      document.getElementById('text-mode-btn').addEventListener('click', () => this.setMode('text'));
+      document.getElementById('custom-mode-btn').addEventListener('click', () => this.setMode('custom'));
+
+      // Finish button with enhanced animation
+      document.getElementById('finish-btn').addEventListener('click', () => {
+        this.finishOrder();
+      });
+    },
+
+    generateColorPicker() {
+      const colorPicker = document.querySelector('.color-picker');
+      this.colors.forEach((color, index) => {
+        const swatch = document.createElement('button');
+        swatch.className = 'color-swatch';
+        swatch.style.background = color.gradient;
+        swatch.title = color.name;
+        
+        if (color.special) {
+          swatch.innerHTML = '<span style="font-size: 20px; text-shadow: 0 0 10px rgba(255,255,255,0.8);">🌈</span>';
+          swatch.style.display = 'flex';
+          swatch.style.alignItems = 'center';
+          swatch.style.justifyContent = 'center';
+        }
+        
+        if (color.value === this.settings.color) {
+          swatch.classList.add('active');
+        }
+        
+        swatch.addEventListener('click', () => {
+          this.selectColor(color.value, swatch);
+          this.addColorChangeEffect(swatch);
+        });
+        
+        colorPicker.appendChild(swatch);
+      });
+    },
+
+    generateBackgroundOptions() {
+      const container = document.getElementById('background-options');
+      this.backgrounds.forEach((bg, index) => {
+        const thumb = document.createElement('button');
+        thumb.className = 'bg-thumbnail';
+        thumb.style.backgroundImage = `url(${bg.url})`;
+        thumb.title = bg.name;
+        
+        if (index === 0) thumb.classList.add('active');
+        
+        thumb.addEventListener('click', () => {
+          this.selectBackground(bg, thumb);
+        });
+        
+        container.appendChild(thumb);
+      });
+    },
+
+    selectColor(colorValue, element) {
+      document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+      element.classList.add('active');
+      this.settings.color = colorValue;
+      this.updateDisplay();
+      this.calculatePrice();
+    },
+
+    selectBackground(bg, element) {
+      document.querySelectorAll('.bg-thumbnail').forEach(t => t.classList.remove('active'));
+      element.classList.add('active');
+      
+      // Update preview background
+      const previewArea = document.querySelector('.neon-preview-area');
+      previewArea.style.backgroundImage = `url(${bg.url})`;
+      previewArea.style.backgroundSize = 'cover';
+      previewArea.style.backgroundPosition = 'center';
+    },
+
+    toggleNeon(isOn) {
+      this.settings.isOn = isOn;
+      document.querySelectorAll('.neon-toggle-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(isOn ? 'neon-on-btn' : 'neon-off-btn').classList.add('active');
+      this.updateDisplay();
+    },
+
+    setSize(type) {
+      document.querySelectorAll('.size-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`size-${type}`).classList.add('active');
+      
+      const customControls = document.getElementById('custom-size-controls');
+      if (type === 'custom') {
+        customControls.classList.remove('hidden');
+      } else {
+        customControls.classList.add('hidden');
+      }
+      
+      this.calculatePrice();
+    },
+
+    setAlignment(alignment) {
+      document.querySelectorAll('.align-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.closest('.align-btn').classList.add('active');
+      this.settings.alignment = alignment;
+      this.updateDisplay();
+    },
+
+    setMode(mode) {
+      document.querySelectorAll('.mode-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(`${mode}-mode-btn`).classList.add('active');
+    },
+
+    updateDisplay() {
+      const textDisplay = document.getElementById('neon-text-display');
+      const fontMap = {
+        'Comic': 'Comic Sans MS, cursive',
+        'Arial': 'Arial, sans-serif',
+        'Times': 'Times New Roman, serif',
+        'Helvetica': 'Helvetica, Arial, sans-serif',
+        'Georgia': 'Georgia, serif',
+        'Verdana': 'Verdana, sans-serif',
+        'Impact': 'Impact, Arial Black, sans-serif'
+      };
+      
+      textDisplay.textContent = this.settings.text;
+      textDisplay.style.fontFamily = fontMap[this.settings.font] || 'Arial, sans-serif';
+      textDisplay.style.textAlign = this.settings.alignment;
+      
+      if (this.settings.isOn) {
+        let color = this.settings.color;
+        let textShadow = '';
+        
+        if (this.settings.color === 'rainbow') {
+          color = '#ffffff';
+          textShadow = `
+            0 0 5px #ff0000,
+            0 0 10px #ff7b00,
+            0 0 15px #ffd700,
+            0 0 20px #10b981,
+            0 0 25px #06b6d4,
+            0 0 30px #8b5cf6,
+            0 0 35px #ff006e
+          `;
+        } else {
+          textShadow = `
+            0 0 5px ${color},
+            0 0 10px ${color},
+            0 0 15px ${color},
+            0 0 20px ${color},
+            0 0 25px ${color},
+            0 0 30px ${color}
+          `;
+        }
+        
+        textDisplay.style.color = color;
+        textDisplay.style.textShadow = textShadow;
+        textDisplay.classList.add('neon-on');
+      } else {
+        textDisplay.style.color = '#4b5563';
+        textDisplay.style.textShadow = '2px 2px 4px rgba(0,0,0,0.3)';
+        textDisplay.classList.remove('neon-on');
+      }
+    },
+
+    updateCustomSize(width) {
+      const height = (width * 0.368).toFixed(1);
+      const widthIn = (width / 2.54).toFixed(1);
+      const heightIn = (height / 2.54).toFixed(1);
+      
+      document.getElementById('size-display').textContent = `${width} x ${height}cm | ${widthIn} x ${heightIn}in`;
+      document.getElementById('dimensions-display').textContent = `${width}cm × ${height}cm`;
+      this.calculatePrice();
+    },
+
+    validateText() {
+      const validation = document.getElementById('text-validation');
+      if (this.settings.text.length < 2) {
+        validation.classList.remove('hidden');
+      } else {
+        validation.classList.add('hidden');
+      }
+    },
+
+    calculatePrice() {
+      let basePrice = {{ section.settings.base_price | default: 159.47 }};
+      const textLength = this.settings.text.length;
+      const pricePerChar = {{ section.settings.price_per_char | default: 3.25 }};
+      
+      // Add complexity multipliers
+      let multiplier = 1;
+      if (this.settings.color === 'rainbow') multiplier += 0.5;
+      if (this.settings.font === 'Impact') multiplier += 0.2;
+      
+      const calculatedPrice = (basePrice + (textLength * pricePerChar)) * multiplier;
+      this.settings.price = calculatedPrice;
+      
+      document.querySelectorAll('.neon-price').forEach(el => {
+        el.textContent = `{{ section.settings.currency_symbol | default: "€" }}${calculatedPrice.toFixed(2)}`;
+      });
+    },
+
+    // Enhanced visual effects
+    playToggleEffect() {
+      const textDisplay = document.getElementById('neon-text-display');
+      textDisplay.style.transform = 'scale(1.05)';
+      setTimeout(() => {
+        textDisplay.style.transform = 'scale(1)';
+      }, 200);
+    },
+
+    addChangeEffect(element) {
+      element.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        element.style.transform = 'scale(1)';
+      }, 150);
+    },
+
+    addClickEffect(element) {
+      element.style.transform = 'scale(0.95) translateY(2px)';
+      setTimeout(() => {
+        element.style.transform = 'scale(1) translateY(0)';
+      }, 150);
+    },
+
+    addColorChangeEffect(element) {
+      element.style.transform = 'scale(1.2) translateY(-5px)';
+      element.style.boxShadow = '0 0 30px rgba(0, 245, 255, 0.8)';
+      setTimeout(() => {
+        element.style.transform = 'scale(1.15) translateY(-3px)';
+        element.style.boxShadow = '0 0 25px rgba(0, 245, 255, 0.5)';
+      }, 300);
+    },
+
+    finishOrder() {
+      // Enhanced finish animation
+      const finishBtn = document.getElementById('finish-btn');
+      finishBtn.style.transform = 'scale(0.95)';
+      finishBtn.innerHTML = `
+        <span class="flex items-center justify-center gap-3">
+          <svg class="w-6 h-6 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+          </svg>
+          Traitement en cours...
+        </span>
+      `;
+      
+      const orderData = {
+        text: this.settings.text,
+        color: this.settings.color,
+        font: this.settings.font,
+        alignment: this.settings.alignment,
+        price: this.settings.price,
+        isOn: this.settings.isOn
+      };
+      
+      // Simulate order processing
+      setTimeout(() => {
+        if (typeof Shopify !== 'undefined' && {{ section.settings.product_variant_id }}) {
+          fetch('/cart/add.js', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              id: {{ section.settings.product_variant_id }},
+              quantity: 1,
+              properties: orderData
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            finishBtn.innerHTML = `
+              <span class="flex items-center justify-center gap-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+                Ajouté au panier !
+              </span>
+            `;
+            
+            // Dispatch cart updated event
+            document.dispatchEvent(new CustomEvent('cart:item-added'));
+            
+            setTimeout(() => {
+              finishBtn.innerHTML = `
+                <span class="flex items-center justify-center gap-3">
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                  </svg>
+                  {{ section.settings.finish_button_text | default: "Finaliser Ma Commande" }}
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </span>
+              `;
+              finishBtn.style.transform = 'scale(1)';
+            }, 2000);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            finishBtn.innerHTML = `
+              <span class="flex items-center justify-center gap-3">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+                Erreur - Réessayer
+              </span>
+            `;
+            finishBtn.style.transform = 'scale(1)';
+          });
+        } else {
+          alert('{{ section.settings.success_message | default: "Néon personnalisé créé avec succès !" }}');
+          finishBtn.style.transform = 'scale(1)';
+        }
+      }, 1500);
+    }
+  };
+
+  // Initialize the enhanced customizer
+  NeonCustomizer.init();
+});
+</script>
+
+{% schema %}
+{
+  "name": "Customizer Néon Avancé",
+  "tag": "section",
+  "class": "neon-customizer-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "En-tête de section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Afficher l'en-tête",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "badge_text",
+      "label": "Texte du badge",
+      "default": "NOUVEAU : Customizer 3D Interactif"
+    },
+    {
+      "type": "text",
+      "id": "title_line_1",
+      "label": "Titre ligne 1",
+      "default": "Créez Votre Néon"
+    },
+    {
+      "type": "text",
+      "id": "title_line_2",
+      "label": "Titre ligne 2",
+      "default": "En Temps Réel"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Sous-titre",
+      "default": "🎨 Notre customizer révolutionnaire vous permet de concevoir votre néon personnalisé en temps réel. Visualisez, personnalisez, commandez - tout en une seule interface intuitive !"
+    },
+    {
+      "type": "header",
+      "content": "Paramètres du customizer"
+    },
+    {
+      "type": "text",
+      "id": "default_text",
+      "label": "Texte néon par défaut",
+      "default": "LumiNéon"
+    },
+    {
+      "type": "text",
+      "id": "text_placeholder",
+      "label": "Placeholder du champ texte",
+      "default": "Votre texte néon"
+    },
+    {
+      "type": "text",
+      "id": "panel_title",
+      "label": "Titre du panneau customizer",
+      "default": "CRÉEZ VOTRE NÉON"
+    },
+    {
+      "type": "text",
+      "id": "shop_badge",
+      "label": "Badge boutique",
+      "default": "Commandez"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Texte d'appel à l'action",
+      "default": "Cliquez sur un mot pour commencer la personnalisation"
+    },
+    {
+      "type": "header",
+      "content": "Paramètres de prix"
+    },
+    {
+      "type": "text",
+      "id": "currency_symbol",
+      "label": "Symbole de devise",
+      "default": "€"
+    },
+    {
+      "type": "number",
+      "id": "base_price",
+      "label": "Prix de base",
+      "default": 159
+    },
+    {
+      "type": "number",
+      "id": "price_per_char",
+      "label": "Prix par caractère",
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "tax_label",
+      "label": "Label taxe",
+      "default": "TVA incluse"
+    },
+    {
+      "type": "header",
+      "content": "Intégration Shopify"
+    },
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Sélectionner un produit"
+    },
+    {
+      "type": "text",
+      "id": "product_variant_id",
+      "label": "ID de la variante produit",
+      "info": "L'ID de la variante à ajouter au panier"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Message de succès",
+      "default": "Néon personnalisé créé avec succès !"
+    },
+    {
+      "type": "text",
+      "id": "finish_button_text",
+      "label": "Texte du bouton finaliser",
+      "default": "Finaliser Ma Commande"
+    },
+    {
+      "type": "header",
+      "content": "Paramètres d'affichage"
+    },
+    {
+      "type": "text",
+      "id": "color_note",
+      "label": "Note sur les couleurs",
+      "default": "Les couleurs peuvent apparaître différentes en réalité"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espacement haut",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Espacement bas",
+      "default": 80
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customizer Néon Avancé",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
