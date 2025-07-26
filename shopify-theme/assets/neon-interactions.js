@@ -700,6 +700,8 @@ function openDevisPopup() {
     setTimeout(() => {
       closeDevisPopup();
     }, 2000);
+  }
+  )
 }
 
 // Initialize logo upload functionality
