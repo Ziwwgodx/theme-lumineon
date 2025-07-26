@@ -1,0 +1,135 @@
+{% comment %}
+  Template Cart - Page panier avec SEO optimisé
+{% endcomment %}
+
+{% assign page_title = 'Panier - Néons LED Personnalisés Haut de Gamme | LumiNéon' %}
+{% assign page_description = 'Finalisez votre commande de néons LED personnalisés. Fabrication française haut de gamme, livraison express 2-3j, paiement sécurisé SSL. Garantie 2 ans incluse.' %}
+
+<div class="min-h-screen bg-gray-900 text-white">
+  <!-- SEO Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "{{ page_title }}",
+    "description": "{{ page_description | escape }}",
+    "url": "{{ shop.url }}/cart",
+    "mainEntity": {
+      "@type": "ShoppingCart",
+      "provider": {
+        "@type": "Organization",
+        "name": "LumiNéon",
+        "url": "{{ shop.url }}"
+      }
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Accueil",
+          "item": "{{ shop.url }}"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Panier",
+          "item": "{{ shop.url }}/cart"
+        }
+      ]
+    },
+    "potentialAction": {
+      "@type": "BuyAction",
+      "target": "{{ shop.url }}/checkout",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "priceCurrency": "EUR",
+        "minPrice": "150",
+        "maxPrice": "5000"
+      }
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Accueil",
+        "item": "{{ shop.url }}"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Panier Néon LED",
+        "item": "{{ shop.url }}/cart"
+      }
+    ]
+  }
+  </script>
+
+  {% section 'cart-page' %}
+</div>
+
+<!-- SEO Meta Tags -->
+<script>
+document.title = '{{ page_title }}';
+if (document.querySelector('meta[name="description"]')) {
+  document.querySelector('meta[name="description"]').setAttribute('content', '{{ page_description }}');
+}
+
+// Add canonical URL
+if (!document.querySelector('link[rel="canonical"]')) {
+  const canonical = document.createElement('link');
+  canonical.rel = 'canonical';
+  canonical.href = '{{ shop.url }}/cart';
+  document.head.appendChild(canonical);
+}
+
+// Add structured data for cart items
+window.addEventListener('load', function() {
+  fetch('/cart.js')
+    .then(response => response.json())
+    .then(cart => {
+      if (cart.items.length > 0) {
+        const cartSchema = {
+          "@context": "https://schema.org",
+          "@type": "ShoppingCart",
+          "provider": {
+            "@type": "Organization",
+            "name": "LumiNéon"
+          },
+          "itemListElement": cart.items.map((item, index) => ({
+            "@type": "Product",
+            "position": index + 1,
+            "name": item.product_title,
+            "image": item.featured_image?.url,
+            "offers": {
+              "@type": "Offer",
+              "price": (item.final_price / 100).toString(),
+              "priceCurrency": "EUR",
+              "availability": "https://schema.org/InStock"
+            },
+            "brand": {
+              "@type": "Brand",
+              "name": "LumiNéon"
+            }
+          })),
+          "totalPrice": (cart.total_price / 100).toString(),
+          "priceCurrency": "EUR"
+        };
+        
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.text = JSON.stringify(cartSchema);
+        document.head.appendChild(script);
+      }
+    });
+});
+</script>

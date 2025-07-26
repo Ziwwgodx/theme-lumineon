@@ -1,0 +1,92 @@
+{
+  "sections": {
+    "main": {
+      "type": "cart-page",
+      "settings": {
+        "page_title": "Panier - Néons LED Personnalisés Haut de Gamme | LumiNéon",
+        "page_description": "Finalisez votre commande de néons LED personnalisés. Fabrication française haut de gamme, livraison express, paiement sécurisé. Garantie 2 ans incluse.",
+        "title": "Votre Panier Néon",
+        "subtitle": "🛒 Finalisez votre commande de néons LED personnalisés. Fabrication française premium, livraison express sécurisée.",
+        "show_shipping_progress": true,
+        "shipping_threshold": 10000,
+        "show_promo_code": true,
+        "show_recommendations": true,
+        "show_tax_line": true,
+        "show_payment_methods": true
+      },
+      "blocks": {
+        "trust-1": {
+          "type": "trust_indicator",
+          "settings": {
+            "icon": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z\"></path></svg>",
+            "title": "Paiement Sécurisé",
+            "description": "SSL 256-bit + Cryptage bancaire"
+          }
+        },
+        "trust-2": {
+          "type": "trust_indicator",
+          "settings": {
+            "icon": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4\"></path></svg>",
+            "title": "Livraison Express",
+            "description": "2-3 jours partout en France"
+          }
+        },
+        "trust-3": {
+          "type": "trust_indicator",
+          "settings": {
+            "icon": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z\"></path></svg>",
+            "title": "Garantie 2 Ans",
+            "description": "Pièces et main d'œuvre incluses"
+          }
+        },
+        "trust-4": {
+          "type": "trust_indicator",
+          "settings": {
+            "icon": "<svg class=\"w-6 h-6\" fill=\"none\" stroke=\"currentColor\" viewBox=\"0 0 24 24\"><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z\"></path><path stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"2\" d=\"M15 11a3 3 0 11-6 0 3 3 0 016 0z\"></path></svg>",
+            "title": "Made in France",
+            "description": "Fabrication artisanale française"
+          }
+        },
+        "payment-1": {
+          "type": "payment_method",
+          "settings": {
+            "icon": "💳",
+            "name": "Visa"
+          }
+        },
+        "payment-2": {
+          "type": "payment_method",
+          "settings": {
+            "icon": "💳",
+            "name": "Mastercard"
+          }
+        },
+        "payment-3": {
+          "type": "payment_method",
+          "settings": {
+            "icon": "🅿️",
+            "name": "PayPal"
+          }
+        },
+        "payment-4": {
+          "type": "payment_method",
+          "settings": {
+            "icon": "🏦",
+            "name": "Virement"
+          }
+        }
+      },
+      "block_order": [
+        "trust-1",
+        "trust-2", 
+        "trust-3",
+        "trust-4",
+        "payment-1",
+        "payment-2",
+        "payment-3",
+        "payment-4"
+      ]
+    }
+  },
+  "order": ["main"]
+}

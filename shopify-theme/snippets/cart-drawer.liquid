@@ -1,0 +1,497 @@
+{% comment %}
+  Snippet Cart Drawer - Panier latéral avec effets néon
+{% endcomment %}
+
+<style>
+/* Cart Drawer Styles */
+.cart-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  max-width: 480px;
+  height: 100vh;
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.98), rgba(31, 41, 55, 0.95));
+  backdrop-filter: blur(20px);
+  border-left: 2px solid rgba(0, 245, 255, 0.3);
+  z-index: 1000;
+  transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  display: flex;
+  flex-direction: column;
+  box-shadow: -10px 0 50px rgba(0, 0, 0, 0.5);
+}
+
+.cart-drawer.open {
+  right: 0;
+}
+
+.cart-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.cart-drawer-overlay.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Drawer Header */
+.cart-drawer-header {
+  padding: 2rem;
+  border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+  background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(168, 85, 247, 0.1));
+  position: relative;
+}
+
+.cart-drawer-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00f5ff, #a855f7, #ec4899);
+  animation: border-flow 3s linear infinite;
+}
+
+.cart-drawer-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #00f5ff, #a855f7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.cart-drawer-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 245, 255, 0.3);
+  color: #00f5ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cart-drawer-close:hover {
+  background: rgba(0, 245, 255, 0.1);
+  border-color: #00f5ff;
+  transform: scale(1.1) rotate(90deg);
+}
+
+/* Drawer Content */
+.cart-drawer-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.drawer-cart-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(55, 65, 81, 0.6));
+  border-radius: 12px;
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.drawer-cart-item:hover {
+  border-color: rgba(0, 245, 255, 0.5);
+  transform: translateX(-5px);
+  box-shadow: 5px 0 20px rgba(0, 245, 255, 0.2);
+}
+
+.drawer-item-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid rgba(0, 245, 255, 0.3);
+}
+
+.drawer-item-details {
+  flex: 1;
+}
+
+.drawer-item-title {
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.drawer-item-price {
+  color: #00f5ff;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.drawer-quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.drawer-quantity-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 245, 255, 0.3);
+  background: transparent;
+  color: #00f5ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.drawer-quantity-btn:hover {
+  background: rgba(0, 245, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.drawer-quantity-input {
+  width: 40px;
+  text-align: center;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 0.9rem;
+}
+
+/* Drawer Footer */
+.cart-drawer-footer {
+  padding: 2rem;
+  border-top: 1px solid rgba(75, 85, 99, 0.3);
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(55, 65, 81, 0.8));
+}
+
+.drawer-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.drawer-total-amount {
+  color: #00f5ff;
+  text-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+}
+
+.drawer-checkout-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(45deg, #00f5ff, #a855f7);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.drawer-checkout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+}
+
+.drawer-view-cart {
+  width: 100%;
+  padding: 1rem;
+  background: transparent;
+  border: 2px solid rgba(0, 245, 255, 0.3);
+  border-radius: 12px;
+  color: #00f5ff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+}
+
+.drawer-view-cart:hover {
+  background: rgba(0, 245, 255, 0.1);
+  border-color: #00f5ff;
+}
+
+/* Empty Drawer */
+.drawer-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.drawer-empty-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 1.5rem;
+  color: rgba(0, 245, 255, 0.3);
+}
+
+.drawer-empty h3 {
+  color: #ffffff;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.drawer-empty p {
+  color: #9ca3af;
+  margin-bottom: 2rem;
+}
+
+.drawer-continue-btn {
+  padding: 1rem 2rem;
+  background: linear-gradient(45deg, #00f5ff, #a855f7);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.drawer-continue-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 245, 255, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .cart-drawer {
+    max-width: 100%;
+  }
+}
+</style>
+
+<!-- Cart Drawer Overlay -->
+<div class="cart-drawer-overlay" id="cart-drawer-overlay" onclick="closeCartDrawer()"></div>
+
+<!-- Cart Drawer -->
+<div class="cart-drawer" id="cart-drawer">
+  <!-- Header -->
+  <div class="cart-drawer-header">
+    <h2 class="cart-drawer-title">Votre Panier Néon</h2>
+    <p class="text-gray-300 text-sm">
+      <span id="drawer-item-count">0</span> article(s) sélectionné(s)
+    </p>
+    <button class="cart-drawer-close" onclick="closeCartDrawer()">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Content -->
+  <div class="cart-drawer-content" id="cart-drawer-content">
+    <!-- Cart items will be populated by JavaScript -->
+  </div>
+
+  <!-- Footer -->
+  <div class="cart-drawer-footer" id="cart-drawer-footer">
+    <!-- Footer content will be populated by JavaScript -->
+  </div>
+</div>
+
+<script>
+let drawerCart = { items: [], total_price: 0, item_count: 0 };
+
+// Open cart drawer
+function openCartDrawer() {
+  loadDrawerCart();
+  document.getElementById('cart-drawer').classList.add('open');
+  document.getElementById('cart-drawer-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+// Close cart drawer
+function closeCartDrawer() {
+  document.getElementById('cart-drawer').classList.remove('open');
+  document.getElementById('cart-drawer-overlay').classList.remove('open');
+  document.body.style.overflow = 'auto';
+}
+
+// Load drawer cart
+async function loadDrawerCart() {
+  try {
+    const response = await fetch('/cart.js');
+    drawerCart = await response.json();
+    renderDrawerCart();
+  } catch (error) {
+    console.error('Error loading drawer cart:', error);
+  }
+}
+
+// Render drawer cart
+function renderDrawerCart() {
+  const content = document.getElementById('cart-drawer-content');
+  const footer = document.getElementById('cart-drawer-footer');
+  const itemCount = document.getElementById('drawer-item-count');
+  
+  itemCount.textContent = drawerCart.item_count;
+  
+  if (drawerCart.item_count === 0) {
+    content.innerHTML = `
+      <div class="drawer-empty">
+        <div class="drawer-empty-icon">
+          <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m0 0h8m-8 0a2 2 0 100 4 2 2 0 000-4zm8 0a2 2 0 100 4 2 2 0 000-4z"></path>
+          </svg>
+        </div>
+        <h3>Panier Vide</h3>
+        <p>Découvrez nos créations néon exceptionnelles</p>
+        <a href="/collections/all" class="drawer-continue-btn" onclick="closeCartDrawer()">
+          Découvrir nos Néons
+        </a>
+      </div>
+    `;
+    footer.innerHTML = '';
+    return;
+  }
+  
+  // Render items
+  content.innerHTML = drawerCart.items.map(item => `
+    <div class="drawer-cart-item">
+      <img 
+        src="${item.featured_image?.url || '/assets/placeholder.jpg'}" 
+        alt="${item.product_title}"
+        class="drawer-item-image"
+        loading="lazy"
+      />
+      <div class="drawer-item-details">
+        <div class="drawer-item-title">${item.product_title}</div>
+        ${item.variant_title ? `<div class="text-gray-400 text-xs">${item.variant_title}</div>` : ''}
+        <div class="drawer-item-price">${formatMoney(item.final_price)}</div>
+        <div class="drawer-quantity-controls">
+          <button class="drawer-quantity-btn" onclick="updateDrawerQuantity('${item.key}', ${item.quantity - 1})">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+            </svg>
+          </button>
+          <input 
+            type="number" 
+            class="drawer-quantity-input" 
+            value="${item.quantity}" 
+            min="1"
+            onchange="updateDrawerQuantity('${item.key}', this.value)"
+          />
+          <button class="drawer-quantity-btn" onclick="updateDrawerQuantity('${item.key}', ${item.quantity + 1})">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  
+  // Render footer
+  footer.innerHTML = `
+    <div class="drawer-total">
+      <span>Total</span>
+      <span class="drawer-total-amount">${formatMoney(drawerCart.total_price)}</span>
+    </div>
+    <button class="drawer-checkout-btn" onclick="window.location.href='/checkout'">
+      Finaliser la Commande
+    </button>
+    <a href="/cart" class="drawer-view-cart" onclick="closeCartDrawer()">
+      Voir le Panier Complet
+    </a>
+  `;
+}
+
+// Update drawer quantity
+async function updateDrawerQuantity(key, quantity) {
+  if (quantity < 1) {
+    quantity = 0;
+  }
+  
+  try {
+    const response = await fetch('/cart/change.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: key,
+        quantity: parseInt(quantity)
+      })
+    });
+    
+    if (response.ok) {
+      drawerCart = await response.json();
+      renderDrawerCart();
+      
+      // Update cart count in header
+      updateCartCount();
+      
+      // Dispatch cart updated event
+      document.dispatchEvent(new CustomEvent('cart:updated'));
+    }
+  } catch (error) {
+    console.error('Error updating drawer quantity:', error);
+  }
+}
+
+// Update cart count in header
+function updateCartCount() {
+  const countElements = document.querySelectorAll('[data-cart-count]');
+  countElements.forEach(element => {
+    element.textContent = drawerCart.item_count;
+  });
+}
+
+// Format money
+function formatMoney(cents) {
+  return new Intl.NumberFormat('fr-FR', {
+    style: 'currency',
+    currency: 'EUR'
+  }).format(cents / 100);
+}
+
+// Listen for add to cart events
+document.addEventListener('cart:item-added', function() {
+  openCartDrawer();
+});
+
+// Close drawer on escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeCartDrawer();
+  }
+});
+
+// Initialize drawer cart count on page load
+document.addEventListener('DOMContentLoaded', function() {
+  fetch('/cart.js')
+    .then(response => response.json())
+    .then(cart => {
+      updateCartCount();
+    });
+});
+</script>
