@@ -135,7 +135,7 @@
           </button>
           
           <a
-            href="mailto:{{ section.settings.share_email | default: 'lumineonshop@gmail.com' }}?subject=Partage Photo Néon&body=Bonjour, je souhaite partager une photo de mon néon LumiNéon !"
+            href="mailto:{{ section.settings.share_email_address | default: 'lumineonshop@gmail.com' }}?subject=Partage Photo Néon&body=Bonjour, je souhaite partager une photo de mon néon LumiNéon !"
             class="px-8 py-4 border-2 border-cyan-400 text-cyan-400 rounded-full font-semibold transition-all duration-300 hover:bg-cyan-400 hover:text-gray-900 hover:scale-105"
           >
             {{ section.settings.cta_button_2 | default: '📧 Partager Ma Photo' }}
@@ -230,8 +230,8 @@
       "default": "📧 Partager Ma Photo"
     },
     {
-      "type": "email",
-      "id": "share_email",
+      "type": "text",
+      "id": "share_email_address",
       "label": "Email pour partage photos",
       "default": "lumineonshop@gmail.com"
     },
