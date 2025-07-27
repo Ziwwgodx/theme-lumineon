@@ -11,63 +11,63 @@ const Gallery = () => {
       id: 1,
       title: "Néon WOW - Impact Visuel",
       category: "Décoration",
-      image: "/neon-wow.jpg",
+      image: "https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&w=800",
       description: "Néon expressif 'WOW' avec effet de profondeur et éclairage dynamique"
     },
     {
       id: 2,
       title: "Néon Vague Surf - Style Californien",
       category: "Loisirs",
-      image: "/neon-vague-surf.jpg",
+      image: "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800",
       description: "Design néon vague surf avec dégradé bleu océan, parfait pour ambiance beach"
     },
     {
       id: 3,
       title: "Netflix and Chill - Pop Culture",
       category: "Divertissement",
-      image: "/neon-netflix-and-chill.jpg",
+      image: "https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&w=800",
       description: "Néon tendance 'Netflix and Chill' avec typographie moderne et éclairage rouge"
     },
     {
       id: 4,
       title: "Logo Friends - Nostalgie TV",
       category: "Logo",
-      image: "/neon-logo-friends.jpg",
+      image: "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800",
       description: "Reproduction fidèle du logo Friends en néon, couleurs authentiques de la série"
     },
     {
       id: 5,
       title: "Lettres Hello - Accueil Chaleureux",
       category: "Texte",
-      image: "/neon-lettres-hello.jpg",
+      image: "https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&w=800",
       description: "Lettres néon 'Hello' en script élégant, parfait pour entrées et réceptions"
     },
     {
       id: 6,
       title: "Hot Deal LED Flex - Promotion Dynamique",
       category: "Commercial",
-      image: "/neon-led-flex-hot-deal.jpg",
+      image: "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800",
       description: "Néon LED flexible 'Hot Deal' avec éclairage rouge vif, idéal pour promotions commerciales"
     },
     {
       id: 7,
       title: "La Vie Est Belle - Philosophie Lumineuse",
       category: "Citation",
-      image: "/neón-la-via-est-belle.jpg",
+      image: "https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&w=800",
       description: "Citation inspirante 'La Vie Est Belle' en néon élégant, parfait pour espaces de bien-être"
     },
     {
       id: 8,
       title: "Happy Birthday - Célébration Festive",
       category: "Événementiel",
-      image: "/neon-happy-birthday.jpg",
+      image: "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800",
       description: "Néon festif 'Happy Birthday' multicolore, création parfaite pour anniversaires mémorables"
     },
     {
       id: 9,
       title: "Game Zone - Univers Gaming",
       category: "Gaming",
-      image: "/neon-game-zone.jpg",
+      image: "https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&w=800",
       description: "Néon gaming 'Game Zone' avec effets dynamiques, ambiance parfaite pour espaces de jeu"
     }
   ];
@@ -81,13 +81,13 @@ const Gallery = () => {
 
   const nextImage = () => {
     if (selectedImage !== null) {
-      setSelectedImage((selectedImage + 1) % filteredProjects.length);
+      setSelectedImage((selectedImage + 1) % projects.length);
     }
   };
 
   const prevImage = () => {
     if (selectedImage !== null) {
-      setSelectedImage(selectedImage === 0 ? filteredProjects.length - 1 : selectedImage - 1);
+      setSelectedImage(selectedImage === 0 ? projects.length - 1 : selectedImage - 1);
     }
   };
 
@@ -154,7 +154,7 @@ const Gallery = () => {
             <div
               key={project.id}
               className="group relative cursor-pointer interactive-card interactive transform transition-all duration-700 hover:scale-110 hover:rotate-1"
-              onClick={() => setSelectedImage(index)}
+              onClick={() => setSelectedImage(projects.findIndex(p => p.id === project.id))}
             >
               <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 transition-all duration-700 hover:border-cyan-500/70 hover:shadow-2xl hover:shadow-cyan-500/40">
                 {/* Neon Glow Effect */}
@@ -240,7 +240,7 @@ const Gallery = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {/* Mini galerie sociale */}
-            {filteredProjects.slice(0, 8).map((project, index) => (
+            {projects.slice(0, 8).map((project, index) => (
               <div key={`social-${index}`} className="group relative aspect-square overflow-hidden rounded-2xl border border-gray-700 hover:border-purple-500/70 transition-all duration-500 cursor-pointer hover:scale-105 hover:rotate-1">
                 {/* Social Badge */}
                 <div className="absolute top-2 left-2 z-10 w-6 h-6 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -289,44 +289,63 @@ const Gallery = () => {
         </div>
         {/* Lightbox Modal */}
         {selectedImage !== null && (
-          <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 bg-black/95 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div className="relative max-w-4xl w-full">
               {/* Close Button */}
               <button
                 onClick={() => setSelectedImage(null)}
-                className="absolute -top-12 right-0 text-white hover:text-cyan-400 transition-colors duration-300 interactive"
+                className="absolute -top-12 right-0 w-12 h-12 bg-gray-900/80 backdrop-blur-sm border border-gray-600 hover:border-cyan-400 rounded-full flex items-center justify-center text-white hover:text-cyan-400 transition-all duration-300"
               >
-                <X size={32} />
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
               </button>
 
               {/* Navigation Buttons */}
               <button
                 onClick={prevImage}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-cyan-400 transition-colors duration-300 bg-gray-900/50 rounded-full p-2 interactive"
+                className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-gray-900/80 backdrop-blur-sm border border-gray-600 hover:border-cyan-400 rounded-full flex items-center justify-center text-white hover:text-cyan-400 transition-all duration-300"
               >
-                <ChevronLeft size={32} />
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
               </button>
               <button
                 onClick={nextImage}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-cyan-400 transition-colors duration-300 bg-gray-900/50 rounded-full p-2 interactive"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-gray-900/80 backdrop-blur-sm border border-gray-600 hover:border-cyan-400 rounded-full flex items-center justify-center text-white hover:text-cyan-400 transition-all duration-300"
               >
-                <ChevronRight size={32} />
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                </svg>
               </button>
 
               {/* Image */}
-              <div className="relative">
+              <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl border border-gray-700 overflow-hidden">
                 <img
-                  src={filteredProjects[selectedImage].image}
-                  alt={filteredProjects[selectedImage].title}
-                  className="w-full h-auto rounded-lg"
+                  src={projects[selectedImage].image}
+                  alt={projects[selectedImage].title}
+                  className="w-full h-auto max-h-[70vh] object-contain"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900/90 to-transparent p-6 rounded-b-lg">
                   <h3 className="text-2xl font-semibold text-white mb-2">
-                    {filteredProjects[selectedImage].title}
+                    {projects[selectedImage].title}
                   </h3>
                   <p className="text-gray-300">
-                    {filteredProjects[selectedImage].description}
+                    {projects[selectedImage].description}
                   </p>
+                  <div className="mt-3 flex items-center gap-4">
+                    <span className="px-3 py-1 bg-purple-500/20 border border-purple-500/30 rounded-full text-purple-300 text-sm">
+                      {projects[selectedImage].category}
+                    </span>
+                    <div className="flex items-center gap-1 text-yellow-400">
+                      {[...Array(5)].map((_, i) => (
+                        <svg key={i} className="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                        </svg>
+                      ))}
+                      <span className="ml-2 text-sm">Projet populaire</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

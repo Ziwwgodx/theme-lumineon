@@ -167,17 +167,17 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
           <!-- Mini galerie sociale -->
           {% for block in section.blocks %}
-            {% if block.type == 'project' and forloop.index <= 8 %}
+            {% if block.type == 'social_image' %}
               <div class="group relative aspect-square overflow-hidden rounded-2xl border border-gray-700 hover:border-purple-500/70 transition-all duration-500 cursor-pointer hover:scale-105 hover:rotate-1">
                 <!-- Social Badge -->
                 <div class="absolute top-2 left-2 z-10 w-6 h-6 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <span class="text-white text-xs">❤️</span>
                 </div>
                 
-                {% if block.settings.image %}
+                {% if block.settings.social_image %}
                   <img
-                    src="{{ block.settings.image | img_url: '300x300' }}"
-                    alt="Néon personnalisé {{ block.settings.title | escape }} - Client satisfait LumiNéon"
+                    src="{{ block.settings.social_image | img_url: '300x300' }}"
+                    alt="Néon personnalisé partagé par {{ block.settings.client_name | escape | default: 'Client LumiNéon' }}"
                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-125 group-hover:brightness-110"
                     loading="lazy"
                     width="300"
@@ -193,14 +193,17 @@
                 
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                   <div class="absolute bottom-2 left-2 right-2">
+                    {% if block.settings.client_name %}
+                      <div class="text-white text-xs font-medium mb-1">{{ block.settings.client_name }}</div>
+                    {% endif %}
                     <div class="flex items-center justify-between text-white text-xs">
                       <div class="flex items-center gap-1">
                         <span class="text-red-400">❤️</span>
-                        <span>{{ 10 | plus: forloop.index | times: 4 }}</span>
+                        <span>{{ block.settings.likes | default: 25 }}</span>
                       </div>
                       <div class="flex items-center gap-1">
                         <span class="text-blue-400">💬</span>
-                        <span>{{ forloop.index | plus: 1 }}</span>
+                        <span>{{ block.settings.comments | default: 3 }}</span>
                       </div>
                     </div>
                   </div>
@@ -533,6 +536,41 @@ function openDevisPopup() {
       ]
     },
     {
+      "type": "social_image",
+      "name": "Image Partagée Client",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "social_image",
+          "label": "Image partagée par le client"
+        },
+        {
+          "type": "text",
+          "id": "client_name",
+          "label": "Nom du client",
+          "default": "Client Satisfait"
+        },
+        {
+          "type": "range",
+          "id": "likes",
+          "min": 5,
+          "max": 100,
+          "step": 5,
+          "label": "Nombre de likes",
+          "default": 25
+        },
+        {
+          "type": "range",
+          "id": "comments",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "label": "Nombre de commentaires",
+          "default": 3
+        }
+      ]
+    },
+    {
       "type": "project",
       "name": "Projet",
       "settings": [
@@ -588,6 +626,70 @@ function openDevisPopup() {
           "settings": {
             "text": "🏆 +500 projets réalisés",
             "color": "green"
+          }
+        },
+        {
+          "type": "social_image",
+          "settings": {
+            "client_name": "Sophie M. - Restaurant",
+            "likes": 42,
+            "comments": 8
+          }
+        },
+        {
+          "type": "social_image",
+          "settings": {
+            "client_name": "Marc D. - Bar Lounge",
+            "likes": 38,
+            "comments": 5
+          }
+        },
+        {
+          "type": "social_image",
+          "settings": {
+            "client_name": "Emma L. - Boutique",
+            "likes": 51,
+            "comments": 12
+          }
+        },
+        {
+          "type": "social_image",
+          "settings": {
+            "client_name": "Thomas R. - Startup",
+            "likes": 29,
+            "comments": 4
+          }
+        },
+        {
+          "type": "social_image",
+          "settings": {
+            "client_name": "Camille P. - Mariage",
+            "likes": 67,
+            "comments": 15
+          }
+        },
+        {
+          "type": "social_image",
+          "settings": {
+            "client_name": "Antoine M. - Vintage",
+            "likes": 33,
+            "comments": 7
+          }
+        },
+        {
+          "type": "social_image",
+          "settings": {
+            "client_name": "Isabelle P. - Agence",
+            "likes": 45,
+            "comments": 9
+          }
+        },
+        {
+          "type": "social_image",
+          "settings": {
+            "client_name": "Julien F. - Pizzeria",
+            "likes": 39,
+            "comments": 6
           }
         },
         {
