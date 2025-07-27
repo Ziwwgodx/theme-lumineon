@@ -1,0 +1,421 @@
+{% comment %}
+  Section Community Gallery - Galerie communautaire avec gestion d'images
+{% endcomment %}
+
+<section class="py-16 relative overflow-hidden">
+  <!-- Background -->
+  <div class="absolute inset-0 bg-gradient-to-b from-gray-800 via-gray-900 to-gray-800"></div>
+  
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <h2 class="text-3xl lg:text-4xl font-bold mb-4">
+        <span class="neon-text-pink">{{ section.settings.title | default: '📸 Partagé par Nos Clients' }}</span>
+      </h2>
+      <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+        {{ section.settings.description | default: 'Découvrez comment nos créations illuminent le quotidien de nos clients' }}
+      </p>
+    </div>
+
+    <!-- Community Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
+      {% for block in section.blocks %}
+        {% if block.type == 'community_image' %}
+          <div class="group relative aspect-square overflow-hidden rounded-2xl border border-gray-700 hover:border-purple-500/70 transition-all duration-500 cursor-pointer hover:scale-105 hover:rotate-1 interactive-card">
+            
+            <!-- Social Badge -->
+            <div class="absolute top-2 left-2 z-10 w-6 h-6 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span class="text-white text-xs">❤️</span>
+            </div>
+            
+            <!-- Verified Badge -->
+            {% if block.settings.verified %}
+              <div class="absolute top-2 right-2 z-10 w-6 h-6 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center">
+                <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+            {% endif %}
+            
+            <!-- Image -->
+            {% if block.settings.image %}
+              <img
+                src="{{ block.settings.image | img_url: '400x400' }}"
+                alt="Néon personnalisé partagé par {{ block.settings.client_name | escape | default: 'Client LumiNéon' }}"
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 group-hover:brightness-110"
+                loading="lazy"
+                width="400"
+                height="400"
+              />
+            {% else %}
+              <div class="w-full h-full bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center">
+                <svg class="w-12 h-12 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+            {% endif %}
+            
+            <!-- Overlay with Social Stats -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+              <div class="absolute bottom-0 left-0 right-0 p-3">
+                
+                <!-- Client Name -->
+                {% if block.settings.client_name %}
+                  <div class="text-white text-sm font-semibold mb-2 truncate">
+                    {{ block.settings.client_name }}
+                  </div>
+                {% endif %}
+                
+                <!-- Location -->
+                {% if block.settings.location %}
+                  <div class="text-gray-300 text-xs mb-2 flex items-center gap-1">
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    {{ block.settings.location }}
+                  </div>
+                {% endif %}
+                
+                <!-- Social Stats -->
+                <div class="flex items-center justify-between text-white text-xs">
+                  <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-1">
+                      <span class="text-red-400">❤️</span>
+                      <span>{{ block.settings.likes | default: 25 }}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <span class="text-blue-400">💬</span>
+                      <span>{{ block.settings.comments | default: 3 }}</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Date -->
+                  {% if block.settings.date %}
+                    <div class="text-gray-400">
+                      {{ block.settings.date }}
+                    </div>
+                  {% endif %}
+                </div>
+                
+                <!-- Project Type -->
+                {% if block.settings.project_type %}
+                  <div class="mt-2">
+                    <span class="px-2 py-1 bg-purple-500/30 border border-purple-500/50 rounded-full text-purple-300 text-xs">
+                      {{ block.settings.project_type }}
+                    </span>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+            
+            <!-- Hover Glow -->
+            <div class="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Add Your Photo CTA -->
+    {% if section.settings.show_cta %}
+      <div class="text-center mt-12 p-8 bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-3xl border border-gray-700">
+        <h3 class="text-2xl font-bold mb-4 neon-text-cyan">
+          {{ section.settings.cta_title | default: '📷 Partagez Votre Création !' }}
+        </h3>
+        <p class="text-gray-300 mb-6 max-w-2xl mx-auto">
+          {{ section.settings.cta_description | default: 'Vous avez reçu votre néon LumiNéon ? Partagez une photo et rejoignez notre galerie communautaire !' }}
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            onclick="openDevisPopup()"
+            class="px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-neon-purple"
+          >
+            {{ section.settings.cta_button_1 | default: '🎨 Commander Mon Néon' }}
+          </button>
+          
+          <a
+            href="mailto:{{ section.settings.share_email | default: 'lumineonshop@gmail.com' }}?subject=Partage Photo Néon&body=Bonjour, je souhaite partager une photo de mon néon LumiNéon !"
+            class="px-8 py-4 border-2 border-cyan-400 text-cyan-400 rounded-full font-semibold transition-all duration-300 hover:bg-cyan-400 hover:text-gray-900 hover:scale-105"
+          >
+            {{ section.settings.cta_button_2 | default: '📧 Partager Ma Photo' }}
+          </a>
+        </div>
+      </div>
+    {% endif %}
+
+    <!-- Community Stats -->
+    {% if section.settings.show_stats %}
+      <div class="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div class="p-4 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl border border-gray-700">
+          <div class="text-2xl font-bold neon-text-purple mb-1">{{ section.blocks.size }}</div>
+          <div class="text-gray-400 text-sm">Photos Partagées</div>
+        </div>
+        
+        <div class="p-4 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl border border-gray-700">
+          <div class="text-2xl font-bold neon-text-cyan mb-1">
+            {% assign total_likes = 0 %}
+            {% for block in section.blocks %}
+              {% if block.type == 'community_image' %}
+                {% assign total_likes = total_likes | plus: block.settings.likes %}
+              {% endif %}
+            {% endfor %}
+            {{ total_likes }}
+          </div>
+          <div class="text-gray-400 text-sm">Likes Total</div>
+        </div>
+        
+        <div class="p-4 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl border border-gray-700">
+          <div class="text-2xl font-bold neon-text-pink mb-1">98%</div>
+          <div class="text-gray-400 text-sm">Satisfaction</div>
+        </div>
+        
+        <div class="p-4 bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl border border-gray-700">
+          <div class="text-2xl font-bold neon-text-yellow mb-1">{{ section.settings.cities_count | default: '50+' }}</div>
+          <div class="text-gray-400 text-sm">Villes</div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Galerie Communautaire",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre de la section",
+      "default": "📸 Partagé par Nos Clients"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Découvrez comment nos créations illuminent le quotidien de nos clients"
+    },
+    {
+      "type": "header",
+      "content": "Section CTA"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_cta",
+      "label": "Afficher section CTA",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cta_title",
+      "label": "Titre CTA",
+      "default": "📷 Partagez Votre Création !"
+    },
+    {
+      "type": "textarea",
+      "id": "cta_description",
+      "label": "Description CTA",
+      "default": "Vous avez reçu votre néon LumiNéon ? Partagez une photo et rejoignez notre galerie communautaire !"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_1",
+      "label": "Bouton CTA 1",
+      "default": "🎨 Commander Mon Néon"
+    },
+    {
+      "type": "text",
+      "id": "cta_button_2",
+      "label": "Bouton CTA 2",
+      "default": "📧 Partager Ma Photo"
+    },
+    {
+      "type": "email",
+      "id": "share_email",
+      "label": "Email pour partage photos",
+      "default": "lumineonshop@gmail.com"
+    },
+    {
+      "type": "header",
+      "content": "Statistiques"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stats",
+      "label": "Afficher les statistiques",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "cities_count",
+      "label": "Nombre de villes",
+      "default": "50+"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "community_image",
+      "name": "Photo Client",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo partagée par le client"
+        },
+        {
+          "type": "text",
+          "id": "client_name",
+          "label": "Nom du client",
+          "default": "Client Satisfait"
+        },
+        {
+          "type": "text",
+          "id": "location",
+          "label": "Localisation",
+          "default": "Paris, France"
+        },
+        {
+          "type": "text",
+          "id": "project_type",
+          "label": "Type de projet",
+          "default": "Enseigne Restaurant"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "default": "Il y a 2 semaines"
+        },
+        {
+          "type": "range",
+          "id": "likes",
+          "min": 5,
+          "max": 95,
+          "step": 5,
+          "label": "Nombre de likes",
+          "default": 25
+        },
+        {
+          "type": "range",
+          "id": "comments",
+          "min": 1,
+          "max": 20,
+          "step": 1,
+          "label": "Nombre de commentaires",
+          "default": 3
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Client vérifié",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Galerie Communautaire",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "community_image",
+          "settings": {
+            "client_name": "Sophie M. - Restaurant Le Gourmet",
+            "location": "Paris, France",
+            "project_type": "Enseigne Restaurant",
+            "date": "Il y a 2 semaines",
+            "likes": 40,
+            "comments": 8,
+            "verified": true
+          }
+        },
+        {
+          "type": "community_image",
+          "settings": {
+            "client_name": "Marc D. - Bar Cocktails",
+            "location": "Lyon, France",
+            "project_type": "Décoration Bar",
+            "date": "Il y a 1 mois",
+            "likes": 35,
+            "comments": 5,
+            "verified": true
+          }
+        },
+        {
+          "type": "community_image",
+          "settings": {
+            "client_name": "Emma L. - Boutique Mode",
+            "location": "Marseille, France",
+            "project_type": "Logo Boutique",
+            "date": "Il y a 3 semaines",
+            "likes": 50,
+            "comments": 10,
+            "verified": true
+          }
+        },
+        {
+          "type": "community_image",
+          "settings": {
+            "client_name": "Thomas R. - Startup Tech",
+            "location": "Toulouse, France",
+            "project_type": "Logo Corporate",
+            "date": "Il y a 1 semaine",
+            "likes": 30,
+            "comments": 4,
+            "verified": true
+          }
+        },
+        {
+          "type": "community_image",
+          "settings": {
+            "client_name": "Camille P. - Mariage",
+            "location": "Nice, France",
+            "project_type": "Événementiel",
+            "date": "Il y a 5 jours",
+            "likes": 65,
+            "comments": 15,
+            "verified": true
+          }
+        },
+        {
+          "type": "community_image",
+          "settings": {
+            "client_name": "Antoine M. - Boutique Vintage",
+            "location": "Bordeaux, France",
+            "project_type": "Enseigne Vintage",
+            "date": "Il y a 2 mois",
+            "likes": 35,
+            "comments": 7,
+            "verified": true
+          }
+        },
+        {
+          "type": "community_image",
+          "settings": {
+            "client_name": "Isabelle P. - Agence Marketing",
+            "location": "Lille, France",
+            "project_type": "Logo Agence",
+            "date": "Il y a 3 jours",
+            "likes": 45,
+            "comments": 9,
+            "verified": true
+          }
+        },
+        {
+          "type": "community_image",
+          "settings": {
+            "client_name": "Julien F. - Pizzeria",
+            "location": "Strasbourg, France",
+            "project_type": "Enseigne Pizzeria",
+            "date": "Il y a 6 semaines",
+            "likes": 40,
+            "comments": 6,
+            "verified": true
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
