@@ -231,33 +231,101 @@
     </div>
 
     <!-- Lightbox Modal -->
-    <div id="lightbox" class="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 hidden">
+    <div id="lightbox" class="fixed inset-0 bg-black/95 backdrop-blur-xl z-50 flex items-center justify-center p-4 hidden">
       <div class="relative max-w-4xl w-full">
+        <!-- Neon Glow Background -->
+        <div class="absolute inset-0 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 rounded-3xl blur-2xl animate-pulse"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-purple-400/10 to-pink-400/10 rounded-3xl blur-xl animate-pulse animation-delay-1000"></div>
+        
         <!-- Close Button -->
-        <button onclick="closeLightbox()" class="absolute -top-12 right-0 text-white hover:text-cyan-400 transition-colors duration-300 interactive">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button onclick="closeLightbox()" class="absolute -top-16 right-0 w-12 h-12 bg-gray-900/90 backdrop-blur-sm border-2 border-gray-600 hover:border-cyan-400 rounded-full flex items-center justify-center text-white hover:text-cyan-400 transition-all duration-300 hover:scale-110 hover:rotate-90 interactive shadow-2xl">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
 
         <!-- Navigation Buttons -->
-        <button onclick="prevImage()" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:text-cyan-400 transition-colors duration-300 bg-gray-900/50 rounded-full p-2 interactive">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button onclick="prevImage()" class="absolute left-4 top-1/2 transform -translate-y-1/2 w-14 h-14 bg-gray-900/90 backdrop-blur-sm border-2 border-gray-600 hover:border-cyan-400 rounded-full flex items-center justify-center text-white hover:text-cyan-400 transition-all duration-300 hover:scale-110 hover:-translate-x-1 interactive shadow-2xl">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
           </svg>
         </button>
-        <button onclick="nextImage()" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:text-cyan-400 transition-colors duration-300 bg-gray-900/50 rounded-full p-2 interactive">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button onclick="nextImage()" class="absolute right-4 top-1/2 transform -translate-y-1/2 w-14 h-14 bg-gray-900/90 backdrop-blur-sm border-2 border-gray-600 hover:border-cyan-400 rounded-full flex items-center justify-center text-white hover:text-cyan-400 transition-all duration-300 hover:scale-110 hover:translate-x-1 interactive shadow-2xl">
+          <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>
         </button>
 
         <!-- Image -->
-        <div class="relative">
-          <img id="lightbox-image" src="" alt="" class="w-full h-auto rounded-lg" />
-          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900/90 to-transparent p-6 rounded-b-lg">
-            <h3 id="lightbox-title" class="text-2xl font-semibold text-white mb-2"></h3>
-            <p id="lightbox-description" class="text-gray-300"></p>
+        <div class="relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl border-2 border-gray-700 overflow-hidden shadow-2xl">
+          <!-- Animated Border -->
+          <div class="absolute inset-0 border-2 border-transparent bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 rounded-3xl opacity-60 animate-pulse"></div>
+          <div class="absolute inset-1 bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl"></div>
+          
+          <!-- Image Container -->
+          <div class="relative z-10 p-4">
+            <img id="lightbox-image" src="" alt="" class="w-full h-auto max-h-[70vh] object-contain rounded-2xl border border-gray-600" />
+          </div>
+          
+          <!-- Info Panel with Neon Effects -->
+          <div class="relative z-10 bg-gradient-to-r from-gray-800/95 to-gray-900/95 backdrop-blur-sm p-6 border-t border-gray-700">
+            <!-- Category Badge -->
+            <div class="flex items-center gap-3 mb-4">
+              <span id="lightbox-category" class="px-3 py-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-white text-sm font-bold shadow-lg shadow-cyan-500/30"></span>
+              <div class="flex gap-1">
+                {% for i in (1..5) %}
+                  <svg class="w-4 h-4 text-yellow-400 fill-current animate-pulse" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                  </svg>
+                {% endfor %}
+                <span class="text-yellow-400 text-sm font-medium ml-2">Création Populaire</span>
+              </div>
+            </div>
+            
+            <!-- Title with Neon Effect -->
+            <h3 id="lightbox-title" class="text-3xl font-bold mb-3 neon-text-gradient"></h3>
+            
+            <!-- Description -->
+            <p id="lightbox-description" class="text-gray-300 text-lg leading-relaxed mb-6"></p>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4">
+              <button onclick="window.location.href='/pages/customizer?view=customiser'" class="flex-1 px-6 py-3 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-neon-yellow flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+                </svg>
+                🎨 Créer Un Néon Similaire
+              </button>
+              
+              <button onclick="openDevisPopup(); closeLightbox();" class="flex-1 px-6 py-3 border-2 border-cyan-400 text-cyan-400 rounded-full font-semibold transition-all duration-300 hover:bg-cyan-400 hover:text-gray-900 hover:scale-105 flex items-center justify-center gap-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+                💬 Devis Gratuit
+              </button>
+            </div>
+            
+            <!-- Social Share -->
+            <div class="flex items-center justify-center gap-4 mt-6 pt-6 border-t border-gray-700">
+              <span class="text-gray-400 text-sm">Partager cette création :</span>
+              <div class="flex gap-3">
+                <button class="w-10 h-10 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110" onclick="shareOnFacebook()">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </button>
+                <button class="w-10 h-10 bg-pink-600 hover:bg-pink-700 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110" onclick="shareOnInstagram()">
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.611-3.132-1.551-.684-.94-.684-2.08 0-3.02.684-.94 1.835-1.551 3.132-1.551s2.448.611 3.132 1.551c.684.94.684 2.08 0 3.02-.684.94-1.835 1.551-3.132 1.551z"/>
+                  </svg>
+                </button>
+                <button class="w-10 h-10 bg-gray-600 hover:bg-gray-700 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110" onclick="copyImageLink()">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -273,13 +341,13 @@
           {{ section.settings.cta_description | default: '📸 Explorez notre collection complète de +500 créations uniques. Chaque projet raconte une histoire lumineuse !' }}
         </p>
         <a 
-          href="{{ section.settings.gallery_url | default: '/pages/galerie' }}"
+          href="/pages/customizer?view=customiser"
           class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-neon-purple"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
           </svg>
-          {{ section.settings.cta_button_text | default: '🚀 Voir Toute La Galerie' }}
+          {{ section.settings.cta_button_text | default: '🎨 Utiliser Le Customizer' }}
           <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
           </svg>
@@ -367,11 +435,7 @@ function openLightbox(element) {
   if (visibleIndex === -1) return;
   
   currentImageIndex = visibleIndex;
-  const image = visibleImages[visibleIndex];
-  
-  document.getElementById('lightbox-image').src = image.src;
-  document.getElementById('lightbox-title').textContent = image.title;
-  document.getElementById('lightbox-description').textContent = image.description;
+  updateLightboxContent();
   document.getElementById('lightbox').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 }
@@ -384,27 +448,37 @@ function closeLightbox() {
 function nextImage() {
   if (visibleImages.length === 0) return;
   currentImageIndex = (currentImageIndex + 1) % visibleImages.length;
-  const image = visibleImages[currentImageIndex];
-  
-  document.getElementById('lightbox-image').src = image.src;
-  document.getElementById('lightbox-title').textContent = image.title;
-  document.getElementById('lightbox-description').textContent = image.description;
+  updateLightboxContent();
 }
 
 function prevImage() {
   if (visibleImages.length === 0) return;
   currentImageIndex = currentImageIndex === 0 ? visibleImages.length - 1 : currentImageIndex - 1;
-  const image = visibleImages[currentImageIndex];
-  
-  document.getElementById('lightbox-image').src = image.src;
-  document.getElementById('lightbox-title').textContent = image.title;
-  document.getElementById('lightbox-description').textContent = image.description;
+  updateLightboxContent();
 }
 
-// Close lightbox on escape key
+function updateLightboxContent() {
+  const item = visibleImages[currentImageIndex];
+  if (!item) return;
+  
+  const image = galleryImages[item.originalIndex];
+  
+  document.getElementById('lightbox-image').src = item.src;
+  document.getElementById('lightbox-title').textContent = item.title;
+  document.getElementById('lightbox-description').textContent = item.description;
+  document.getElementById('lightbox-category').textContent = item.category.charAt(0).toUpperCase() + item.category.slice(1);
+}
+
+// Keyboard navigation
 document.addEventListener('keydown', function(e) {
+  if (document.getElementById('lightbox').classList.contains('hidden')) return;
+  
   if (e.key === 'Escape') {
     closeLightbox();
+  } else if (e.key === 'ArrowLeft') {
+    prevImage();
+  } else if (e.key === 'ArrowRight') {
+    nextImage();
   }
 });
 
@@ -414,6 +488,26 @@ document.getElementById('lightbox').addEventListener('click', function(e) {
     closeLightbox();
   }
 });
+
+// Social sharing functions
+function shareOnFacebook() {
+  const url = window.location.href;
+  const title = document.getElementById('lightbox-title').textContent;
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(title)}`, '_blank');
+}
+
+function shareOnInstagram() {
+  // Instagram doesn't have direct sharing, copy link instead
+  copyImageLink();
+  alert('📱 Lien copié ! Collez-le dans votre story Instagram');
+}
+
+function copyImageLink() {
+  const url = window.location.href;
+  navigator.clipboard.writeText(url).then(() => {
+    alert('🔗 Lien copié dans le presse-papier !');
+  });
+}
 
 // Open devis popup
 function openDevisPopup() {
@@ -774,9 +868,8 @@ function openDevisPopup() {
         "social_subtitle": "Découvrez comment nos créations illuminent le quotidien de nos clients",
         "community_text": "🌟 Rejoignez notre communauté de 500+ clients satisfaits",
         "cta_title": "Découvrez Toute Notre Galerie",
-        "cta_description": "📸 Explorez notre collection complète de +500 créations uniques. Chaque projet raconte une histoire lumineuse !",
-        "cta_button_text": "🚀 Voir Toute La Galerie",
-        "gallery_url": "/pages/galerie",
+        "cta_description": "🎨 Créez votre propre néon personnalisé avec notre customizer 3D révolutionnaire !",
+        "cta_button_text": "🎨 Utiliser Le Customizer",
         "cta_button": "🎨 Créer Mon Néon Unique"
       }
     }
