@@ -9,45 +9,57 @@ const Gallery = () => {
   const projects = [
     {
       id: 1,
-      title: "Néon WOW - Impact Visuel",
+      title: "Logo Restaurant - 90 cm - 219€",
       category: "Décoration",
       image: "https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Néon expressif 'WOW' avec effet de profondeur et éclairage dynamique"
+      description: "Enseigne restaurant 'Le Gourmet' - Livré en 7 jours - Client satisfait",
+      price: "219€",
+      duration: "7 jours"
     },
     {
       id: 2,
-      title: "Néon Vague Surf - Style Californien",
+      title: "Prénom Chambre - 60 cm - 129€",
       category: "Loisirs",
       image: "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Design néon vague surf avec dégradé bleu océan, parfait pour ambiance beach"
+      description: "Néon prénom 'Emma' pour chambre - Rose pastel - Livré en 5 jours",
+      price: "129€",
+      duration: "5 jours"
     },
     {
       id: 3,
-      title: "Netflix and Chill - Pop Culture",
+      title: "Enseigne Bar - 120 cm - 389€",
       category: "Divertissement",
       image: "https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Néon tendance 'Netflix and Chill' avec typographie moderne et éclairage rouge"
+      description: "Enseigne 'Cocktail Bar' - Multicolore - Installation incluse",
+      price: "389€",
+      duration: "10 jours"
     },
     {
       id: 4,
-      title: "Logo Friends - Nostalgie TV",
+      title: "Citation Motivation - 80 cm - 179€",
       category: "Logo",
       image: "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Reproduction fidèle du logo Friends en néon, couleurs authentiques de la série"
+      description: "Citation 'Dream Big' - Bureau moderne - Blanc chaud",
+      price: "179€",
+      duration: "6 jours"
     },
     {
       id: 5,
-      title: "Lettres Hello - Accueil Chaleureux",
+      title: "Néon Mariage - 100 cm - 259€",
       category: "Texte",
       image: "https://images.pexels.com/photos/2681319/pexels-photo-2681319.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Lettres néon 'Hello' en script élégant, parfait pour entrées et réceptions"
+      description: "Néon 'Mr & Mrs' - Événement unique - Location possible",
+      price: "259€",
+      duration: "8 jours"
     },
     {
       id: 6,
-      title: "Hot Deal LED Flex - Promotion Dynamique",
+      title: "Logo Gaming - 70 cm - 199€",
       category: "Commercial",
       image: "https://images.pexels.com/photos/1181467/pexels-photo-1181467.jpeg?auto=compress&cs=tinysrgb&w=800",
-      description: "Néon LED flexible 'Hot Deal' avec éclairage rouge vif, idéal pour promotions commerciales"
+      description: "Logo 'Game Zone' - RGB multicolore - Effet clignotant",
+      price: "199€",
+      duration: "7 jours"
     },
     {
       id: 7,

@@ -32,15 +32,15 @@ const Hero: React.FC<HeroProps> = ({ onOpenDevis }) => {
 
         {/* Subtitle */}
         <p className="text-xl sm:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-          🏆 <strong>Fabricant français de néons LED personnalisés haut de gamme</strong> depuis 10 ans. 
-          <span className="text-cyan-400">Transformez vos idées</span> en enseignes lumineuses qui 
-          <span className="text-yellow-400">illuminent votre succès</span>.
+          🎨 <strong>Créateur de néons LED personnalisés sur mesure.</strong> 
+          <span className="text-cyan-400">Devis gratuit sous 24h</span> + 
+          <span className="text-yellow-400">Mockup 3D offert</span> pour visualiser votre projet.
         </p>
         
         {/* Storytelling & Social Proof */}
-        <div className="bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-2xl p-4 mb-8 max-w-2xl mx-auto">
-          <p className="text-green-300 font-semibold mb-2">✨ <strong>500+ néons personnalisés</strong> ont déjà illuminé les projets de nos clients</p>
-          <p className="text-sm text-gray-300">🎯 <strong>Fabrication française premium :</strong> Devis gratuit + Mockup 3D offert sous 24h</p>
+        <div className="bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-500/30 rounded-2xl p-4 mb-8 max-w-2xl mx-auto">
+          <p className="text-blue-300 font-semibold mb-2">⚡ <strong>Créez votre néon en 2 minutes</strong> - À partir de 90€</p>
+          <p className="text-sm text-gray-300">🎯 <strong>Service premium :</strong> Mockup 3D gratuit + Devis personnalisé sous 24h</p>
         </div>
 
         {/* CTA Buttons */}
@@ -50,7 +50,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenDevis }) => {
             className="group relative px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-neon-yellow flex items-center gap-3 morph-button interactive"
           >
             <Zap className="w-5 h-5" />
-            🎨 CRÉER MON NÉON
+            🎨 CRÉER MON NÉON - À PARTIR DE 90€
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
           </button>
           
@@ -58,7 +58,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenDevis }) => {
             onClick={onOpenDevis}
             className="group relative px-8 py-4 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-neon-cyan flex items-center gap-3 morph-button interactive"
           >
-            🚀 DEVIS GRATUIT 24H
+            🚀 DEVIS GRATUIT EN 60 SECONDES
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
           </button>
           
@@ -66,23 +66,23 @@ const Hero: React.FC<HeroProps> = ({ onOpenDevis }) => {
             onClick={() => document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })}
             className="px-8 py-4 border-2 border-cyan-400 text-cyan-400 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-cyan-400 hover:text-gray-900 hover:shadow-neon-cyan morph-button interactive"
           >
-            📸 Voir +500 Créations
+            📸 Voir des Exemples avec Prix
           </button>
         </div>
 
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 max-w-3xl mx-auto">
           <div className="text-center">
-            <div className="text-3xl sm:text-4xl font-bold neon-text-cyan mb-2">500+</div>
-            <div className="text-gray-400">Néons Créés</div>
+            <div className="text-3xl sm:text-4xl font-bold neon-text-cyan mb-2">90€</div>
+            <div className="text-gray-400">À Partir De</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl sm:text-4xl font-bold neon-text-purple mb-2">98%</div>
-            <div className="text-gray-400">Clients Satisfaits</div>
+            <div className="text-3xl sm:text-4xl font-bold neon-text-purple mb-2">24H</div>
+            <div className="text-gray-400">Devis Gratuit</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl sm:text-4xl font-bold neon-text-pink mb-2">24/7</div>
-            <div className="text-gray-400">Support Client</div>
+            <div className="text-3xl sm:text-4xl font-bold neon-text-pink mb-2">3D</div>
+            <div className="text-gray-400">Mockup Offert</div>
           </div>
           <div className="text-center">
             <div className="text-3xl sm:text-4xl font-bold neon-text-yellow mb-2">2 ANS</div>

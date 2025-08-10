@@ -94,7 +94,7 @@ const CustomizerSection = () => {
           {/* Content */}
           <div className="order-1 lg:order-2">
             <h3 className="text-3xl font-bold mb-6 neon-text-yellow">
-              🚀 L'Innovation Au Service De Votre Créativité
+              🎯 Simulateur de Prix Instantané
             </h3>
             
             <div className="space-y-6 mb-8">
@@ -103,8 +103,8 @@ const CustomizerSection = () => {
                   <span className="text-white text-sm font-bold">1</span>
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-2">Saisissez Votre Texte</h4>
-                  <p className="text-gray-400">Tapez votre message, slogan ou nom d'entreprise directement dans l'interface.</p>
+                  <h4 className="text-white font-semibold mb-2">Tapez Votre Texte</h4>
+                  <p className="text-gray-400">Prénom, logo, citation... Le prix s'affiche automatiquement selon la taille.</p>
                 </div>
               </div>
               
@@ -113,8 +113,8 @@ const CustomizerSection = () => {
                   <span className="text-white text-sm font-bold">2</span>
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-2">Personnalisez Le Style</h4>
-                  <p className="text-gray-400">Choisissez couleurs, effets, animations et taille selon vos préférences.</p>
+                  <h4 className="text-white font-semibold mb-2">Choisissez Taille & Couleur</h4>
+                  <p className="text-gray-400">30cm = 90€, 60cm = 129€, 90cm = 219€. Prix final affiché en temps réel.</p>
                 </div>
               </div>
               
@@ -123,8 +123,8 @@ const CustomizerSection = () => {
                   <span className="text-white text-sm font-bold">3</span>
                 </div>
                 <div>
-                  <h4 className="text-white font-semibold mb-2">Visualisez En 3D</h4>
-                  <p className="text-gray-400">Admirez votre création dans un environnement 3D réaliste avant commande.</p>
+                  <h4 className="text-white font-semibold mb-2">Mockup 3D Gratuit</h4>
+                  <p className="text-gray-400">Visualisez le rendu final dans votre espace avant de valider.</p>
                 </div>
               </div>
             </div>
@@ -133,7 +133,7 @@ const CustomizerSection = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <button className="group flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-yellow-500 to-orange-600 rounded-full text-white font-semibold text-lg transition-all duration-300 hover:scale-105 hover:shadow-neon-yellow">
                 <Palette className="w-5 h-5" />
-                Lancer Le Customizer
+                Simuler Mon Prix
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </button>
               
@@ -141,7 +141,7 @@ const CustomizerSection = () => {
                 onClick={() => document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })}
                 className="px-8 py-4 border-2 border-yellow-400 text-yellow-400 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-yellow-400 hover:text-gray-900 hover:shadow-neon-yellow morph-button interactive"
               >
-                Voir Des Exemples
+                Exemples avec Prix
               </button>
             </div>
           </div>
@@ -151,7 +151,7 @@ const CustomizerSection = () => {
         <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 rounded-3xl p-8 lg:p-12 border border-gray-700">
           <div className="text-center mb-8">
             <h3 className="text-2xl lg:text-3xl font-bold mb-4 neon-text-gradient">
-              Pourquoi Utiliser Notre Customizer ?
+              Avantages du Simulateur
             </h3>
           </div>
           
@@ -160,24 +160,24 @@ const CustomizerSection = () => {
               <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Zap className="w-8 h-8 text-white" />
               </div>
-              <h4 className="text-xl font-semibold text-white mb-2">Gain de Temps</h4>
-              <p className="text-gray-400">Créez votre néon en 5 minutes au lieu de plusieurs échanges par email.</p>
+              <h4 className="text-xl font-semibold text-white mb-2">Prix Instantané</h4>
+              <p className="text-gray-400">Connaissez le prix exact de votre néon en 30 secondes, sans attendre.</p>
             </div>
             
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-cyan-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Monitor className="w-8 h-8 text-white" />
               </div>
-              <h4 className="text-xl font-semibold text-white mb-2">Visualisation Parfaite</h4>
-              <p className="text-gray-400">Voyez exactement le rendu final avant de valider votre commande.</p>
+              <h4 className="text-xl font-semibold text-white mb-2">Rendu Réaliste</h4>
+              <p className="text-gray-400">Mockup 3D photorealistic pour voir le résultat dans votre espace.</p>
             </div>
             
             <div className="text-center">
               <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Sparkles className="w-8 h-8 text-white" />
               </div>
-              <h4 className="text-xl font-semibold text-white mb-2">Créativité Illimitée</h4>
-              <p className="text-gray-400">Explorez toutes les possibilités avec nos outils avancés.</p>
+              <h4 className="text-xl font-semibold text-white mb-2">Sans Engagement</h4>
+              <p className="text-gray-400">Testez, modifiez, comparez. Vous ne payez que si vous validez.</p>
             </div>
           </div>
         </div>

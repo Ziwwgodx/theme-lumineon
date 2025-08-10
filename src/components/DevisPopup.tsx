@@ -194,7 +194,7 @@ Date de réception : ${new Date().toLocaleString('fr-FR')}
                     <span className="neon-text-gradient">Devis Gratuit</span>
                   </h3>
                   <p className="text-gray-300">
-                    Obtenez votre devis personnalisé + mockup 3D gratuit
+                    Devis personnalisé en 60 secondes + Mockup 3D gratuit
                   </p>
                 </div>
 
@@ -203,15 +203,15 @@ Date de réception : ${new Date().toLocaleString('fr-FR')}
                   <div className="text-green-300 text-sm space-y-2">
                     <div className="flex items-center gap-2">
                       <span className="text-xs">✅</span>
+                      <span>Prix transparent dès 90€</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs">✅</span>
+                      <span>Mockup 3D photorealistic offert</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs">✅</span>
                       <span>Réponse garantie sous 24h</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs">✅</span>
-                      <span>Mockup 3D gratuit inclus</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs">✅</span>
-                      <span>Sans engagement</span>
                     </div>
                   </div>
                 </div>

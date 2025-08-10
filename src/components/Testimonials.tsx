@@ -11,30 +11,36 @@ const Testimonials: React.FC<TestimonialsProps> = ({ onOpenDevis }) => {
   const testimonials = [
     {
       id: 1,
-      name: "Sophie Martin",
-      role: "Propriétaire Restaurant Le Gourmet",
-      content: "LumiNéon a transformé notre façade ! Le néon personnalisé attire l'œil de tous les passants. L'équipe est professionnelle et le résultat dépasse nos attentes.",
+      name: "Marie L.",
+      role: "Propriétaire Café Paris 11e",
+      content: "Commande passée lundi, néon reçu vendredi ! Le rendu est exactement comme sur le mockup 3D. Mes clients adorent prendre des photos devant.",
       rating: 5,
       image: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400",
-      date: "Il y a 2 semaines"
+      date: "Il y a 1 semaine",
+      verified: true,
+      project: "Enseigne 'Café de Marie' - 80cm"
     },
     {
       id: 2,
-      name: "Marc Dubois",
-      role: "Gérant Bar à Cocktails Neon",
-      content: "Installation parfaite, design unique et service client exceptionnel. Nos clients adorent l'ambiance créée par nos néons sur mesure. Je recommande vivement !",
+      name: "Thomas R.",
+      role: "Gérant Bar Lyon 2e",
+      content: "SAV au top ! Mon néon a eu un souci après 6 mois, ils l'ont remplacé sous 48h sans frais. Service client vraiment réactif.",
       rating: 5,
       image: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400",
-      date: "Il y a 1 mois"
+      date: "Il y a 3 jours",
+      verified: true,
+      project: "Logo 'Bar Central' - 120cm"
     },
     {
       id: 3,
-      name: "Élodie Bernard",
-      role: "Directrice Salon Beauty Glow",
-      content: "Un travail d'artiste ! L'équipe LumiNéon a su capter l'essence de notre marque et la retranscrire en lumière. Nos clientes sont séduites par cette atmosphère unique.",
+      name: "Julie M.",
+      role: "Particulier Marseille",
+      content: "Pour ma chambre, j'ai commandé mon prénom en rose. Le devis était clair, le prix respecté (129€), livraison en 5 jours comme promis !",
       rating: 5,
       image: "https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=400",
-      date: "Il y a 3 semaines"
+      date: "Il y a 5 jours",
+      verified: true,
+      project: "Prénom 'Julie' - 60cm"
     },
     {
       id: 4,

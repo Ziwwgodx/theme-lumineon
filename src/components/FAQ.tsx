@@ -14,36 +14,36 @@ const FAQ = () => {
 
   const faqs = [
     {
-      question: "Quel est le délai de fabrication d'un néon personnalisé ?",
-      answer: "La production prend 7 à 12 jours ouvrés selon la complexité du projet, suivie d'une livraison express de 2 à 3 jours partout en France."
+      question: "Quels sont vos tarifs pour un néon personnalisé ?",
+      answer: "Nos prix démarrent à 90€ pour un petit néon décoratif (30cm). Comptez 129€ pour un prénom 60cm, 219€ pour un logo restaurant 90cm, jusqu'à 500€+ pour les grandes enseignes. Devis gratuit sous 24h."
     },
     {
-      question: "Livrez-vous partout en France ?",
-      answer: "Oui, nous livrons dans toute la France métropolitaine en 2-3 jours ouvrés avec un emballage sécurisé et un suivi en temps réel. Nous fournissons également un guide d'installation détaillé."
+      question: "Quel est le délai de fabrication et livraison ?",
+      answer: "Production 5 à 10 jours selon la complexité + livraison 2-3 jours en France. Exemple : prénom simple = 5 jours, logo complexe = 8-10 jours. Suivi en temps réel inclus."
     },
     {
       question: "Quelle est la durée de vie d'un néon LED ?",
-      answer: "Nos néons LED ont une durée de vie de 50 000 heures minimum (soit environ 15 ans d'utilisation normale). Ils sont garantis 2 ans pièces et main d'œuvre."
+      answer: "Nos néons LED durent 50 000 heures minimum (15 ans d'usage normal). Garantie 2 ans pièces et main d'œuvre. En cas de problème, SAV réactif sous 48h."
     },
     {
       question: "Le devis et le mockup 3D sont-ils vraiment gratuits ?",
-      answer: "Absolument ! Nous offrons un devis détaillé et un mockup 3D réaliste sans engagement. Cela vous permet de visualiser parfaitement votre projet avant validation."
+      answer: "Oui, 100% gratuit ! Vous recevez un devis détaillé + mockup 3D photorealistic sous 24h. Aucun engagement, vous validez seulement si le rendu vous plaît."
     },
     {
-      question: "Quels types de néons proposez-vous ?",
-      answer: "Nous créons tous types de néons : enseignes commerciales, décoration intérieure, néons événementiels, logos d'entreprise, textes personnalisés, formes sur mesure..."
+      question: "Puis-je voir des exemples avec les vrais prix ?",
+      answer: "Bien sûr ! Consultez notre galerie avec prix réels : prénom 60cm = 129€, logo restaurant 90cm = 219€, enseigne bar 120cm = 389€. Chaque projet inclut le prix et délai de réalisation."
     },
     {
-      question: "Vos néons sont-ils étanches pour l'extérieur ?",
-      answer: "Oui, nous proposons des néons avec protection IP65 ou IP67 pour usage extérieur, résistants aux intempéries et aux UV avec garantie spécifique."
+      question: "Comment passer commande ?",
+      answer: "3 étapes simples : 1) Demandez votre devis gratuit, 2) Validez le mockup 3D, 3) Payez 50% à la commande, 50% à la livraison. Paiement sécurisé par CB, PayPal ou virement."
     },
     {
-      question: "Que faire en cas de problème avec mon néon ?",
-      answer: "Nous offrons un support technique 24/7 pendant la garantie. En cas de défaut, nous expédions une pièce de rechange ou un néon de remplacement sous 48h."
+      question: "Que faire si mon néon ne fonctionne plus ?",
+      answer: "Contactez-nous immédiatement ! Garantie 2 ans = remplacement gratuit sous 48h. SAV réactif par email, téléphone ou chat. Aucun frais de port pour les retours sous garantie."
     },
     {
-      question: "Quels sont vos tarifs ?",
-      answer: "Nos tarifs varient selon la taille, complexité et options choisies. Comptez à partir de 150€ pour un petit néon décoratif jusqu'à plusieurs milliers d'euros pour les grandes enseignes."
+      question: "Livrez-vous partout en France ?",
+      answer: "Oui, livraison France métropolitaine en 2-3 jours avec Colissimo suivi. Emballage anti-choc professionnel. Installation possible sur Paris/IDF (supplément selon distance)."
     }
   ];
 

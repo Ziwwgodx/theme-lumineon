@@ -54,12 +54,12 @@ const UrgencyBanner = () => {
           
           {/* Offer Text */}
           <div className="flex items-center gap-3">
-            <span className="text-lg">Devis + Mockup 3D GRATUITS</span>
+            <span className="text-lg">Mockup 3D Gratuit + Devis 24h</span>
             <button 
               onClick={() => window.dispatchEvent(new CustomEvent('openDevisPopup'))}
               className="px-4 py-2 bg-white/20 hover:bg-white/30 rounded-full font-bold transition-all duration-300 hover:scale-105 animate-pulse"
             >
-              J'EN PROFITE
+              DEVIS GRATUIT
             </button>
           </div>
         </div>

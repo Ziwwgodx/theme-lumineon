@@ -34,31 +34,31 @@ const About = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Storytelling Section */}
         <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 border border-cyan-500/30 rounded-full text-cyan-300 mb-8">
-            <span className="text-lg">✨</span>
-            <span className="font-semibold">NOTRE HISTOIRE</span>
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-full text-green-300 mb-8">
+            <span className="text-lg">🎯</span>
+            <span className="font-semibold">NOTRE ENGAGEMENT</span>
           </div>
           
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8">
-            <span className="neon-title-premium">Chaque Néon Raconte</span>
+            <span className="neon-title-premium">Service Premium</span>
             <br />
-            <span className="text-white">Une Histoire Unique</span>
+            <span className="text-white">Qualité Garantie</span>
           </h2>
           
           <div className="max-w-4xl mx-auto space-y-6 text-lg text-gray-300 leading-relaxed">
             <p>
-              🎨 <strong className="text-cyan-400">Depuis 10 ans</strong>, nous sommes le <strong>fabricant français de référence</strong> pour les 
-              <span className="text-yellow-400">néons LED personnalisés haut de gamme</span>. 
-              Aujourd'hui, plus de <strong className="text-green-400">500 enseignes lumineuses</strong> illuminent la France.
+              🎨 <strong className="text-cyan-400">Spécialistes du néon LED personnalisé</strong>, nous créons des 
+              <span className="text-yellow-400">enseignes lumineuses sur mesure</span> avec un 
+              <strong className="text-green-400">service client réactif</strong> et des délais respectés.
             </p>
             <p>
-              💡 De la <strong>boutique parisienne</strong> au <strong>restaurant gastronomique</strong>, 
-              du <strong>bar tendance</strong> à l'<strong>enseigne commerciale</strong>, 
-              chaque néon porte notre signature : <span className="text-purple-400">l'excellence de la fabrication française</span>.
+              💡 Du <strong>logo d'entreprise</strong> au <strong>néon décoratif</strong>, 
+              de l'<strong>enseigne commerciale</strong> au <strong>projet événementiel</strong>, 
+              nous vous accompagnons avec <span className="text-purple-400">transparence et professionnalisme</span>.
             </p>
             <p>
-              🏆 <strong className="text-pink-400">98% de nos clients</strong> nous recommandent parce que nous créons bien plus que des 
-              néons LED : nous <span className="neon-text-cyan">donnons vie à votre identité visuelle</span>.
+              🏆 <strong className="text-pink-400">Nos clients nous font confiance</strong> parce que nous respectons nos engagements : 
+              <span className="neon-text-cyan">devis rapide, prix transparent, qualité garantie</span>.
             </p>
           </div>
         </div>
